@@ -59,6 +59,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>MagicPostBackEnd</finalName>
     </build>
 
 </project>
