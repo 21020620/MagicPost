@@ -22,6 +22,11 @@ public class CEOController {
         this.gp = gp;
     }
 
+    @GetMapping("/TestingHomePage")
+    public ResponseEntity<?> testDeployment() {
+        return ResponseEntity.ok("Update code successfully");
+    }
+
     @PostMapping("/addEmployee")
     public ResponseEntity<?> addEmployee(@RequestBody GatheringEmployee e) {
         ep.addEmployee(e);
