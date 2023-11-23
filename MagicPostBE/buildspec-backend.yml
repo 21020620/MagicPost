@@ -1,14 +1,24 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      java: corretto11
+
+  pre_build:
+    commands:
+      - echo "Entering MagicPostBE directory"
+      - cd MagicPostBE
+
   build:
     commands:
-      - echo Entering build phase...
+      - echo "Building the backend"
       - mvn clean package
+
   post_build:
     commands:
-      - echo Build succeeded
+      - echo "Build completed for the backend"
+
 artifacts:
-  files:
-    - target/MagicPostBackEnd.jar
+  files: MagicPostBE/target/your-artifact.jar
   discard-paths: yes
