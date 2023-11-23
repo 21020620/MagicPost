@@ -20,5 +20,5 @@ phases:
       - echo "Build completed for the backend"
 
 artifacts:
-  files: target/MagicPostBackEnd.jar
+  files: MagicPostBE/target/MagicPostBackEnd.jar
   discard-paths: yes
