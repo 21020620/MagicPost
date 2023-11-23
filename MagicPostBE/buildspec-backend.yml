@@ -1,0 +1,14 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo Entering build phase...
+      - mvn clean package
+  post_build:
+    commands:
+      - echo Build succeeded
+artifacts:
+  files:
+    - MagicPostBE/target/MagicPostBackEnd.jar
+  discard-paths: yes
