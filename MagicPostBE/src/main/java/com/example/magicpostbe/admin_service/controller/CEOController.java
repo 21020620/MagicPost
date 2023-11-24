@@ -6,11 +6,6 @@ import com.example.magicpostbe.gathering_service.repository.GPRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @RestController
 @RequestMapping("api/v1/ceo")
 public class CEOController {
@@ -29,6 +24,7 @@ public class CEOController {
 
     @GetMapping("/getEmployee/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable Long id) {
+        System.out.println("Get employee by id: " + id);
         GatheringEmployee e = ep.getEmployeeById(id);
         return ResponseEntity.ok(e);
     }
