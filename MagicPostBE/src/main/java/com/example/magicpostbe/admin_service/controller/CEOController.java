@@ -27,10 +27,16 @@ public class CEOController {
         return ResponseEntity.ok("Update code successfully");
     }
 
+    @GetMapping("/getEmployee/{id}")
+    public ResponseEntity<?> getEmployeeById(@PathVariable Long id) {
+        GatheringEmployee e = ep.getEmployeeById(id);
+        return ResponseEntity.ok(e);
+    }
+
     @PostMapping("/addEmployee")
     public ResponseEntity<?> addEmployee(@RequestBody GatheringEmployee e) {
         ep.addEmployee(e);
-        return ResponseEntity.ok(e);
+        return ResponseEntity.ok("Employee added\n" + e + "\n");
     }
 
     @PutMapping("/updategp/{id}")

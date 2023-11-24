@@ -127,4 +127,19 @@ public class GatheringEmployee {
     public void setDOB(Date DOB) {
         this.DOB = DOB;
     }
+
+    @Override
+    public String toString() {
+        return "GatheringEmployee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", role='" + role + '\'' +
+                ", DOB=" + DOB +
+                ", gp=" + gp +
+                '}';
+    }
 }
