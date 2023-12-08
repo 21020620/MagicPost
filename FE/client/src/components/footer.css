@@ -1,0 +1,28 @@
+#logo {
+    background-image: none;
+}
+
+.header {
+    background-color: #fff;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+.user-info span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-left: 10px;
+  }
+
+.footer-top {
+    display: flex;
+  }
+
+

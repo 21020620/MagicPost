@@ -35,34 +35,40 @@ export default function Login() {
     }
     return true;
   };
-
+  
   const handleLogin = async () => {
     if (!inputCheck()) {
       return;
     }
+
     try {
-      const res = await fetchAPIPostLogin(loginData);
-      const response = await res.json();
-      const { user: userData, message } = response;
-      if (res.ok) {
-        if (userData) {
-          setUser(userData);
-          if (userData.isAdmin) {
-            navigate('/rv');
-          } else {
-            navigate('/centre');
-          }
-        }
+      // Fetch dữ liệu từ file JSON
+      const response = await fetch('https://65661dcbeb8bb4b70ef2ecce.mockapi.io/api/v1/login');
+      const userData = await response.json();
+
+
+      // Kiểm tra dữ liệu đăng nhập với tất cả các đối tượng trong mảng userData
+      const matchedUser = userData.find(
+        (user) =>
+          user.username === loginData.email && user.password === loginData.password
+      );
+
+      if (matchedUser) {
+        // Dữ liệu đúng, chuyển hướng đến trang chủ Google
+        navigate('/CEO');
       } else {
-        messageApi.error(message);
+        messageApi.error('Tên đăng nhập hoặc mật khẩu không đúng.');
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error('Lỗi khi đọc dữ liệu từ file JSON', error);
+    }
   };
 
   return (
-    <div id="loginDiv" style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div id="loginDiv" style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
       {contextHolder}
-      <Space direction="vertical" size="large" style={{ textAlign: 'center' }}>
+      <Space direction="vertical" size="large" 
+      style={{ textAlign: 'center', borderRadius: "10px", backgroundColor: "white", width: "400px", height: "350px"}}>
         <Title>Đăng nhập</Title>
 
         <Input
@@ -72,6 +78,7 @@ export default function Login() {
           name="email"
           onChange={handleChange}
           onKeyUp={handleKeyUp}
+          style={{ width: '75%' }}
         />
 
         <Input.Password
@@ -80,7 +87,7 @@ export default function Login() {
           prefix={<LockOutlined />}
           name="password"
           onChange={handleChange}
-          style={{ width: '100%' }}
+          style={{ width: '75%' }}
           onKeyUp={handleKeyUp}
         />
 
