@@ -50,6 +50,7 @@ export default function Login() {
     try {
       let isLoggedIn = false;
       console.log(loginData);
+      localStorage.getItem('token') ? localStorage.removeItem('token') : null;
       await loginAxios.post('/login', loginData)
         .then(res => {
           isLoggedIn = true;
