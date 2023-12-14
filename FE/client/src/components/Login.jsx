@@ -2,12 +2,6 @@ import { Button, Input, Space, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import { fetchAPIPostLogin } from '../api/index';
-import axios from 'axios';
-import AppContext from '../components/AppContext';
-=======
->>>>>>> ae585027f7c54ddf0eecf32a4114f050b6c9b7e0
 import { validateEmail } from '../components/logic';
 import axios from 'axios';
 
@@ -54,11 +48,6 @@ export default function Login() {
     });
 
     try {
-<<<<<<< HEAD
-      // Fetch dữ liệu từ file JSON
-      const response = await axios.get('https://65661dcbeb8bb4b70ef2ecce.mockapi.io/api/v1/login');
-      const userData = response.data;
-=======
       let isLoggedIn = false;
       console.log(loginData);
       localStorage.getItem('token') ? localStorage.removeItem('token') : null;
@@ -71,7 +60,6 @@ export default function Login() {
         .catch(err => {
           console.log(err);
         })
->>>>>>> ae585027f7c54ddf0eecf32a4114f050b6c9b7e0
 
       if (isLoggedIn) {
         navigate('/CEO');
