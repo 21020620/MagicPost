@@ -155,24 +155,27 @@ const AccountTable = ({ data }) => {
     },
     {
       title: 'GatheringPoint',
-      dataIndex: 'gp',
-      key: 'gp',
-      ...getColumnSearchProps('gp'),
+      dataIndex: 'gp_id',
+      key: 'gp_id',
+      ...getColumnSearchProps('gp_id'),
     },
     {
       title: 'Delete',
       dataIndex: 'delete',
       key: 'delete',
       render: (text, record) => (
-        <Button danger onClick={() => handleDelete(record)}>
+        <Button key={record.id} danger onClick={() => handleDelete(record)}>
           <DeleteOutlined />
         </Button>
       ),
     }
   ];
 
-  const dataSource = data.map(item => ({ ...item, key: item.id }));
+  /* const dataSource = data.map(item => ({ ...item, key: item.id })); */
 
+  const dataSource = Object.values(data).map(item => ({ ...item, key: item.id }));
+ 
   return <Table columns={columns} dataSource={dataSource} />;
+
 };
 export default AccountTable;

@@ -7,7 +7,7 @@ import logo from "../../img/icon.jpg"
 import MyHeader from './MyHeader';
 
   
-const CEOgatheringLayout = () => {
+const CEOStatistic = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -17,4 +17,4 @@ const CEOgatheringLayout = () => {
     </div>
   );
 };
-export default CEOgatheringLayout;
+export default CEOStatistic;

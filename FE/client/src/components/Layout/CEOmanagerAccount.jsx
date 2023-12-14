@@ -8,77 +8,12 @@ import axios from 'axios';
 
 
   
-const TransactionmanagerAccount = () => {
+const CEOmanagerAccount = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [data, setData] = useState([
-    {
-      "id": "1",
-      "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:00:00.000000",
-      "address": "Ha Noi, Viet Nam",
-      "email": "huydung.jp@gmail.com",
-      "first_name": "Dung",
-      "last_name": "Nguyen",
-      "phone": "1111",
-      "role": "ROLE_GatheringWorker",
-      "gp": "null"
-    },
-    {
-      "id": "2",
-      "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:00:00.000000",
-      "address": "New York, USA",
-      "email": "datdo@gmail.com",
-      "first_name": "Dat",
-      "last_name": "Do",
-      "phone": "111111111",
-      "role": "ROLE_GatheringWorker",
-      "gp": "null"
-    }
-    ,
-    {
-      "id": "3",
-      "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:00:00.000000",
-      "address": "New York, USA",
-      "email": "datdo@gmail.com",
-      "first_name": "Dat",
-      "last_name": "Do",
-      "phone": "111111",
-      "role": "ROLE_GatheringWorker",
-      "gp": "null"
-    }
-    ,
-    {
-      "id": "4",
-      "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:00:00.000000",
-      "address": "New York, USA",
-      "email": "datdo@gmail.com",
-      "first_name": "Dat",
-      "last_name": "Do",
-      "phone": "11111111",
-      "role": "ROLE_GatheringWorker",
-      "gp": "null"
-    }
-    ,
-    {
-      "id": "5",
-      "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:00:00.000000",
-      "address": "New York, USA",
-      "email": "datdo@gmail.com",
-      "first_name": "Dat",
-      "last_name": "Do",
-      "phone": "1111111",
-      "role": "ROLE_GatheringWorker",
-      "gp": "null"
-    }
-  ]
-  );
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,6 +21,7 @@ const TransactionmanagerAccount = () => {
         console.log("Authorization Header:", axios.defaults.headers.common["Authorization"]);
         const response = await axios.get('/api/v1/ceo/getAllEmployees');
         console.log('Response: ', response);
+        setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -102,4 +38,4 @@ const TransactionmanagerAccount = () => {
     </div>
   );
 };
-export default TransactionmanagerAccount;
+export default CEOmanagerAccount;

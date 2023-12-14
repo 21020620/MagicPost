@@ -30,7 +30,7 @@ const menuItems = [
   ),
 ];
   
-const CEOLayout = () => {
+const TransactionManagerLayout = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -98,4 +98,4 @@ const CEOLayout = () => {
     </Layout>
   );
 };
-export default CEOLayout;
+export default TransactionManagerLayout;
