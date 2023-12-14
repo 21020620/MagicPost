@@ -36,3 +36,17 @@ Dec 14, 2023 1:20:46 PM com.example.magicpostbe.authentication_service.controlle
 INFO: User logged in successfully!
 Dec 14, 2023 2:46:16 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
 INFO: User logged in successfully!
+Dec 14, 2023 3:52:21 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 14, 2023 3:55:44 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 14, 2023 3:55:57 PM com.example.magicpostbe.system_service.exception.GlobalExceptionHandler handleConstraintViolationException
+WARNING: Validation process exception
+Dec 14, 2023 3:59:08 PM com.example.magicpostbe.system_service.exception.GlobalExceptionHandler handleException
+WARNING: Request method 'POST' is not supported
+Dec 14, 2023 4:05:48 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 14, 2023 4:09:52 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 14, 2023 4:25:49 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!

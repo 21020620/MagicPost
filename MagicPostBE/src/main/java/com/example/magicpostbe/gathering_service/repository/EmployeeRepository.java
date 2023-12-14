@@ -6,4 +6,6 @@ public interface EmployeeRepository {
     void addEmployee(GatheringEmployee e);
 
     GatheringEmployee getEmployeeById(Long id);
+
+    GatheringEmployee[] getAllEmployees();
 }

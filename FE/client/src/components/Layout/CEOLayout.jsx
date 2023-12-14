@@ -49,6 +49,7 @@ const CEOLayout = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
   return (
     <Layout hasSider>
       <Sider
