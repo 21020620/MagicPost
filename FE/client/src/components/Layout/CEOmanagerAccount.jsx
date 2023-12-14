@@ -18,7 +18,6 @@ const CEOmanagerAccount = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Authorization Header:", axios.defaults.headers.common["Authorization"]);
         const response = await axios.get('/api/v1/ceo/getAllEmployees');
         console.log('Response: ', response);
         setData(response.data);

@@ -23,6 +23,7 @@ const AccountTable = ({ data }) => {
     // Xử lý logic xóa dữ liệu 
     console.log(`Deleting data with ID: ${record.id}`);
   };
+
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div
@@ -113,15 +114,15 @@ const AccountTable = ({ data }) => {
     },
     {
       title: 'First Name',
-      dataIndex: 'first_name',
-      key: 'first_name',
-      ...getColumnSearchProps('first_name'),
+      dataIndex: 'firstName',
+      key: 'firstName',
+      ...getColumnSearchProps('firstName'),
     },
     {
       title: 'Last Name',
-      dataIndex: 'last_name',
-      key: 'last_name',
-      ...getColumnSearchProps('last_name'),
+      dataIndex: 'lastName',
+      key: 'lastName',
+      ...getColumnSearchProps('lastName'),
     },
     {
       title: 'Date of Birth',
@@ -143,9 +144,9 @@ const AccountTable = ({ data }) => {
     },
     {
       title: 'Phone',
-      dataIndex: 'phone',
-      key: 'phone',
-      ...getColumnSearchProps('phone'),
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
+      ...getColumnSearchProps('phoneNumber'),
     },
     {
       title: 'Role',
