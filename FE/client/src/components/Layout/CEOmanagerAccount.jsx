@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme, Button } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
-import GatheringTable from '../GatheringTable';
+import AccountTable from '../AccountTable';
 
 
   
@@ -21,7 +21,7 @@ const CEOmanagerAccount = () => {
       "email": "huydung.jp@gmail.com",
       "first_name": "Dung",
       "last_name": "Nguyen",
-      "phone": "888888888",
+      "phone": "1111",
       "role": "ROLE_GatheringWorker"
     },
     {
@@ -33,6 +33,42 @@ const CEOmanagerAccount = () => {
       "first_name": "Dat",
       "last_name": "Do",
       "phone": "111111111",
+      "role": "ROLE_GatheringWorker"
+    }
+    ,
+    {
+      "id": "3",
+      "dtype": "GatheringEmployee",
+      "dob": "2001-11-11 00:00:00.000000",
+      "address": "New York, USA",
+      "email": "datdo@gmail.com",
+      "first_name": "Dat",
+      "last_name": "Do",
+      "phone": "111111",
+      "role": "ROLE_GatheringWorker"
+    }
+    ,
+    {
+      "id": "4",
+      "dtype": "GatheringEmployee",
+      "dob": "2001-11-11 00:00:00.000000",
+      "address": "New York, USA",
+      "email": "datdo@gmail.com",
+      "first_name": "Dat",
+      "last_name": "Do",
+      "phone": "11111111",
+      "role": "ROLE_GatheringWorker"
+    }
+    ,
+    {
+      "id": "5",
+      "dtype": "GatheringEmployee",
+      "dob": "2001-11-11 00:00:00.000000",
+      "address": "New York, USA",
+      "email": "datdo@gmail.com",
+      "first_name": "Dat",
+      "last_name": "Do",
+      "phone": "1111111",
       "role": "ROLE_GatheringWorker"
     }
   ]
@@ -55,7 +91,10 @@ const CEOmanagerAccount = () => {
   
   return (
     <div>
-      <GatheringTable data={data} />
+      <Button type="primary" style={{ marginBottom: 16, float: "left" }}>
+        Add
+      </Button>
+      <AccountTable data={data} />
     </div>
   );
 };

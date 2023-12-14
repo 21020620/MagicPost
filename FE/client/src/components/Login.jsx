@@ -4,6 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { fetchAPIPostLogin } from '../api/index';
+import axios from 'axios';
 import AppContext from '../components/AppContext';
 import { validateEmail } from '../components/logic';
 const { Title } = Typography;
@@ -43,8 +44,8 @@ export default function Login() {
 
     try {
       // Fetch dữ liệu từ file JSON
-      const response = await fetch('https://65661dcbeb8bb4b70ef2ecce.mockapi.io/api/v1/login');
-      const userData = await response.json();
+      const response = await axios.get('https://65661dcbeb8bb4b70ef2ecce.mockapi.io/api/v1/login');
+      const userData = response.data;
 
 
       // Kiểm tra dữ liệu đăng nhập với tất cả các đối tượng trong mảng userData
