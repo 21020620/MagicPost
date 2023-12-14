@@ -3,6 +3,7 @@ package com.example.magicpostbe.admin_service.controller;
 import com.example.magicpostbe.gathering_service.entity.GatheringEmployee;
 import com.example.magicpostbe.gathering_service.repository.EmployeeRepository;
 import com.example.magicpostbe.gathering_service.repository.GPRepository;
+import com.github.javafaker.Faker;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,22 @@ public class CEOController {
     public ResponseEntity<?> addEmployee(@RequestBody GatheringEmployee e) {
         ep.addEmployee(e);
         return ResponseEntity.ok("Employee added\n" + e + "\n");
+    }
+
+    @PostMapping("/generateFakeData")
+    public ResponseEntity<?> generateFakeData() {
+        for(int i = 0; i < 10; i++) {
+            Faker faker = new Faker();
+            GatheringEmployee e = new GatheringEmployee();
+            e.setFirstName(faker.name().firstName());
+            e.setLastName(faker.name().lastName());
+            e.setAddress(faker.address().streetAddress());
+            e.setPhoneNumber(faker.phoneNumber().subscriberNumber(10));
+            e.setEmail(e.getFirstName() + "@gmail.com");
+
+            ep.addEmployee(e);
+        }
+        return ResponseEntity.ok("Generate successful");
     }
 
     @PutMapping("/updategp/{id}")
