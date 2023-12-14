@@ -55,7 +55,11 @@ export default function Login() {
         .then(res => {
           isLoggedIn = true;
           console.log("User logged in successfully!");
+          localStorage.getItem('token') ? localStorage.removeItem('token') : null;
           localStorage.setItem('token', res.data.token);
+          axios.defaults.baseURL = "http://localhost:8080";
+          const token = localStorage.getItem("token");
+          axios.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : "";
         })
         .catch(err => {
           console.log(err);

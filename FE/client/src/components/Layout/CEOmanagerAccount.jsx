@@ -4,6 +4,7 @@ import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import AccountTable from '../AccountTable';
+import axios from 'axios';
 
 
   
@@ -77,15 +78,13 @@ const CEOmanagerAccount = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        //const response = await fetch('../../data/CEOdata.json');
-        console.log('Response: ', data);
-        // const jsonData = await response.json();
-        // setData(jsonData);
+        console.log("Authorization Header:", axios.defaults.headers.common["Authorization"]);
+        const response = await axios.get('/api/v1/ceo/getAllEmployees');
+        console.log('Response: ', response);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, []);
   

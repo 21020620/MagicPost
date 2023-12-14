@@ -14,12 +14,6 @@ import CEOStatistic from "./components/Layout/CEOStatistic";
 import CEOtransaction from "./components/Layout/CEOtransaction";
 import CEOgathering from "./components/Layout/CEOgathering";
 import HomeLayout from "./components/HomeLayout";
-import axios from "axios";
-
-axios.defaults.baseURL = "http://localhost:8080";
-localStorage.getItem('token') ? localStorage.removeItem('token') : null;
-const token = localStorage.getItem("token");
-axios.defaults.headers.common["Authorization"] = token ? `Bearer ${token}` : "";
 
 export default function App() {
   history.navigate = useNavigate();
