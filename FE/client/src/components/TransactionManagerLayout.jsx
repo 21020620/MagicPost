@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {HomeOutlined, BarChartOutlined} from '@ant-design/icons';
+import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import { Outlet } from "react-router-dom";
-import logo from "../../img/icon.jpg"
-import MyHeader from './MyHeader';
+import logo from "../img/icon.jpg"
+import MyHeader from './Layout/MyHeader';
 
 function getItem(label, key, icon, children) {
   return {
@@ -18,30 +18,15 @@ function getItem(label, key, icon, children) {
 
 const menuItems = [
   getItem(
-    <NavLink to="/CEO">Trang chủ</NavLink>, "1", <HomeOutlined />
+    <NavLink to="/Transaction">Trang chủ</NavLink>, "1", <HomeOutlined />
   ),
 
   getItem(
-    "Quản lý điểm", "sub2", <HomeOutlined />, [
-      getItem(
-        <NavLink to="/CEO/gathering">Điểm tập kết</NavLink>,
-        "2",
-        <HomeOutlined />
-      ),
-      getItem(
-        <NavLink to="/CEO/transaction">Điểm giao dịch</NavLink>,
-        "3",
-        <HomeOutlined />
-      ),
-    ]
-  ),
-
-  getItem(
-    <NavLink to="/CEO/account">Quản lý tài khoản</NavLink>, "4", <HomeOutlined />
+    <NavLink to="/Transaction/account">Quản lý tài khoản</NavLink>, "4", <HomeOutlined />
   ),
 
   getItem(  
-    <NavLink to="/CEO/statistic">Thống kê</NavLink>, "5", <BarChartOutlined />
+    <NavLink to="/Transaction/statistic">Thống kê</NavLink>, "5", <HomeOutlined />
   ),
 ];
   
@@ -84,7 +69,7 @@ const CEOLayout = () => {
             background: colorBgContainer,
           }}
         >
-          <MyHeader username={"CEO"} />
+          <MyHeader username={"Transaction Manager"} />
         </Header>
         <Content
           style={{

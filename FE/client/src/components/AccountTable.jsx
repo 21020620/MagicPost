@@ -1,74 +1,3 @@
-/* import React from 'react';
-import { Table, Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
-
-const AccountTable = ({ data }) => {
-  const handleDelete = (record) => {
-    // Xử lý logic xóa dữ liệu 
-    console.log(`Deleting data with ID: ${record.id}`);
-  };
-
-  const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-    },
-    {
-      title: 'First Name',
-      dataIndex: 'first_name',
-      key: 'first_name',
-    },
-    {
-      title: 'Last Name',
-      dataIndex: 'last_name',
-      key: 'last_name',
-    },
-    {
-      title: 'Date of Birth',
-      dataIndex: 'dob',
-      key: 'dob',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-    },
-    {
-      title: 'Phone',
-      dataIndex: 'phone',
-      key: 'phone',
-    },
-    {
-      title: 'Role',
-      dataIndex: 'role',
-      key: 'role',
-    },
-    {
-      title: 'Delete',
-      dataIndex: 'delete',
-      key: 'delete',
-      render: (text, record) => (
-        <Button danger onClick={() => handleDelete(record)}>
-          <DeleteOutlined />
-        </Button>
-      ),
-    }
-  ];
-
-  const dataSource = data.map(item => ({ ...item, key: item.id }));
-
-  return <Table dataSource={dataSource} columns={columns} />;
-};
-
-export default AccountTable;
-*/
-
 import { SearchOutlined, DeleteOutlined } from '@ant-design/icons';
 import React, { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -133,19 +62,6 @@ const AccountTable = ({ data }) => {
             }}
           >
             Reset
-          </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({
-                closeDropdown: false,
-              });
-              setSearchText(selectedKeys[0]);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            Filter
           </Button>
           <Button
             type="link"
@@ -236,6 +152,12 @@ const AccountTable = ({ data }) => {
       dataIndex: 'role',
       key: 'role',
       ...getColumnSearchProps('role'),
+    },
+    {
+      title: 'GatheringPoint',
+      dataIndex: 'gp',
+      key: 'gp',
+      ...getColumnSearchProps('gp'),
     },
     {
       title: 'Delete',

@@ -7,7 +7,7 @@ import AccountTable from '../AccountTable';
 
 
   
-const TransactionmanagerAccount = () => {
+const CEOmanagerAccount = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -103,4 +103,4 @@ const TransactionmanagerAccount = () => {
     </div>
   );
 };
-export default TransactionmanagerAccount;
+export default CEOmanagerAccount;

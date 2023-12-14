@@ -45,7 +45,7 @@ export default function MyHeader({ username }) {
         </div>
         <div style={{ position: "absolute", right: 1, top: -15 }}>
           <Dropdown menu={{ items, onClick }}>
-            <Button size="large" style={{ height: 60, width: 150 }}>
+            <Button size="large" style={{ height: 60, width: 200 }}>
               <div style={{ fontWeight: "bold", fontSize: 15, maxWidth: 200, wordWrap: 'break-word', whiteSpace: 'normal', lineHeight: 1.2 }}>
                 {username}
               </div>
