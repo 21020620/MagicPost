@@ -27,7 +27,7 @@ export default function App() {
         <Route index element={<Login />} />
       </Route>
 
-      <Route path="/CEO" element={<CEOLayout />}>
+      <Route path="CEO" element={<CEOLayout />}>
         <Route index element={<HomeLayout />} />
         <Route path="account" element={<CEOmanagerAccount />} />
         <Route path="statistic" element={<CEOStatistic />} />

@@ -102,3 +102,21 @@ Dec 15, 2023 4:07:54 PM com.example.magicpostbe.authentication_service.controlle
 INFO: User logged in successfully!
 Dec 15, 2023 4:10:07 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
 INFO: User logged in successfully!
+Dec 15, 2023 4:48:10 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 15, 2023 4:48:11 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 15, 2023 5:06:04 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 15, 2023 5:07:41 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 15, 2023 5:16:29 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 15, 2023 5:39:34 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 15, 2023 7:59:57 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 15, 2023 8:02:37 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
+Dec 15, 2023 8:07:09 PM com.example.magicpostbe.authentication_service.controller.AuthenticationController authenticateUser
+INFO: User logged in successfully!
