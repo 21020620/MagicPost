@@ -1,18 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import {HomeOutlined} from '@ant-design/icons';
-import { Layout, Menu, theme, Button } from 'antd';
-const { Header, Content, Footer, Sider } = Layout;
+import { useEffect, useState } from 'react';
+import { Button } from 'antd';
 import AccountTable from '../AccountTable';
 import axiosInstance from '../DefaultAxios';
 
-
-  
 const CEOmanagerAccount = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-
+  
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const fetchData = async () => {
