@@ -14,19 +14,30 @@ const CEOmanagerAccount = () => {
   } = theme.useToken();
 
   const [data, setData] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+  const fetchData = async () => {
+    setData([]);
+    try {
+      console.log('Fetching data from API...');
+      const response = await axios.get('/api/v1/ceo/getAllEmployees', { cache: false });
+      console.log('Response: ', response);
+      console.log('Request headers: ', response.config.headers);
+      setData(response.data);
+    } catch (error) {        
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/api/v1/ceo/getAllEmployees');
-        console.log('Response: ', response);
-        setData(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    console.log('useEffect triggered.');
     fetchData();
   }, []);
+
+  if (loading) {
+    return <p>Loading data...</p>;
+  }
   
   return (
     <div>

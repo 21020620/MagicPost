@@ -107,7 +107,7 @@ const AccountTable = ({ data }) => {
   });
 
   const columns = [
-    {
+    { 
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
@@ -165,19 +165,24 @@ const AccountTable = ({ data }) => {
       dataIndex: 'delete',
       key: 'delete',
       render: (text, record) => (
-        <Button key={record.id} danger onClick={() => handleDelete(record)}>
-          <DeleteOutlined />
-        </Button>
+        <div key={record.id}>
+          <Button danger onClick={() => handleDelete(record)}>
+            <DeleteOutlined />
+          </Button>
+        </div>
       ),
     }
   ];
 
-  /* const dataSource = data.map(item => ({ ...item, key: item.id })); */
-
+//const dataSource = data.map(item => ({ ...item, key: item.id }));
   const dataSource = Object.values(data).map(item => ({ ...item, key: item.id }));
+<<<<<<< HEAD
   console.log(dataSource);
  
   return <Table rowKey="id" columns={columns} dataSource={dataSource} />;
 
+=======
+  return <Table columns={columns} dataSource={dataSource} />;
+>>>>>>> ae96be43ed140c2389aa79cdd2ca98e003916da7
 };
 export default AccountTable;
