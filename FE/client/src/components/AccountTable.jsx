@@ -176,13 +176,6 @@ const AccountTable = ({ data }) => {
 
 //const dataSource = data.map(item => ({ ...item, key: item.id }));
   const dataSource = Object.values(data).map(item => ({ ...item, key: item.id }));
-<<<<<<< HEAD
-  console.log(dataSource);
- 
-  return <Table rowKey="id" columns={columns} dataSource={dataSource} />;
-
-=======
   return <Table columns={columns} dataSource={dataSource} />;
->>>>>>> ae96be43ed140c2389aa79cdd2ca98e003916da7
 };
 export default AccountTable;

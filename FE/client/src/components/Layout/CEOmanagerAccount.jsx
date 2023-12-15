@@ -21,7 +21,7 @@ const CEOmanagerAccount = () => {
       console.log('Fetching data from API...');
       const response = await axios.get('/api/v1/ceo/getAllEmployees', { cache: false });
       console.log('Response: ', response);
-      console.log('Request headers: ', response.config.headers);
+      console.log();
       setData(response.data);
     } catch (error) {        
       console.error('Error fetching data:', error);
