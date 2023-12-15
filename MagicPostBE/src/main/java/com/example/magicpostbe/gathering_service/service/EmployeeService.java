@@ -29,4 +29,10 @@ public class EmployeeService implements EmployeeRepository {
     public GatheringEmployee[] getAllEmployees() {
         return ep.findAll().toArray(GatheringEmployee[]::new);
     }
+
+    @Override
+    public void deleteEmployeeById(Long id) {
+        ep.findById(id).orElseThrow(() -> new CustomerException("Employee not found"));
+        ep.deleteById(id);
+    }
 }

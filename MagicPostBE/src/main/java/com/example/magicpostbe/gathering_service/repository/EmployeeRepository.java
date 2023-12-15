@@ -8,4 +8,6 @@ public interface EmployeeRepository {
     GatheringEmployee getEmployeeById(Long id);
 
     GatheringEmployee[] getAllEmployees();
+
+    void deleteEmployeeById(Long id);
 }

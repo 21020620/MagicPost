@@ -1,12 +1,22 @@
 import { SearchOutlined, DeleteOutlined } from '@ant-design/icons';
-import React, { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Highlighter from 'react-highlight-words';
 import { Button, Input, Space, Table } from 'antd';
+import PropTypes from 'prop-types';
+import axiosInstance from './DefaultAxios';
 
 const AccountTable = ({ data }) => {
+  AccountTable.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  };
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
+  const [dataSources, setDataSources] = useState([]);
   const searchInput = useRef(null);
+
+  useEffect(() => {
+    setDataSources(Object.values(data).map(item => ({ ...item, key: item.id })));
+  }, [data]);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -19,9 +29,28 @@ const AccountTable = ({ data }) => {
     setSearchText('');
   };
 
-  const handleDelete = (record) => {
-    // Xử lý logic xóa dữ liệu 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+  const formatRole = (role) => {
+    if (role === 'ROLE_GatheringWorker') return 'Nhân viên điểm giao dịch';
+    return 'Nhân viên';
+  }
+
+  const handleDelete = async (record) => {
     console.log(`Deleting data with ID: ${record.id}`);
+    await axiosInstance.delete(`/api/v1/ceo/deleteEmployee/${record.id}`)
+      .then((response) => {
+        alert(response.data);
+      }
+      ).catch((error) => {
+        console.error('Error deleting data:', error);
+      });
   };
 
   const getColumnSearchProps = (dataIndex) => ({
@@ -129,6 +158,7 @@ const AccountTable = ({ data }) => {
       dataIndex: 'dob',
       key: 'dob',
       ...getColumnSearchProps('dob'),
+      render: (timestamp) => formatDate(timestamp),
     },
     {
       title: 'Address',
@@ -153,6 +183,7 @@ const AccountTable = ({ data }) => {
       dataIndex: 'role',
       key: 'role',
       ...getColumnSearchProps('role'),
+      render: (role) => formatRole(role),
     },
     {
       title: 'GatheringPoint',
@@ -174,8 +205,6 @@ const AccountTable = ({ data }) => {
     }
   ];
 
-//const dataSource = data.map(item => ({ ...item, key: item.id }));
-  const dataSource = Object.values(data).map(item => ({ ...item, key: item.id }));
-  return <Table columns={columns} dataSource={dataSource} />;
+  return <Table columns={columns} dataSource={dataSources} />;
 };
 export default AccountTable;

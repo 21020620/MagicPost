@@ -46,4 +46,10 @@ public class CEOController {
         gp.addEmployeeToGatheringPoint(id, e);
         return ResponseEntity.ok("Employee added to gathering point");
     }
+
+    @DeleteMapping("/deleteEmployee/{id}")
+    public ResponseEntity<?> deleteEmployeeById(@PathVariable Long id) {
+        ep.deleteEmployeeById(id);
+        return ResponseEntity.ok("Employee deleted");
+    }
 }
