@@ -15,12 +15,12 @@ export default function MyHeader({ username }) {
     const items = [
       {
         key: "changePassword",
-        label: "Đổi mật khẩu",
+        label: "Change Password",
         icon: <KeyOutlined />,
       },
       {
         key: "logOut",
-        label: "Đăng xuất",
+        label: "Log Out",
         danger: true,
         icon: <LogoutOutlined />,
       },
@@ -31,8 +31,8 @@ export default function MyHeader({ username }) {
         case "changePassword":
           break;
         case "logOut":
+          navigate('/');
           break;
-  
         default:
           break;
       }

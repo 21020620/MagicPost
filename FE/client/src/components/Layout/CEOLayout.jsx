@@ -5,6 +5,7 @@ const { Header, Content, Footer, Sider } = Layout;
 import { Outlet } from "react-router-dom";
 import logo from "../../img/icon.jpg"
 import MyHeader from './MyHeader';
+import MyFooter from './MyFooter';
 
 function getItem(label, key, icon, children) {
   return {
@@ -102,6 +103,14 @@ const CEOLayout = () => {
             <Outlet />
           </div>
         </Content>
+
+        <Footer
+          style={{
+            backgroundColor: "#F5F5F5",
+          }}
+        >
+          <MyFooter />
+        </Footer>
       </Layout>
     </Layout>
   );
