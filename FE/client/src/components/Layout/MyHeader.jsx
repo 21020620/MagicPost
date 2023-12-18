@@ -29,6 +29,7 @@ export default function MyHeader({ username }) {
     const onClick = async ({ key }) => {
       switch (key) {
         case "changePassword":
+          navigate('/CEO/changePassword');
           break;
         case "logOut":
           navigate('/');

@@ -16,6 +16,7 @@ import CEOgathering from "./components/Layout/CEOgathering";
 import TransactionManagerLayout from "./components/TransactionManagerLayout";
 import TransactionmanagerAccount from "./components/Layout/TransactionAccountManage";
 import HomeLayout from "./components/HomeLayout";
+import ChangePassword from "./components/Layout/ChangePassword";
 
 export default function App() {
   history.navigate = useNavigate();
@@ -27,12 +28,13 @@ export default function App() {
         <Route index element={<Login />} />
       </Route>
 
-      <Route path="CEO" element={<CEOLayout />}>
+      <Route path="/CEO" element={<CEOLayout />}>
         <Route index element={<HomeLayout />} />
         <Route path="account" element={<CEOmanagerAccount />} />
         <Route path="statistic" element={<CEOStatistic />} />
         <Route path="transaction" element={<CEOtransaction />} />
         <Route path="gathering" element={<CEOgathering />} />
+        <Route path="changePassword" element={<ChangePassword />} />
       </Route>
 
       <Route path="/Transaction" element={<TransactionManagerLayout />}>
