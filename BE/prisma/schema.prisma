@@ -1,0 +1,59 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Account {
+    id       Int    @id @default(autoincrement())
+    username String @unique @db.VarChar(255)
+    password String @db.VarChar(255)
+    role     String @db.VarChar(255)
+}
+
+model TPoint {
+    id         Int         @id @default(autoincrement())
+    name       String      @unique @db.VarChar(255)
+    address    String      @db.VarChar(255)
+    employees  TEmployee[]
+    parentCP   CPoint      @relation(fields: [parentCPId], references: [id])
+    parentCPId Int
+}
+
+model CPoint {
+    id          Int         @id @default(autoincrement())
+    name        String      @unique @db.VarChar(255)
+    address     String      @db.VarChar(255)
+    employees   CEmployee[]
+    connectedTP TPoint[]
+}
+
+model Employee {
+    companyID   String     @id
+    firstName   String     @db.VarChar(255)
+    lastName    String     @db.VarChar(255)
+    dob         DateTime
+    address     String     @db.VarChar(255)
+    phoneNumber String     @db.VarChar(20)
+    email       String     @db.VarChar(100)
+    role        String     @db.VarChar(20)
+    CEmployee   CEmployee?
+    TEmployee   TEmployee?
+}
+
+model CEmployee {
+    companyID  String   @id
+    department CPoint   @relation(fields: [cpointId], references: [id])
+    cpointId   Int
+    Employee   Employee @relation(fields: [companyID], references: [companyID])
+}
+
+model TEmployee {
+    companyID  String   @id
+    department TPoint   @relation(fields: [tpointId], references: [id])
+    tpointId   Int
+    Employee   Employee @relation(fields: [companyID], references: [companyID])
+}

@@ -138,8 +138,8 @@ const AccountTable = ({ data }) => {
   const columns = [
     { 
       title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'companyID',
+      key: 'companyID',
     },
     {
       title: 'First Name',
@@ -187,9 +187,9 @@ const AccountTable = ({ data }) => {
     },
     {
       title: 'GatheringPoint',
-      dataIndex: 'gp_id',
-      key: 'gp_id',
-      ...getColumnSearchProps('gp_id'),
+      dataIndex: 'cpointId',
+      key: 'cpointId',
+      ...getColumnSearchProps('cpointId'),
     },
     {
       title: 'Delete',
