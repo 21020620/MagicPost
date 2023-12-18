@@ -1,0 +1,24 @@
+{
+  "name": "magicpostmigrate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "^8.4.1",
+    "@fastify/jwt": "^7.2.4",
+    "@prisma/client": "^5.7.0",
+    "bcrypt": "^5.1.1",
+    "fastify": "^4.25.1",
+    "prisma": "^5.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  }
+}
