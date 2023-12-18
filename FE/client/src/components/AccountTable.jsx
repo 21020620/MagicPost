@@ -187,9 +187,9 @@ const AccountTable = ({ data }) => {
     },
     {
       title: 'GatheringPoint',
-      dataIndex: 'gp_id',
-      key: 'gp_id',
-      ...getColumnSearchProps('gp_id'),
+      dataIndex: 'cpointId',
+      key: 'cpointId',
+      ...getColumnSearchProps('cpointId'),
     },
     {
       title: 'Delete',
