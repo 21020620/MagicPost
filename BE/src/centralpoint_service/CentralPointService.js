@@ -21,6 +21,9 @@ const CentralPointService = {
         const employees = await prisma.cEmployee.findMany({
             where: {
                 cpointId: CpointID,
+            },
+            include: {
+                Employee: true,
             }
         });
         return employees;

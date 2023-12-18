@@ -138,8 +138,8 @@ const AccountTable = ({ data }) => {
   const columns = [
     { 
       title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'companyID',
+      key: 'companyID',
     },
     {
       title: 'First Name',

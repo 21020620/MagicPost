@@ -5,7 +5,7 @@ const centralPointController = (fastify, options, done) => {
 
     fastify.addHook('preHandler', async (request, reply) => {
         authenticationHandler(fastify, request, reply);
-        if (request.role !== 'cpointm') {
+        if (!['admin', 'cpointm'].includes(request.role)) {
             reply.code(403).send({ message: 'You are not allowed to access this resource' });
         }
     });

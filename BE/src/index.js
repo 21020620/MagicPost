@@ -3,6 +3,7 @@ import fastifyJwt from "@fastify/jwt";
 import fastifyCors from "@fastify/cors";
 import AccountController from "./authentication_service/AccountController.js";
 import CentralPointController from "./centralpoint_service/CentralPointController.js";
+import AdminController from "./admin_service/AdminController.js";
 
 const fastify = Fastify({
     logger: true,
@@ -18,7 +19,8 @@ fastify.register(fastifyCors, {
 fastify.decorateRequest('role', 'default');
 
 fastify.register(AccountController);
-fastify.register(CentralPointController, { prefix: '/cpoint' });
+fastify.register(CentralPointController, { prefix: '/api/cpoint' });
+fastify.register(AdminController, { prefix: '/api/admin' });
 
 try {
     fastify.listen({ port: 8080});
