@@ -31,6 +31,7 @@ export default function MyHeader({ username }) {
         case "changePassword":
           break;
         case "logOut":
+          localStorage.removeItem("token");
           navigate('/');
           break;
         default:
