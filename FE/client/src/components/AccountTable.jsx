@@ -4,6 +4,7 @@ import Highlighter from 'react-highlight-words';
 import { Button, Input, Space, Table } from 'antd';
 import PropTypes from 'prop-types';
 import axiosInstance from './DefaultAxios';
+import CEOmanagerAccount from './Layout/CEOmanagerAccount';
 
 const AccountTable = ({ data }) => {
   AccountTable.propTypes = {
@@ -15,7 +16,7 @@ const AccountTable = ({ data }) => {
   const searchInput = useRef(null);
 
   useEffect(() => {
-    setDataSources(Object.values(data).map(item => ({ ...item, key: item.id })));
+    setDataSources(Object.values(data).map(item => ({ ...item, key: item.companyID })));
   }, [data]);
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -43,9 +44,9 @@ const AccountTable = ({ data }) => {
   }
 
   const handleDelete = async (record) => {
-    console.log(`Deleting data with ID: ${record.id}`);
-    await axiosInstance.delete(`/api/v1/ceo/deleteEmployee/${record.id}`)
+    await axiosInstance.delete(`/api/admin/employees/${record.companyID}`)
       .then((response) => {
+        setDataSources(dataSources.filter(item => item.companyID !== record.companyID));
         alert(response.data);
       }
       ).catch((error) => {

@@ -1,13 +1,18 @@
 import Fastify from "fastify";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCors from "@fastify/cors";
+import pino from "pino";
 import AccountController from "./authentication_service/AccountController.js";
 import CentralPointController from "./centralpoint_service/CentralPointController.js";
 import AdminController from "./admin_service/AdminController.js";
 
-const fastify = Fastify({
-    logger: true,
-});
+const logger = pino({
+    transport: {
+      target: 'pino-pretty'
+    },
+})
+
+const fastify = Fastify({ logger });
 
 fastify.register(fastifyJwt, { secret: 'My_P3r$0n@l_S3cr3t'});
 fastify.register(fastifyCors, { 
