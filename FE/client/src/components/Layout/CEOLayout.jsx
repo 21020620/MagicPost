@@ -3,7 +3,7 @@ import {HomeOutlined, BarChartOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import { Outlet } from "react-router-dom";
-import logo from "../../img/icon.jpg"
+import logo from "../../img/icon.png"
 import MyHeader from './MyHeader';
 import MyFooter from './MyFooter';
 

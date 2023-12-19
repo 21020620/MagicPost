@@ -4,7 +4,7 @@ import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import TransactionPointTable from '../TransactionPointTable';
-import logo from "../../img/icon.jpg"
+//import logo from "../../img.png"
 import MyHeader from './MyHeader';
 
   

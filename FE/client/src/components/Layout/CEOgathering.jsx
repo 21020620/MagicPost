@@ -4,7 +4,7 @@ import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
 import GatheringPointTable from '../GatheringPointTable';
 const { Header, Content, Footer, Sider } = Layout;
-import logo from "../../img/icon.jpg"
+import logo from "../../img/icon.png"
 import MyHeader from './MyHeader';
 
   
