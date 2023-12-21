@@ -160,7 +160,7 @@ const AddEmployerForm = ({ setFormData }) => {
         ]}
       >
         <Select placeholder="select your role">
-          <Option value="Transaction Manager">Transaction Manage</Option>
+          <Option value="Transaction Manager">Transaction Manager</Option>
           <Option value="Central Manager">Central Manager</Option>
         </Select>
       </Form.Item>
