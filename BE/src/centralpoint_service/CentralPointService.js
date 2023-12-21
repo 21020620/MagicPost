@@ -16,7 +16,6 @@ const CentralPointService = {
         return cpoint;
     },
 
-
     getEmployeesOfCPoint: async (CpointID) => {
         const employees = await prisma.cEmployee.findMany({
             where: {
@@ -27,6 +26,24 @@ const CentralPointService = {
             }
         });
         return employees;
+    },
+
+    getCentralPointsWithoutManager: async () => {
+        const cpoints = await prisma.cPoint.findMany({
+            where: {
+                employees: {
+                    none: {
+                        Employee: {
+                            role: 'cpointm',
+                        }
+                    }
+                }
+            },
+            select: {
+                name: true,
+            }
+        });
+        return cpoints;
     }
 };
 

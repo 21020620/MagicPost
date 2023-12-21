@@ -5,6 +5,7 @@ import pino from "pino";
 import AccountController from "./authentication_service/AccountController.js";
 import CentralPointController from "./centralpoint_service/CentralPointController.js";
 import AdminController from "./admin_service/AdminController.js";
+import TransactionPointController from "./transactionpoint_service/TransactionPointController.js";
 
 const logger = pino({
     transport: {
@@ -26,6 +27,7 @@ fastify.decorateRequest('role', 'default');
 fastify.register(AccountController);
 fastify.register(CentralPointController, { prefix: '/api/cpoint' });
 fastify.register(AdminController, { prefix: '/api/admin' });
+fastify.register(TransactionPointController, { prefix: '/api/tpoint' });
 
 try {
     fastify.listen({ port: 8080});
