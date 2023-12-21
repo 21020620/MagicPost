@@ -168,6 +168,22 @@ const AddEmployerForm = () => {
         </Select>
       </Form.Item>
 
+      <Form.Item
+        name="workplace"
+        label="Workplace"
+        rules={[
+          {
+            required: true,
+            message: 'Please select your workplace!',
+          },
+        ]}
+      >
+        <Select placeholder="select your role">
+          <Option value="Transaction Point">Transaction Point</Option>
+          <Option value="Central Point">Central Point</Option>
+        </Select>
+      </Form.Item>
+
 
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
