@@ -61,7 +61,7 @@ export default function Login() {
         })
 
       if (isLoggedIn) {
-        navigate('/CEO');
+        navigate('/Transaction');
       } else {
         messageApi.error('Tên đăng nhập hoặc mật khẩu không đúng.');
       }

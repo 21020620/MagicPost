@@ -41,6 +41,7 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
     // Set default value for "Role" when the form is initially rendered
     form.setFieldsValue({
       role: 'Transaction Employee',
+      workplace: 'Employer workplace',
     });
   }, []);
 
@@ -170,14 +171,11 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
         rules={[
           {
             required: true,
-            message: 'Please select your workplace!',
+            message: 'Please input your workplace!',
           },
         ]}
       >
-        <Select placeholder="select your role">
-          <Option value="Transaction Point">Transaction Point</Option>
-          <Option value="Central Point">Central Point</Option>
-        </Select>
+        <Input />
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
