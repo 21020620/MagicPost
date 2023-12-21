@@ -16,8 +16,17 @@ const AdminService = {
     },
 
     createEmployee: async (employee) => {
+        const lastEmployee = await prisma.employee.findFirst({
+            orderBy: {
+                companyID: 'desc',
+            }
+        });
+        const newCompanyID = lastEmployee ? parseInt(lastEmployee.companyID) + 1 : 20230000;
         const newEmployee = await prisma.employee.create({
-            data: employee,
+            data: {
+                ...employee,
+                companyID: newCompanyID.toString(),
+            }
         });
         return newEmployee;
     },

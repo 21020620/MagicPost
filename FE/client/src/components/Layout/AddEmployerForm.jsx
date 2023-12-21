@@ -40,14 +40,11 @@ const tailFormItemLayout = {
   },
 };
 
-const AddEmployerForm = () => {
+const AddEmployerForm = ({ setFormData }) => {
   const [form] = Form.useForm();
   const onFinish = (fieldsValue) => {
-    //Format date value before submit.
-    const values = {
-        'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
-    };
-    console.log('Received values of form: ', values);
+    const dateValues = fieldsValue['date-picker'].format('YYYY-MM-DD');
+    setFormData(fieldsValue);
 };
 
   const prefixSelector = (
@@ -163,7 +160,7 @@ const AddEmployerForm = () => {
         ]}
       >
         <Select placeholder="select your role">
-          <Option value="Transaction Manager">Transaction Manage</Option>
+          <Option value="Transaction Manager">Transaction Manager</Option>
           <Option value="Central Manager">Central Manager</Option>
         </Select>
       </Form.Item>
