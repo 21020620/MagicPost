@@ -63,7 +63,6 @@ const CEOmanagerAccount = () => {
         ]}
         width={700}
       >
-        {/* Display the message "kek" in the modal */}
         <AddEmployerForm setFormData={setFormData}/>
       </Modal>
     </div>

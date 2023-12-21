@@ -1,108 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import {HomeOutlined} from '@ant-design/icons';
-import { Layout, Menu, theme, Button } from 'antd';
-const { Header, Content, Footer, Sider } = Layout;
+import { useEffect, useState } from 'react';
+import { Button, Modal } from 'antd';
 import AccountTable from '../AccountTable';
 import axiosInstance from '../DefaultAxios';
+import AddTransactionEmployeeForm from './AddTransactionEmployeeForm';
 
-
-  
-const TransactionAccountManage = () => {
-  /* const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-
-  const [data, setData] = useState([
-    {
-      "id": "1",
-      "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:x100:00.000000",
-      "address": "Ha Noi, Viet Nam",
-      "email": "huydung.jp@gmail.com",
-      "first_name": "Dung",
-      "last_name": "Nguyen",
-      "phone": "1111",
-      "role": "ROLE_GatheringWorker",
-      "gp": "null"
-    },
-    {
-      "id": "2",
-      "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:00:00.000000",
-      "address": "New York, USA",
-      "email": "datdo@gmail.com",
-      "first_name": "Dat",
-      "last_name": "Do",
-      "phone": "111111111",
-      "role": "ROLE_GatheringWorker",
-      "gp": "null"
-    }
-    ,
-    {
-      "id": "3",
-      "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:00:00.000000",
-      "address": "New York, USA",
-      "email": "datdo@gmail.com",
-      "first_name": "Dat",
-      "last_name": "Do",
-      "phone": "111111",
-      "role": "ROLE_GatheringWorker",
-      "gp": "null"
-    }
-    ,
-    {
-      "id": "4",
-      "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:00:00.000000",
-      "address": "New York, USA",
-      "email": "datdo@gmail.com",
-      "first_name": "Dat",
-      "last_name": "Do",
-      "phone": "11111111",
-      "role": "ROLE_GatheringWorker",
-      "gp": "null"
-    }
-    ,
-    {
-      "id": "5",
-      "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:00:00.000000",
-      "address": "New York, USA",
-      "email": "datdo@gmail.com",
-      "first_name": "Dat",
-      "last_name": "Do",
-      "phone": "1111111",
-      "role": "ROLE_GatheringWorker",
-      "gp": "null"
-    }
-  ]
-  );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        //const response = await fetch('../../data/CEOdata.json');
-        console.log('Response: ', data);
-        // const jsonData = await response.json();
-        // setData(jsonData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []); */
-
+const TransactionManagerAccount = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [formData, setFormData] = useState({});
 
   const fetchData = async () => {
     try {
       const response = await axiosInstance.get('/api/admin/employees');
       setData(response.data);
-    } catch (error) {        
+    } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
       setLoading(false);
@@ -114,17 +26,50 @@ const TransactionAccountManage = () => {
     fetchData();
   }, []);
 
+  const handleAddButtonClick = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleAddEmployee = () => {
+    console.log(formData);
+    setIsModalVisible(false);
+  };
+
   if (loading) {
     return <p>Loading data...</p>;
   }
-  
+
   return (
     <div>
-      <Button type="primary" style={{ marginBottom: 16, float: "left" }}>
+      <Button type="primary" style={{ marginBottom: 16, float: "left" }} onClick={handleAddButtonClick}>
         Add
       </Button>
       <AccountTable data={data} />
+      <Modal
+        //title="Add Employee"
+        visible={isModalVisible}
+        onCancel={handleModalClose}
+        footer={[
+          <Button key="cancel" onClick={handleModalClose}>
+            Cancel
+          </Button>,
+          <Button key="add" type="primary" onClick={handleAddEmployee}>
+            Add
+          </Button>,
+        ]}
+        width={700}
+      >
+        <AddTransactionEmployeeForm setFormData={setFormData}/>
+      </Modal>
     </div>
   );
 };
-export default TransactionAccountManage;
+
+export default TransactionManagerAccount;
+
+
+

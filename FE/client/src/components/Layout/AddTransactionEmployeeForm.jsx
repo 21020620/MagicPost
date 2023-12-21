@@ -34,17 +34,14 @@ const tailFormItemLayout = {
   },
 };
 
-const AddEmployerForm = ({ setFormData }) => {
+const AddTransactionEmployeeForm = ({ setFormData }) => {
   const [form] = Form.useForm();
-  const [workplaceToRole, setWorkplaceToRole] = useState({});
-  
+
   useEffect(() => {
-    // Define the mapping of workplaces to roles
-    const workplaceToRoleMapping = {
-      'Transaction Point': 'Transaction Manager',
-      'Central Point': 'Central Manager',
-    };
-    setWorkplaceToRole(workplaceToRoleMapping);
+    // Set default value for "Role" when the form is initially rendered
+    form.setFieldsValue({
+      role: 'Transaction Employee',
+    });
   }, []);
 
   const onFinish = (fieldsValue) => {
@@ -64,26 +61,6 @@ const AddEmployerForm = ({ setFormData }) => {
       </Select>
     </Form.Item>
   );
-
-  const handleRoleChange = (value) => {
-    // Set the value of the "Workplace" field based on the selected role
-    const roleToWorkplace = Object.entries(workplaceToRole).find(([key, val]) => val === value);
-    if (roleToWorkplace) {
-      form.setFieldsValue({
-        workplace: roleToWorkplace[0],
-      });
-    }
-  };
-
-  const handleWorkplaceChange = (value) => {
-    // Set the value of the "Role" field based on the selected workplace
-    const role = workplaceToRole[value];
-    if (role) {
-      form.setFieldsValue({
-        role,
-      });
-    }
-  };
 
   return (
     <Form
@@ -180,14 +157,11 @@ const AddEmployerForm = ({ setFormData }) => {
         rules={[
           {
             required: true,
-            message: 'Please select your role!',
+            message: 'Please input your role!',
           },
         ]}
       >
-        <Select placeholder="Select your role" onChange={handleRoleChange}>
-          <Option value="Transaction Manager">Transaction Manager</Option>
-          <Option value="Central Manager">Central Manager</Option>
-        </Select>
+        <Input readOnly />
       </Form.Item>
 
       <Form.Item
@@ -200,7 +174,7 @@ const AddEmployerForm = ({ setFormData }) => {
           },
         ]}
       >
-        <Select placeholder="Select your workplace" onChange={handleWorkplaceChange}>
+        <Select placeholder="select your role">
           <Option value="Transaction Point">Transaction Point</Option>
           <Option value="Central Point">Central Point</Option>
         </Select>
@@ -215,4 +189,4 @@ const AddEmployerForm = ({ setFormData }) => {
   );
 };
 
-export default AddEmployerForm;
+export default AddTransactionEmployeeForm;
