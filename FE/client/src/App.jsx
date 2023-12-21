@@ -14,7 +14,8 @@ import CEOStatistic from "./components/Layout/CEOStatistic";
 import CEOtransaction from "./components/Layout/CEOtransaction";
 import CEOgathering from "./components/Layout/CEOgathering";
 import TransactionManagerLayout from "./components/TransactionManagerLayout";
-import TransactionmanagerAccount from "./components/Layout/TransactionAccountManage";
+import TransactionManagerAccount from "./components/Layout/TransactionManagerAccount";
+import TransactionManagerStatistic from "./components/Layout/TransactionManagerStatistic";
 import HomeLayout from "./components/HomeLayout";
 import ChangePassword from "./components/Layout/ChangePassword";
 import RVHome from "./components/Layout/RVHome/RVHome";
@@ -47,7 +48,8 @@ export default function App() {
 
       <Route path="/Transaction" element={<TransactionManagerLayout />}>
         <Route index element={<HomeLayout />} />
-        <Route path="account" element={<TransactionmanagerAccount />} />
+        <Route path="account" element={<TransactionManagerAccount />} />
+        <Route path="statistic" element={<TransactionManagerStatistic />} />
       </Route>
     </Routes>
   );

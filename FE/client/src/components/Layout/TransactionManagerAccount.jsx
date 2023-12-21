@@ -3,13 +3,13 @@ import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
-/* import TransactionAccountTable from './TransactionAccountTable'; */
 import AccountTable from '../AccountTable';
+import axiosInstance from '../DefaultAxios';
 
 
   
 const TransactionAccountManage = () => {
-  const {
+  /* const {
     token: { colorBgContainer },
   } = theme.useToken();
 
@@ -17,7 +17,7 @@ const TransactionAccountManage = () => {
     {
       "id": "1",
       "dtype": "GatheringEmployee",
-      "dob": "2001-11-11 00:00:00.000000",
+      "dob": "2001-11-11 00:x100:00.000000",
       "address": "Ha Noi, Viet Nam",
       "email": "huydung.jp@gmail.com",
       "first_name": "Dung",
@@ -93,7 +93,30 @@ const TransactionAccountManage = () => {
     };
 
     fetchData();
+  }, []); */
+
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get('/api/admin/employees');
+      setData(response.data);
+    } catch (error) {        
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log('useEffect triggered.');
+    fetchData();
   }, []);
+
+  if (loading) {
+    return <p>Loading data...</p>;
+  }
   
   return (
     <div>
