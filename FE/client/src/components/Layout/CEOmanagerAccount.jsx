@@ -1,44 +1,3 @@
-/* import { useEffect, useState } from 'react';
-import { Button } from 'antd';
-import AccountTable from '../AccountTable';
-import axiosInstance from '../DefaultAxios';
-
-const CEOmanagerAccount = () => {
-  
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchData = async () => {
-    try {
-      const response = await axiosInstance.get('/api/admin/employees');
-      setData(response.data);
-    } catch (error) {        
-      console.error('Error fetching data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    console.log('useEffect triggered.');
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <p>Loading data...</p>;
-  }
-  
-  return (
-    <div>
-      <Button type="primary" style={{ marginBottom: 16, float: "left" }}>
-        Add
-      </Button>
-      <AccountTable data={data} />
-    </div>
-  );
-};
-export default CEOmanagerAccount; */
-
 import { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
 import AccountTable from '../AccountTable';
@@ -49,6 +8,7 @@ const CEOmanagerAccount = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [formData, setFormData] = useState({});
 
   const fetchData = async () => {
     try {
@@ -75,9 +35,7 @@ const CEOmanagerAccount = () => {
   };
 
   const handleAddEmployee = () => {
-    // Implement the logic to add an employee here
-    // After adding, you can refetch data or update the table as needed
-    fetchData();
+    console.log(formData);
     setIsModalVisible(false);
   };
 
@@ -106,7 +64,7 @@ const CEOmanagerAccount = () => {
         width={700}
       >
         {/* Display the message "kek" in the modal */}
-        <AddEmployerForm/>
+        <AddEmployerForm setFormData={setFormData}/>
       </Modal>
     </div>
   );

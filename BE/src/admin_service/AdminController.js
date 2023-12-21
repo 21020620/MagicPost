@@ -1,5 +1,6 @@
 import { authenticationHandler } from "../authentication_service/AuthenService.js";
 import adminService from "./AdminService.js";
+import AccountService from "../authentication_service/AccountService.js";
 
 const AdminController = (fastify, options, done) => {
 
@@ -21,8 +22,13 @@ const AdminController = (fastify, options, done) => {
     });
 
     fastify.post('/employees', async (req, reply) => {
-        const newEmployee = await adminService.createEmployee(req.body);
-        reply.status(201).send('New employee created: ', newEmployee);
+        const employee = req.body;
+        const newEmployee = await adminService.createEmployee(employee);
+        const account = await AccountService.createAccount({
+            username: employee.email,
+            role: employee.role,
+        });
+        reply.status(201).send('New employee created: ', newEmployee, 'password: ', account.initialPassword);
     });
 
     fastify.put('/employees/:companyID', async (req, reply) => {

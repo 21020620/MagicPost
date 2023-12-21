@@ -40,14 +40,11 @@ const tailFormItemLayout = {
   },
 };
 
-const AddEmployerForm = () => {
+const AddEmployerForm = ({ setFormData }) => {
   const [form] = Form.useForm();
   const onFinish = (fieldsValue) => {
-    //Format date value before submit.
-    const values = {
-        'date-picker': fieldsValue['date-picker'].format('YYYY-MM-DD'),
-    };
-    console.log('Received values of form: ', values);
+    const dateValues = fieldsValue['date-picker'].format('YYYY-MM-DD');
+    setFormData(fieldsValue);
 };
 
   const prefixSelector = (
