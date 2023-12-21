@@ -26,11 +26,11 @@ export default function App() {
 
   return (
     <Routes>
-      {/* <Route path="/" element={<LayoutForSearching />}>
-      </Route> */}
+      <Route path="/search" element={<LayoutForSearching />}>
+      </Route>
 
-      {/* <Route path="/" element={<RVHome />}>
-      </Route> */}
+      <Route path="/home" element={<RVHome />}>
+      </Route>
 
       <Route path="/" element={<LoginLayout />}>
         <Route index element={<Login />} />
