@@ -7,6 +7,7 @@ import {
   DatePicker
 } from 'antd';
 const { Option } = Select;
+import axiosInstance from '../DefaultAxios';
 
 const formItemLayout = {
   labelCol: {
@@ -42,10 +43,20 @@ const tailFormItemLayout = {
 
 const AddEmployerForm = ({ setFormData }) => {
   const [form] = Form.useForm();
+  const [workplaces, setWorkplaces] = useState([]);
+
   const onFinish = (fieldsValue) => {
     const dateValues = fieldsValue['date-picker'].format('YYYY-MM-DD');
     setFormData(fieldsValue);
-};
+  };
+
+  const defineWorplace = async (value) => {
+    let tempArr = [];
+    if (value === 'Transaction Manager') tempArr = await axiosInstance.get('/api/tpoint/without');
+    else tempArr = await axiosInstance.get('/api/cpoint/without');
+    const names = tempArr.data.map((item) => item.name);
+    setWorkplaces(names);
+  };
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -159,7 +170,7 @@ const AddEmployerForm = ({ setFormData }) => {
           },
         ]}
       >
-        <Select placeholder="select your role">
+        <Select placeholder="Select Role" onChange={defineWorplace}>
           <Option value="Transaction Manager">Transaction Manager</Option>
           <Option value="Central Manager">Central Manager</Option>
         </Select>
@@ -175,9 +186,10 @@ const AddEmployerForm = ({ setFormData }) => {
           },
         ]}
       >
-        <Select placeholder="select your role">
-          <Option value="Transaction Point">Transaction Point</Option>
-          <Option value="Central Point">Central Point</Option>
+        <Select placeholder="Select Workplace">
+          {workplaces.map((workplace) => (
+            <Option key={workplace} value={workplace}>{workplace}</Option>
+          ))}
         </Select>
       </Form.Item>
 
