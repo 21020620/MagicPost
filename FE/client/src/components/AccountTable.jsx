@@ -206,6 +206,6 @@ const AccountTable = ({ data }) => {
     }
   ];
 
-  return <Table columns={columns} dataSource={dataSources} />;
+  return <Table columns={columns} dataSource={dataSources}/>;
 };
 export default AccountTable;

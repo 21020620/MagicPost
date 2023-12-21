@@ -1,7 +1,7 @@
-/* import approvedImg from "../../assets/image/approved.png" */
-import approvedImg from "../../../img/approved.png";
+//import approvedImg from "../../../img/approved.png";
 import QRCode from "react-qr-code";
-import '../../assets/css/Test.min.css'
+/* import '../../assets/css/Test.min.css' */
+import "../../../App.css"
 
 function TrackingParcelInformation() {
     // {
@@ -309,7 +309,7 @@ function TrackingParcelInformation() {
                   <b>13. Post office approval</b>
                 </p>
                 <p>Receiving clerk's signature</p>
-                <img src={approvedImg} alt="post office aproval" width="110px" />
+                {/* <img src={approvedImg} alt="post office aproval" width="110px" /> */}
                 <p>
                   {/* <i>{paths[0]?.user_name}</i> */}
                 </p>

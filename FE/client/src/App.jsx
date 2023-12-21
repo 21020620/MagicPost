@@ -18,6 +18,7 @@ import TransactionmanagerAccount from "./components/Layout/TransactionAccountMan
 import HomeLayout from "./components/HomeLayout";
 import ChangePassword from "./components/Layout/ChangePassword";
 import RVHome from "./components/Layout/RVHome/RVHome";
+import LayoutForSearching from "./components/Layout/RVHome/LayoutForSearching";
 
 export default function App() {
   history.navigate = useNavigate();
@@ -25,8 +26,10 @@ export default function App() {
 
   return (
     <Routes>
-{/*       <Route path="/" element={<RVHome />}>
-        
+      {/* <Route path="/" element={<LayoutForSearching />}>
+      </Route> */}
+
+      {/* <Route path="/" element={<RVHome />}>
       </Route> */}
 
       <Route path="/" element={<LoginLayout />}>
