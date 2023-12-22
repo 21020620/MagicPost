@@ -13,7 +13,8 @@ const accountController = (fastify, options, done) => {
         });
         const isPasswordMatched = await checkPassword(req.body.password, account.password);
         if(!account || !isPasswordMatched) throw new Error('Invalid account credentials');
-        const token = fastify.jwt.sign({ id: account.id, role: account.role}, 
+        console.log('id: ', account.username);
+        const token = fastify.jwt.sign({ id: account.username, role: account.role}, 
             {expiresIn: 300000, algorithm: 'HS512'});
 
         return { token, role: account.role };

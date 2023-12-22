@@ -9,16 +9,6 @@ const authorized = (res) => {
   } catch (error) {}
 };
 
-/* const readJsonFile = (filePath) => {
-  try {
-    const jsonData = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(jsonData);
-  } catch (error) {
-    console.error('Error reading JSON file:', error);
-    return null;
-  }
-}; */
-
 export const fetchAPIPostLogin = async (loginData) => {
   const data = JSON.stringify(loginData);
   const res = await fetch("http://localhost:5000/api/register/login", {

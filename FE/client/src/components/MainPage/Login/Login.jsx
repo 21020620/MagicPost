@@ -50,7 +50,6 @@ export default function Login() {
     try {
       let isLoggedIn = false;
       let role = '';
-      console.log(loginData);
       await loginAxios.post('/login', loginData)
         .then(res => {
           isLoggedIn = true;
@@ -58,6 +57,7 @@ export default function Login() {
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('role', res.data.role);
           role = res.data.role;
+          console.log('role: ', role);
         })
         .catch(err => {
           console.log(err);

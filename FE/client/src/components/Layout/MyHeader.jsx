@@ -33,6 +33,7 @@ export default function MyHeader({ username }) {
           break;
         case "logOut":
           localStorage.removeItem("token");
+          localStorage.removeItem("role");
           navigate('/');
           break;
         default:

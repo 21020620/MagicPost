@@ -37,16 +37,6 @@ const tailFormItemLayout = {
 const AddCentralEmployeeForm = ({ setFormData }) => {
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    // Set default value for "Role" when the form is initially rendered
-    form.setFieldsValue({
-      role: 'Central Employee',
-      workplace: 'Employee workplace',
-      username: 'email',
-      password: '123456',
-    });
-  }, []);
-
   const onFinish = (fieldsValue) => {
     const dateValues = fieldsValue['date-picker'].format('YYYY-MM-DD');
     setFormData(fieldsValue);
@@ -76,32 +66,6 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
       }}
       scrollToFirstError
     >
-      <Form.Item
-        name="username"
-        label="Username"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your username!',
-          },
-        ]}
-      >
-        <Input readOnly />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-      >
-        <Input readOnly />
-      </Form.Item>
-
       <Form.Item
         name="firstName"
         label="First Name"
@@ -181,29 +145,16 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
       </Form.Item>
 
       <Form.Item
-        name="role"
-        label="Role"
+        name="position"
+        label="Position"
         rules={[
           {
-            required: true,
-            message: 'Please input your role!',
+            required: false,
+            message: 'Please input your position!',
           },
         ]}
       >
         <Input readOnly />
-      </Form.Item>
-
-      <Form.Item
-        name="workplace"
-        label="Workplace"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your workplace!',
-          },
-        ]}
-      >
-        <Input />
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
