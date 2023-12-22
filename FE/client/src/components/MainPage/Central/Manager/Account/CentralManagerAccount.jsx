@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
-import AccountTable from '../../../AccountTable';
-import axiosInstance from '../../../DefaultAxios';
-import AddTransactionEmployeeForm from '../../../Layout/AddTransactionEmployeeForm';
+import AccountTable from '../../../../AccountTable';
+import axiosInstance from '../../../../DefaultAxios';
+import AddCentralEmployeeForm from '../../../../Layout/AddCentralEmployeeForm';
 
-const TransactionManagerAccount = () => {
+const CentralManagerAccount = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -51,7 +51,7 @@ const TransactionManagerAccount = () => {
       <AccountTable data={data} />
       <Modal
         //title="Add Employee"
-        visible={isModalVisible}
+        open={isModalVisible}
         onCancel={handleModalClose}
         footer={[
           <Button key="cancel" onClick={handleModalClose}>
@@ -63,13 +63,13 @@ const TransactionManagerAccount = () => {
         ]}
         width={700}
       >
-        <AddTransactionEmployeeForm setFormData={setFormData}/>
+        <AddCentralEmployeeForm setFormData={setFormData}/>
       </Modal>
     </div>
   );
 };
 
-export default TransactionManagerAccount;
+export default CentralManagerAccount;
 
 
 

@@ -73,26 +73,6 @@ const AddEmployerForm = ({ setFormData }) => {
     </Form.Item>
   );
 
-  const handleRoleChange = (value) => {
-    // Set the value of the "Workplace" field based on the selected role
-    const roleToWorkplace = Object.entries(workplaceToRole).find(([key, val]) => val === value);
-    if (roleToWorkplace) {
-      form.setFieldsValue({
-        workplace: roleToWorkplace[0],
-      });
-    }
-  };
-
-  const handleWorkplaceChange = (value) => {
-    // Set the value of the "Role" field based on the selected workplace
-    const role = workplaceToRole[value];
-    if (role) {
-      form.setFieldsValue({
-        role,
-      });
-    }
-  };
-
   return (
     <Form
       {...formItemLayout}

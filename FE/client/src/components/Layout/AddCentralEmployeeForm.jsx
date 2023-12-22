@@ -34,13 +34,13 @@ const tailFormItemLayout = {
   },
 };
 
-const AddTransactionEmployeeForm = ({ setFormData }) => {
+const AddCentralEmployeeForm = ({ setFormData }) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
     // Set default value for "Role" when the form is initially rendered
     form.setFieldsValue({
-      role: 'Transaction Employee',
+      role: 'Central Employee',
       workplace: 'Employee workplace',
       username: 'email',
       password: '123456',
@@ -215,4 +215,4 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
   );
 };
 
-export default AddTransactionEmployeeForm;
+export default AddCentralEmployeeForm;

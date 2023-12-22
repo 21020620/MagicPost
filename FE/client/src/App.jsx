@@ -13,9 +13,12 @@ import CEOmanagerAccount from "./components/MainPage/CEO/AccountManage/CEOmanage
 import CEOStatistic from "./components/MainPage/CEO/Statistic/CEOStatistic";
 import CEOtransaction from "./components/MainPage/CEO/PointManage/CEOtransaction";
 import CEOcentral from "./components/MainPage/CEO/PointManage/CEOcentral";
+import CentralManagerLayout from "./components/Layout/CentralManagerLayout";
+import CentralManagerAccount from "./components/MainPage/Central/Manager/Account/CentralManagerAccount";
+import CentralManagerStatistic from "./components/MainPage/Central/Manager/Statistic/CentralManagerStatistics";
 import TransactionManagerLayout from "./components/Layout/TransactionManagerLayout";
-import TransactionManagerAccount from "./components/MainPage/Transaction/Account/TransactionManagerAccount";
-import TransactionManagerStatistic from "./components/MainPage/Transaction/Statistic/TransactionManagerStatistic";
+import TransactionManagerAccount from "./components/MainPage/Transaction/Manager/Account/TransactionManagerAccount";
+import TransactionManagerStatistic from "./components/MainPage/Transaction/Manager/Statistic/TransactionManagerStatistic";
 import MainPageLayout from "./components/MainPageLayout";
 import ChangePassword from "./components/Layout/ChangePassword";
 import RVHome from "./components/Layout/RVHome/RVHome";
@@ -50,6 +53,12 @@ export default function App() {
         <Route index element={<MainPageLayout />} />
         <Route path="account" element={<TransactionManagerAccount />} />
         <Route path="statistic" element={<TransactionManagerStatistic />} />
+      </Route>
+
+      <Route path="/Central" element={<CentralManagerLayout />}>
+        <Route index element={<MainPageLayout />} />
+        <Route path="account" element={<CentralManagerAccount />} />
+        <Route path="statistic" element={<CentralManagerStatistic />} />
       </Route>
     </Routes>
   );
