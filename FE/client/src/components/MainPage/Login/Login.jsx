@@ -49,19 +49,24 @@ export default function Login() {
 
     try {
       let isLoggedIn = false;
+      let role = '';
       console.log(loginData);
       await loginAxios.post('/login', loginData)
         .then(res => {
           isLoggedIn = true;
           console.log("User logged in successfully!");
           localStorage.setItem('token', res.data.token);
+          localStorage.setItem('role', res.data.role);
+          role = res.data.role;
         })
         .catch(err => {
           console.log(err);
         })
 
       if (isLoggedIn) {
-        navigate('/Central');
+        if(role === 'cpointm') navigate('/Central');
+        else if(role === 'tpointm') navigate('/Transaction');
+        else navigate('/CEO');
       } else {
         messageApi.error('Tên đăng nhập hoặc mật khẩu không đúng.');
       }

@@ -39,8 +39,8 @@ const AccountTable = ({ data }) => {
   };
 
   const formatRole = (role) => {
-    if (role === 'ROLE_GatheringWorker') return 'Nhân viên điểm giao dịch';
-    return 'Nhân viên';
+    if (role === 'cpointm') return 'Điểm tập kết';
+    return 'Điểm giao dịch';
   }
 
   const handleDelete = async (record) => {
@@ -185,12 +185,6 @@ const AccountTable = ({ data }) => {
       key: 'role',
       ...getColumnSearchProps('role'),
       render: (role) => formatRole(role),
-    },
-    {
-      title: 'GatheringPoint',
-      dataIndex: 'cpointId',
-      key: 'cpointId',
-      ...getColumnSearchProps('cpointId'),
     },
     {
       title: 'Delete',

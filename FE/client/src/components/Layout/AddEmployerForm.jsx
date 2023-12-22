@@ -39,16 +39,18 @@ const AddEmployerForm = ({ setFormData }) => {
   const [form] = Form.useForm();
   const [workplaces, setWorkplaces] = useState([]);
 
-  useEffect(() => {
-    // Set default value for "Role" when the form is initially rendered
-    form.setFieldsValue({
-      username: 'email',
-      password: '123456',
-    });
-  }, []);
-
   const onFinish = (fieldsValue) => {
-    const dateValues = fieldsValue['date-picker'].format('YYYY-MM-DD');
+    fieldsValue.dob = fieldsValue['dob'].format('YYYY-MM-DD') + 'T14:42:07Z';
+    console.log(fieldsValue.dob)
+    delete fieldsValue.prefix;
+    if (fieldsValue.role === 'Transaction Manager') {
+      fieldsValue.role = 'tpointm';
+      fieldsValue.TEmployee = { create: {tpointId: fieldsValue.workplace} };
+    } else {
+      fieldsValue.role = 'cpointm';
+      fieldsValue.CEmployee = { create: {cpointId: fieldsValue.workplace} };
+    }
+    delete fieldsValue.workplace;
     setFormData(fieldsValue);
   };
 
@@ -56,8 +58,7 @@ const AddEmployerForm = ({ setFormData }) => {
     let tempArr = [];
     if (value === 'Transaction Manager') tempArr = await axiosInstance.get('/api/tpoint/without');
     else tempArr = await axiosInstance.get('/api/cpoint/without');
-    const names = tempArr.data.map((item) => item.name);
-    setWorkplaces(names);
+    setWorkplaces(tempArr.data);
   };
 
   const prefixSelector = (
@@ -85,32 +86,6 @@ const AddEmployerForm = ({ setFormData }) => {
       scrollToFirstError
     >
       <Form.Item
-        name="username"
-        label="Username"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your username!',
-          },
-        ]}
-      >
-        <Input readOnly />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-      >
-        <Input readOnly />
-      </Form.Item>
-
-      <Form.Item
         name="firstName"
         label="First Name"
         rules={[
@@ -136,7 +111,7 @@ const AddEmployerForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
-      <Form.Item name="date-picker" label="Date Of Birth">
+      <Form.Item name="dob" label="Date Of Birth">
         <DatePicker />
       </Form.Item>
 
@@ -171,7 +146,7 @@ const AddEmployerForm = ({ setFormData }) => {
       </Form.Item>
 
       <Form.Item
-        name="phone"
+        name="phoneNumber"
         label="Phone Number"
         rules={[
           {
@@ -216,7 +191,7 @@ const AddEmployerForm = ({ setFormData }) => {
       >
         <Select placeholder="Select Workplace">
           {workplaces.map((workplace) => (
-            <Option key={workplace} value={workplace}>{workplace}</Option>
+            <Option key={workplace.id} value={workplace.id}>{workplace.name} - ({workplace.address})</Option>
           ))}
         </Select>
       </Form.Item>

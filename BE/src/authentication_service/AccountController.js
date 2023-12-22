@@ -16,7 +16,7 @@ const accountController = (fastify, options, done) => {
         const token = fastify.jwt.sign({ id: account.id, role: account.role}, 
             {expiresIn: 300000, algorithm: 'HS512'});
 
-        return { token };
+        return { token, role: account.role };
     });
 
     fastify.post('/register', registerSchema, async (req, reply) => {

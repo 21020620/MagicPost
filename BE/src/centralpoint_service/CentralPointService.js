@@ -40,7 +40,9 @@ const CentralPointService = {
                 }
             },
             select: {
+                id: true,
                 name: true,
+                address: true,
             }
         });
         return cpoints;

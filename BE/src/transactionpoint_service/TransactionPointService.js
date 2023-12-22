@@ -40,7 +40,9 @@ const TransactionPointService = {
                 }
             },
             select: {
+                id: true,
                 name: true,
+                address: true,
             }
         });
         return transactionpoints;

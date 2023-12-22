@@ -34,8 +34,9 @@ const CEOmanagerAccount = () => {
     setIsModalVisible(false);
   };
 
-  const handleAddEmployee = () => {
+  const handleAddEmployee = async () => {
     console.log(formData);
+    await axiosInstance.post('/api/admin/employees', formData);
     setIsModalVisible(false);
   };
 
