@@ -8,19 +8,23 @@ datasource db {
 }
 
 model Account {
-    id       Int    @id @default(autoincrement())
-    username String @unique @db.VarChar(255)
-    password String @db.VarChar(255)
-    role     String @db.VarChar(255)
+    username     String        @unique @db.VarChar(255)
+    password     String        @db.VarChar(255)
+    role         String        @db.VarChar(255)
+    employee     Employee?
+    refreshToken RefreshToken?
 }
 
 model TPoint {
     id         Int         @id @default(autoincrement())
     name       String      @unique @db.VarChar(255)
     address    String      @db.VarChar(255)
+    postalCode String      @default("10000") @db.VarChar(10)
     employees  TEmployee[]
     parentCP   CPoint      @relation(fields: [parentCPId], references: [id])
     parentCPId Int
+    orders     Orders[]    @relation("TPsent")
+    received   Orders[]    @relation("TPreceived")
 }
 
 model CPoint {
@@ -32,14 +36,16 @@ model CPoint {
 }
 
 model Employee {
-    companyID   String     @id
-    firstName   String     @db.VarChar(255)
-    lastName    String     @db.VarChar(255)
+    companyID   String        @id
+    firstName   String        @db.VarChar(255)
+    lastName    String        @db.VarChar(255)
     dob         DateTime
-    address     String     @db.VarChar(255)
-    phoneNumber String     @db.VarChar(20)
-    email       String     @db.VarChar(100)
-    role        String     @db.VarChar(20)
+    address     String        @db.VarChar(255)
+    phoneNumber String        @db.VarChar(20)
+    email       String        @unique @db.VarChar(100)
+    role        String        @db.VarChar(20)
+    account     Account       @relation(fields: [email], references: [username])
+    actions     OrderAction[]
     CEmployee   CEmployee?
     TEmployee   TEmployee?
 }
@@ -56,4 +62,49 @@ model TEmployee {
     department TPoint   @relation(fields: [tpointId], references: [id])
     tpointId   Int
     Employee   Employee @relation(fields: [companyID], references: [companyID])
+}
+
+model Customer {
+    fullName    String   @db.VarChar(255)
+    phoneNumber String   @unique @db.VarChar(20)
+    address     String   @db.VarChar(255)
+    customerID  String?  @db.VarChar(20)
+    orders      Orders[] @relation("sent")
+    received    Orders[] @relation("received")
+}
+
+model Orders {
+    id            String        @id
+    orderDate     DateTime      @default(now())
+    orderStatus   String        @db.VarChar(50)
+    itemType      Boolean       @db.Bit(1)
+    cannotSend    Int
+    sender        Customer      @relation("sent", fields: [senderPhone], references: [phoneNumber])
+    senderPhone   String
+    receiver      Customer      @relation("received", fields: [receiverPhone], references: [phoneNumber])
+    receiverPhone String
+    senderTP      TPoint        @relation("TPsent", fields: [senderTPId], references: [id])
+    senderTPId    Int
+    receiverTP    TPoint        @relation("TPreceived", fields: [receiverTPId], references: [id])
+    receiverTPId  Int
+    fee           String        @db.VarChar(255)
+    weight        Float         @db.Float
+    deliverNote   String        @db.VarChar(255)
+    feeReceived   String        @db.VarChar(255)
+    orderActions  OrderAction[]
+}
+
+model OrderAction {
+    order      Orders   @relation(fields: [orderID], references: [id])
+    orderID    String   @id
+    actionDate DateTime @default(now())
+    creator    Employee @relation(fields: [creatorID], references: [companyID])
+    creatorID  String
+    type       String   @db.VarChar(50)
+}
+
+model RefreshToken {
+    token           String  @id @default(uuid())
+    account         Account @relation(fields: [accountUsername], references: [username])
+    accountUsername String  @unique
 }
