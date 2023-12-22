@@ -42,6 +42,8 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
     form.setFieldsValue({
       role: 'Transaction Employee',
       workplace: 'Employer workplace',
+      username: 'email',
+      password: '123456',
     });
   }, []);
 
@@ -74,6 +76,32 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
       }}
       scrollToFirstError
     >
+      <Form.Item
+        name="username"
+        label="Username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your username!',
+          },
+        ]}
+      >
+        <Input readOnly />
+      </Form.Item>
+
+      <Form.Item
+        name="password"
+        label="Password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+      >
+        <Input readOnly />
+      </Form.Item>
+
       <Form.Item
         name="firstName"
         label="First Name"

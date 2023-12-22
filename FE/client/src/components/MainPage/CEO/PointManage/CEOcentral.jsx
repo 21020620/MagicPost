@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
-import GatheringPointTable from '../../../CentralPointTable';
+import GatheringPointTable from './CentralPointTable';
 const { Header, Content, Footer, Sider } = Layout;
 import MyHeader from '../../../Layout/MyHeader';
-import CentralPointTable from '../../../CentralPointTable';
+import CentralPointTable from './CentralPointTable';
 
   
 const CEOcentral = () => {

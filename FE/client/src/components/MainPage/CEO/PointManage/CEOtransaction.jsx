@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
-import TransactionPointTable from '../../../TransactionPointTable';
+import TransactionPointTable from './TransactionPointTable';
 import MyHeader from '../../../Layout/MyHeader';
 
   
