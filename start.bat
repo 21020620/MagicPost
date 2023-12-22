@@ -1,0 +1,16 @@
+@echo off
+cd FE/client
+echo Installing FE dependencies...
+call npm i
+echo Starting FE...
+start cmd /k "npm run dev"
+cd ../..
+
+cd BE
+echo Installing BE dependencies...
+call npm i
+echo Running Prisma migrations...
+call npx prisma migrate dev
+echo Starting BE...
+start cmd /k "npm run start"
+cd ..
