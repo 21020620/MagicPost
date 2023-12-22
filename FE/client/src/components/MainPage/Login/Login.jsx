@@ -2,7 +2,7 @@ import { Button, Input, Space, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { validateEmail } from '../components/logic';
+import { validateEmail } from '../../logic';
 import axios from 'axios';
 
 const { Title } = Typography;
@@ -61,7 +61,7 @@ export default function Login() {
         })
 
       if (isLoggedIn) {
-        navigate('/Transaction');
+        navigate('/CEO');
       } else {
         messageApi.error('Tên đăng nhập hoặc mật khẩu không đúng.');
       }

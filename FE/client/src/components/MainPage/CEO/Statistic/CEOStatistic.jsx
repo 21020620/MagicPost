@@ -3,10 +3,9 @@ import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
-import logo from "../../img/icon.png"
-import MyHeader from './MyHeader';
+import MyHeader from '../../../Layout/MyHeader';
 import axios from 'axios';
-import StatisticTable from '../StatisticTable';
+import StatisticTable from '../../../StatisticTable';
 
   
 const CEOStatistic = () => {

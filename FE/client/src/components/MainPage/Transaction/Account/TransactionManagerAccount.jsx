@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
-import AccountTable from '../AccountTable';
-import axiosInstance from '../DefaultAxios';
-import AddTransactionEmployeeForm from './AddTransactionEmployeeForm';
+import AccountTable from '../../../AccountTable';
+import axiosInstance from '../../../DefaultAxios';
+import AddTransactionEmployeeForm from '../../../Layout/AddTransactionEmployeeForm';
 
 const TransactionManagerAccount = () => {
   const [data, setData] = useState([]);

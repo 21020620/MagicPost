@@ -24,7 +24,7 @@ const menuItems = [
   getItem(
     "Quản lý điểm", "sub2", <HomeOutlined />, [
       getItem(
-        <NavLink to="/CEO/gathering">Điểm tập kết</NavLink>,
+        <NavLink to="/CEO/central">Điểm tập kết</NavLink>,
         "2",
         <HomeOutlined />
       ),

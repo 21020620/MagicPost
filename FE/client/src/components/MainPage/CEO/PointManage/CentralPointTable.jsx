@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
-const GatheringPointTable = ({ data }) => {
+const CentralPointTable = ({ data }) => {
   const handleDelete = (record) => {
     // Xử lý logic xóa dữ liệu 
     console.log(`Deleting data with ID: ${record.id}`);
@@ -40,4 +40,4 @@ const GatheringPointTable = ({ data }) => {
   return <Table dataSource={dataSource} columns={columns} />;
 };
 
-export default GatheringPointTable;
+export default CentralPointTable;

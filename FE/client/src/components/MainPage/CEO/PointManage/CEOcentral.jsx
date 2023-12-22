@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
+import GatheringPointTable from '../../../CentralPointTable';
 const { Header, Content, Footer, Sider } = Layout;
-import TransactionPointTable from '../TransactionPointTable';
-//import logo from "../../img.png"
-import MyHeader from './MyHeader';
+import MyHeader from '../../../Layout/MyHeader';
+import CentralPointTable from '../../../CentralPointTable';
 
   
-const CEOtransaction = () => {
+const CEOcentral = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -54,8 +54,8 @@ const CEOtransaction = () => {
       <Button type="primary" style={{ marginBottom: 16, float: "left" }}>
         Add
       </Button>
-      <TransactionPointTable data={data} />
+      <CentralPointTable data={data} />
     </div>
   );
 };
-export default CEOtransaction;
+export default CEOcentral;

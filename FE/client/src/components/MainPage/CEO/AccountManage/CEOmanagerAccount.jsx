@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
-import AccountTable from '../AccountTable';
-import axiosInstance from '../DefaultAxios';
-import AddEmployerForm from './AddEmployerForm';
+import AccountTable from '../../../AccountTable';
+import axiosInstance from '../../../DefaultAxios';
+import AddEmployerForm from '../../../Layout/AddEmployerForm';
 
 const CEOmanagerAccount = () => {
   const [data, setData] = useState([]);

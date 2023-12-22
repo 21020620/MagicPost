@@ -4,7 +4,7 @@ import Highlighter from 'react-highlight-words';
 import { Button, Input, Space, Table } from 'antd';
 import PropTypes from 'prop-types';
 import axiosInstance from './DefaultAxios';
-import CEOmanagerAccount from './Layout/CEOmanagerAccount';
+import CEOmanagerAccount from './MainPage/CEO/AccountManage/CEOmanagerAccount';
 
 const AccountTable = ({ data }) => {
   AccountTable.propTypes = {

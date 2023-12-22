@@ -1,8 +1,7 @@
 import React from 'react';
 import { Col, Row, Typography } from 'antd';
 import { Outlet } from 'react-router-dom';
-//import logo from '../img/icon.png';
-import background from '../../img/bg.jpg';
+import background from '../../../img/bg.jpg';
 
 const { Title } = Typography;
 

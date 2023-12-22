@@ -5,18 +5,18 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import Login from "./components/Login";
-import LoginLayout from "./components/Layout/LoginLayout";
+import Login from "./components/MainPage/Login/Login";
+import LoginLayout from "./components/MainPage/Login/LoginLayout";
 import { history } from "./hooks/myHistory";
 import CEOLayout from "./components/Layout/CEOLayout";
-import CEOmanagerAccount from "./components/Layout/CEOmanagerAccount";
-import CEOStatistic from "./components/Layout/CEOStatistic";
-import CEOtransaction from "./components/Layout/CEOtransaction";
-import CEOgathering from "./components/Layout/CEOgathering";
-import TransactionManagerLayout from "./components/TransactionManagerLayout";
-import TransactionManagerAccount from "./components/Layout/TransactionManagerAccount";
-import TransactionManagerStatistic from "./components/Layout/TransactionManagerStatistic";
-import HomeLayout from "./components/HomeLayout";
+import CEOmanagerAccount from "./components/MainPage/CEO/AccountManage/CEOmanagerAccount";
+import CEOStatistic from "./components/MainPage/CEO/Statistic/CEOStatistic";
+import CEOtransaction from "./components/MainPage/CEO/PointManage/CEOtransaction";
+import CEOcentral from "./components/MainPage/CEO/PointManage/CEOcentral";
+import TransactionManagerLayout from "./components/Layout/TransactionManagerLayout";
+import TransactionManagerAccount from "./components/MainPage/Transaction/Account/TransactionManagerAccount";
+import TransactionManagerStatistic from "./components/MainPage/Transaction/Statistic/TransactionManagerStatistic";
+import MainPageLayout from "./components/MainPageLayout";
 import ChangePassword from "./components/Layout/ChangePassword";
 import RVHome from "./components/Layout/RVHome/RVHome";
 import LayoutForSearching from "./components/Layout/RVHome/LayoutForSearching";
@@ -38,16 +38,16 @@ export default function App() {
       </Route>
 
       <Route path="/CEO" element={<CEOLayout />}>
-        <Route index element={<HomeLayout />} />
+        <Route index element={<MainPageLayout />} />
         <Route path="account" element={<CEOmanagerAccount />} />
         <Route path="statistic" element={<CEOStatistic />} />
         <Route path="transaction" element={<CEOtransaction />} />
-        <Route path="gathering" element={<CEOgathering />} />
+        <Route path="central" element={<CEOcentral />} />
         <Route path="changePassword" element={<ChangePassword />} />
       </Route>
 
       <Route path="/Transaction" element={<TransactionManagerLayout />}>
-        <Route index element={<HomeLayout />} />
+        <Route index element={<MainPageLayout />} />
         <Route path="account" element={<TransactionManagerAccount />} />
         <Route path="statistic" element={<TransactionManagerStatistic />} />
       </Route>

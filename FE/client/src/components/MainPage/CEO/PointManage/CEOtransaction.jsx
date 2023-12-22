@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
-import GatheringPointTable from '../GatheringPointTable';
 const { Header, Content, Footer, Sider } = Layout;
-import logo from "../../img/icon.png"
-import MyHeader from './MyHeader';
+import TransactionPointTable from '../../../TransactionPointTable';
+import MyHeader from '../../../Layout/MyHeader';
 
   
-const CEOgathering = () => {
+const CEOtransaction = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -54,8 +53,8 @@ const CEOgathering = () => {
       <Button type="primary" style={{ marginBottom: 16, float: "left" }}>
         Add
       </Button>
-      <GatheringPointTable data={data} />
+      <TransactionPointTable data={data} />
     </div>
   );
 };
-export default CEOgathering;
+export default CEOtransaction;
