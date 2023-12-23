@@ -66,6 +66,7 @@ export default function Login() {
       if (isLoggedIn) {
         if(role === 'cpointm') navigate('/Central');
         else if(role === 'tpointm') navigate('/Transaction');
+        else if (role === 'admin') navigate('/CEO');
         else navigate('/TE');
       } else {
         messageApi.error('Tên đăng nhập hoặc mật khẩu không đúng.');
