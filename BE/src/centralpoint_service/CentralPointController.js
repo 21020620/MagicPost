@@ -10,7 +10,7 @@ const centralPointController = (fastify, options, done) => {
         }
     });
     
-    fastify.get('employees/:id', async (req, reply) => {
+    fastify.get('/employees/:id', async (req, reply) => {
         const id = parseInt(req.params.id, 10);
         if (isNaN(id)) {
             reply.code(400).send({ message: 'Invalid id parameter' });

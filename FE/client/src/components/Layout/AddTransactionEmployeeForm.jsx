@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { Button, Form, Input, Select, DatePicker } from 'antd';
 const { Option } = Select;
 
@@ -37,19 +36,10 @@ const tailFormItemLayout = {
 const AddTransactionEmployeeForm = ({ setFormData }) => {
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    // Set default value for "Role" when the form is initially rendered
-    form.setFieldsValue({
-      role: 'Transaction Employee',
-      workplace: 'Employee workplace',
-      username: 'email',
-      password: '123456',
-    });
-  }, []);
-
   const onFinish = (fieldsValue) => {
-    const dateValues = fieldsValue['date-picker'].format('YYYY-MM-DD');
-    setFormData(fieldsValue);
+    fieldsValue.dob = fieldsValue['dob'].format('YYYY-MM-DD') + 'T19:05:03Z';
+    const { prefix, workplace, position, ...rest } = fieldsValue;
+    setFormData(rest);
   };
 
   const prefixSelector = (
@@ -77,32 +67,6 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
       scrollToFirstError
     >
       <Form.Item
-        name="username"
-        label="Username"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your username!',
-          },
-        ]}
-      >
-        <Input readOnly />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-      >
-        <Input readOnly />
-      </Form.Item>
-
-      <Form.Item
         name="firstName"
         label="First Name"
         rules={[
@@ -128,7 +92,7 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
-      <Form.Item name="date-picker" label="Date Of Birth">
+      <Form.Item name="dob" label="Date Of Birth">
         <DatePicker />
       </Form.Item>
 
@@ -163,7 +127,7 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
       </Form.Item>
 
       <Form.Item
-        name="phone"
+        name="phoneNumber"
         label="Phone Number"
         rules={[
           {
@@ -181,29 +145,16 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
       </Form.Item>
 
       <Form.Item
-        name="role"
-        label="Role"
+        name="position"
+        label="Position"
         rules={[
           {
-            required: true,
-            message: 'Please input your role!',
+            required: false,
+            message: 'Please input your position!',
           },
         ]}
       >
         <Input readOnly />
-      </Form.Item>
-
-      <Form.Item
-        name="workplace"
-        label="Workplace"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your workplace!',
-          },
-        ]}
-      >
-        <Input />
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>

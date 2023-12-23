@@ -6,7 +6,7 @@ const AdminController = (fastify, options, done) => {
 
     fastify.addHook('preHandler', async (request, reply) => {
         authenticationHandler(fastify, request, reply);
-        if (request.role !== 'admin') {
+        if (!['admin', 'cpointm', 'tpointm'].includes(request.role)) {
             reply.code(403).send({ message: 'You are not allowed to access this resource' });
         }
     });

@@ -9,11 +9,14 @@ const TransactionManagerAccount = () => {
   const [loading, setLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [formData, setFormData] = useState({});
+  const [workplace, setWorkplace] = useState({});
 
   const fetchData = async () => {
     try {
-      const response = await axiosInstance.get('/api/admin/employees');
-      setData(response.data);
+      const workplaceResponse = await axiosInstance.get('/api/tpoint/tpFromAccount');
+      setWorkplace(workplaceResponse.data);
+      const response = await axiosInstance.get(`/api/tpoint/employees/${workplaceResponse.data.id}`);
+      setData(response.data.map((item) => (item.Employee)));
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -35,7 +38,10 @@ const TransactionManagerAccount = () => {
   };
 
   const handleAddEmployee = () => {
+    formData.role = 'tpointw';
+    formData.TEmployee = { create: {tpointId: workplace.id} };
     console.log(formData);
+    axiosInstance.post('/api/admin/employees', formData);
     setIsModalVisible(false);
   };
 

@@ -10,13 +10,13 @@ const TransactionPointController = (fastify, options, done) => {
         }
     });
 
-    fastify.get('employees/:id', async (req, reply) => {
+    fastify.get('/employees/:id', async (req, reply) => {
         const id = parseInt(req.params.id, 10);
         if (isNaN(id)) {
             reply.code(400).send({ message: 'Invalid id parameter' });
             return;
         }
-        const employees = await tpService.getEmployeesOfCPoint(id);
+        const employees = await tpService.getEmployeesOfTPoint(id);
         reply.status(200).send(employees);
     });
 

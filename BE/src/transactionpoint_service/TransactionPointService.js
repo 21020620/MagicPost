@@ -16,10 +16,15 @@ const TransactionPointService = {
         return transactionpoint;
     },
 
-    getEmployeesOfTransactionPoint: async (TransactionPointID) => {
+    getEmployeesOfTPoint: async (TransactionPointID) => {
         const employees = await prisma.tEmployee.findMany({
             where: {
                 tpointId: TransactionPointID,
+                Employee: {
+                    role: {
+                        not: 'tpointm',
+                    }
+                }
             },
             include: {
                 Employee: true,

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { Button, Form, Input, Select, DatePicker } from 'antd';
 const { Option } = Select;
 
@@ -38,8 +37,9 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
   const [form] = Form.useForm();
 
   const onFinish = (fieldsValue) => {
-    const dateValues = fieldsValue['date-picker'].format('YYYY-MM-DD');
-    setFormData(fieldsValue);
+    fieldsValue.dob = fieldsValue['dob'].format('YYYY-MM-DD') + 'T19:05:03Z';
+    const { prefix, workplace, position, ...rest } = fieldsValue;
+    setFormData(rest);
   };
 
   const prefixSelector = (
@@ -92,7 +92,7 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
-      <Form.Item name="date-picker" label="Date Of Birth">
+      <Form.Item name="dob" label="Date Of Birth">
         <DatePicker />
       </Form.Item>
 
@@ -127,7 +127,7 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
       </Form.Item>
 
       <Form.Item
-        name="phone"
+        name="phoneNumber"
         label="Phone Number"
         rules={[
           {
