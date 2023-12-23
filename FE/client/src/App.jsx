@@ -19,6 +19,8 @@ import CentralManagerStatistic from "./components/MainPage/Central/Manager/Stati
 import TransactionManagerLayout from "./components/Layout/TransactionManagerLayout";
 import TransactionManagerAccount from "./components/MainPage/Transaction/Manager/Account/TransactionManagerAccount";
 import TransactionManagerStatistic from "./components/MainPage/Transaction/Manager/Statistic/TransactionManagerStatistic";
+import TransactionEmployeeLayout from "./components/Layout/TransactionEmployeeLayout";
+import CreateOrder from "./components/MainPage/Transaction/Employee/CreateOrder";
 import MainPageLayout from "./components/MainPageLayout";
 import ChangePassword from "./components/Layout/ChangePassword";
 import RVHome from "./components/Layout/RVHome/RVHome";
@@ -53,6 +55,11 @@ export default function App() {
         <Route index element={<MainPageLayout />} />
         <Route path="account" element={<TransactionManagerAccount />} />
         <Route path="statistic" element={<TransactionManagerStatistic />} />
+      </Route>
+
+      <Route path="/TE" element={<TransactionEmployeeLayout />}>
+        <Route index element={<MainPageLayout />} />
+        <Route path="order" element={<CreateOrder />} />
       </Route>
 
       <Route path="/Central" element={<CentralManagerLayout />}>
