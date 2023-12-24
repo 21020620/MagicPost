@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Form,
@@ -50,6 +50,10 @@ const createOrder = () => {
       navigate('/TE');
     }, 3000);
   };
+
+  useEffect(() => {
+    
+  }, []);
 
   const onChange = (checkedValues) => {
     console.log('checked = ', checkedValues);
@@ -242,18 +246,20 @@ const createOrder = () => {
                 <Input />
             </Form.Item>
 
+            <Form.Item name="receivePoint">
+
+            <Select style={{ width: '300px', marginLeft: '20px', marginLeft: '30px' }} placeholder="Select central point">
+            </Select>
+              
+            <Select style={{ width: '300px', marginLeft: '20px'}} placeholder="Select transaction point">
+            </Select>
+
+            </Form.Item>
+
             <Form.Item {...tailFormItemLayout}>
-              <Select style={{ width: '200px', marginRight: '20px', marginLeft: '-145px' }} placeholder="Select transaction point">
-
-              </Select>
-
               <Button type="primary" htmlType="submit">
                 Register
               </Button>
-
-              <Select style={{ width: '200px', marginLeft: '20px' }} placeholder="Select cenrtal point">
-
-              </Select>
             </Form.Item>
         </Form>
     </div>
