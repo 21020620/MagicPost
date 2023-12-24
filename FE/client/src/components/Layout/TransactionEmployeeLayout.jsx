@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
@@ -26,7 +26,7 @@ const menuItems = [
   ),
 
   getItem(
-    <NavLink to="/TE/order">Xác nhận đơn</NavLink>, "3", <HomeOutlined />
+    <NavLink to="/TE/confirm">Xác nhận đơn</NavLink>, "3", <HomeOutlined />
   ),
 
   getItem(  
