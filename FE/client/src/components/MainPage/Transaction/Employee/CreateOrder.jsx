@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import {
   Button,
-  Checkbox,
   Form,
   Input,
-  Select,
-  DatePicker, 
-  TimePicker,
+  Radio,
   message,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -48,9 +45,7 @@ const createOrder = () => {
     console.log('Received values of form: ', values);
     message.success('Thêm đơn hàng thành công');
 
-    // Chờ 3 giây trước khi chuyển hướng
     setTimeout(() => {
-      // Chuyển hướng sang trang chủ Google
       navigate('/TE');
     }, 3000);
   };
@@ -62,24 +57,24 @@ const createOrder = () => {
   const orderOptions = ['Document', 'Good'];
   const instructionOptions = [
     {
-      label: 'Chuyển hàng ngay',
-      value: 'Chuyển hàng ngay',
+      label: 'Return immediately',
+      value: 1,
     },
     {
-      label: 'Gọi diện cho người gửi/BC gửi',
-      value: 'Gọi diện cho người gửi/BC gửi',
+      label: 'Call sender/Transaction point',
+      value: 2,
     },
     {
-      label: 'Hủy',
-      value: 'Hủy',
+      label: 'Cancel order',
+      value: 3,
     },
     {
-      label: 'Chuyển hoàn trước ngày',
-      value: 'Chuyển hoàn trước ngày',
+      label: 'Return before date',
+      value: 4,
     },
     {
-      label: 'Chuyển hoàn khi hết thời gian lưu trữ',
-      value: 'Chuyển hoàn khi hết thời gian lưu trữ',
+      label: 'Return when storing time expired',
+      value: 5,
     },
   ];
 
@@ -99,7 +94,7 @@ const createOrder = () => {
             scrollToFirstError
         >
             <Form.Item
-                name="name, address sender"
+                name="senderInfo"
                 label="Name, address sender"
                 rules={[
                 {
@@ -112,19 +107,12 @@ const createOrder = () => {
             </Form.Item>
 
             <Form.Item
-                name="sender code"
-                label="Sender code"
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                name="sender postal code"
-                label="Sender postal code"
+                name="senderPhone"
+                label="Sender phone number"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input sender infomation!',
+                        message: 'Please input receiver phone number!',
                     },
                     ]}
             >
@@ -132,7 +120,7 @@ const createOrder = () => {
             </Form.Item>
 
             <Form.Item
-                name="name, address receiver"
+                name="receiverInfo"
                 label="Name, address receiver"
                 rules={[
                 {
@@ -145,19 +133,12 @@ const createOrder = () => {
             </Form.Item>
 
             <Form.Item
-                name="receiver code"
-                label="Receiver code"
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                name="receiver postal code"
-                label="Receiver postal code"
+                name="receiverPhone"
+                label="Receiver phone number"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input receiver infomation!',
+                        message: 'Please input receiver phone number!',
                     },
                     ]}
             >
@@ -165,7 +146,7 @@ const createOrder = () => {
             </Form.Item>
 
             <Form.Item
-                name="type of order"
+                name="orderType"
                 label="Type of order"
                 rules={[
                     {
@@ -174,53 +155,24 @@ const createOrder = () => {
                     },
                     ]}
             >
-                <Checkbox.Group 
+                <Radio.Group 
                 style={{ marginLeft: '-230px' }}
                 options={orderOptions} onChange={onChange} />
             </Form.Item>
 
             <Form.Item
                 name="instruction"
-                label="Instruction"
-                
+                label="Instruction (delivery fail)"
             >
-                <Checkbox.Group options={instructionOptions} onChange={onChange} />
+                <Radio.Group options={instructionOptions} />
             </Form.Item>
 
             <Form.Item
-              name="date"
-              label="Date of order"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input Date of order!',
-                },
-              ]}
-            >
-              <DatePicker format="YYYY-MM-DD" placeholder="Select Date"/>
-            </Form.Item>
-
-            <Form.Item
-              name="time"
-              label="Time of order"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input Time of order!',
-                },
-              ]}
-            >
-              <TimePicker format="HH:mm" placeholder="Select Time"/>
-            </Form.Item>
-
-
-            <Form.Item
-                name="cước chính"
-                label="cước chính"
+                name="mainFee"
+                label="Main Fee"
                 rules={[
                     {
-                        required: true,
-                        message: 'Please input sender infomation!',
+                        required: false,
                     },
                     ]}
             >
@@ -228,12 +180,11 @@ const createOrder = () => {
             </Form.Item>
 
             <Form.Item
-                name="phụ phí"
-                label="phụ phí"
+                name="subFee"
+                label="Sub Fee"
                 rules={[
                     {
-                        required: true,
-                        message: 'Please input sender infomation!',
+                        required: false,
                     },
                     ]}
             >
@@ -241,12 +192,11 @@ const createOrder = () => {
             </Form.Item>
 
             <Form.Item
-                name="cước GTVT"
-                label="cước GTVT"
+                name="transportFee"
+                label="Transport Fee"
                 rules={[
                     {
-                        required: true,
-                        message: 'Please input sender infomation!',
+                        required: false,
                     },
                     ]}
             >
@@ -254,7 +204,19 @@ const createOrder = () => {
             </Form.Item>
 
             <Form.Item
-                name="Tổng cước (gồm VAT)"
+                name="addFee"
+                label="Additional Fee"
+                rules={[
+                    {
+                        required: false,
+                    },
+                    ]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
+                name="Total Fee (include VAT)"
                 label="Tổng cước (gồm VAT)"
                 rules={[
                     {
@@ -267,34 +229,8 @@ const createOrder = () => {
             </Form.Item>
 
             <Form.Item
-                name="Thu khác"
-                label="Thu khác"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input sender infomation!',
-                    },
-                    ]}
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                name="Khối lượng thực tế"
-                label="Khối lượng thực tế"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input sender infomation!',
-                    },
-                    ]}
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                name="Khối lượng quy đổi"
-                label="Khối lượng quy đổi"
+                name="weight"
+                label="Weight (kg)"
                 rules={[
                     {
                         required: true,
