@@ -1,16 +1,6 @@
 import prisma from "../PrismaInstance.js";
 import { hashPassword } from "./PasswordService.js";
 
-const generatePassword = () => {
-    var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    var password = "";
-    for (var i = 0, n = charset.length; i < 10; ++i) {
-        password += charset[Math.floor(Math.random() * n)];
-    }
-    return password;
-}
-
-
 const AccountService = {
     getAllAccounts: async () => {
         const accounts = await prisma.account.findMany();

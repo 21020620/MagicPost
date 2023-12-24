@@ -1,21 +1,47 @@
-import React, { useState } from 'react';
-import { Select } from 'antd';
+import { useState, useEffect } from 'react';
+import { Select, Form, Input, Radio, Button, InputNumber } from 'antd';
 import AddOrderForm from './AddOrderForm';
 
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 8,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 16,
+    },
+  },
+};
+
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 16,
+      offset: 8,
+    },
+  },
+};
+
 const CreateOrder = () => {
-  const [selectedDropdown, setSelectedDropdown] = useState(null);
-  const [formData, setFormData] = useState({}); // Move useState inside the component body
-
-  const handleDropdownChange = (value) => {
-    setSelectedDropdown(value);
-  };
-
-  useEffect(() => {
-    
-  }, []);
 
   const onChange = (checkedValues) => {
     console.log('checked = ', checkedValues);
+  };
+
+  const onFinish = (values) => {
+    console.log('Received values of form: ', values);
   };
 
   const orderOptions = ['Document', 'Good'];
@@ -44,18 +70,30 @@ const CreateOrder = () => {
 
 
   return (
-    <React.Fragment>
-      <Form>
+      <Form
+        {...formItemLayout}
+        name="register"
+        onFinish={onFinish}
+        scrollToFirstError
+        style={{
+          marginLeft: '-100px',
+          width: '1000px',
+        }}
+      >
       <h1 style={{ textAlign: 'center' }}>Tạo đơn hàng mới</h1>
       
-      <Select
-        placeholder="Chọn dropdown"
-        style={{ width: 200, marginBottom: 16 }}
-        onChange={handleDropdownChange}
-      >
-        <Select.Option value="option1">Option 1</Select.Option>
-        <Select.Option value="option2">Option 2</Select.Option>
-      </Select>
+            <Form.Item
+                name="senderInfo"
+                label="Name, address sender"
+                rules={[
+                {
+                    required: true,
+                    message: 'Please input sender infomation!',
+                },
+                ]}
+            >
+                <Input.TextArea showCount maxLength={100} />
+            </Form.Item>
 
             <Form.Item
                 name="senderPhone"
@@ -189,17 +227,17 @@ const CreateOrder = () => {
                     },
                     ]}
             >
-                <Input />
+                <InputNumber min = {0} initialvalues={0} precision={2}/>
             </Form.Item>
 
-            <Form.Item name="receivePoint">
-
+            <Form.Item name="centralPoint" label="Central Point">
               <Select style={{ width: '300px', marginLeft: '20px', marginLeft: '30px' }} placeholder="Select central point">
               </Select>
-              
+            </Form.Item>
+
+            <Form.Item name="transactionPoint" label = "Transaction Point">
               <Select style={{ width: '300px', marginLeft: '20px'}} placeholder="Select transaction point">
               </Select>
-
             </Form.Item>
 
             <Form.Item {...tailFormItemLayout}>
@@ -208,7 +246,6 @@ const CreateOrder = () => {
               </Button>
             </Form.Item>
         </Form>
-    </React.Fragment>
   );
 };
 

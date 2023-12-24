@@ -40,19 +40,6 @@ const TransactionEmployeeLayout = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [workplace, setWorkplace] = useState({});
-  const fetchData = async () => {
-    try {
-      const workplaceResponse = await axiosInstance.get('/api/tpoint/tpFromAccount');
-      setWorkplace(workplaceResponse.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <Layout hasSider>

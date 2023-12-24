@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { validateEmail } from '../../logic';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../../redux/user.js';
 
 const { Title } = Typography;
 
@@ -11,6 +13,8 @@ export default function Login() {
   const [loginData, setLoginData] = useState({ username: '', password: '' });
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
+  const { user, workplace } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -52,12 +56,15 @@ export default function Login() {
       let role = '';
       await loginAxios.post('/login', loginData)
         .then(res => {
+          const response = res.data;
           isLoggedIn = true;
           console.log("User logged in successfully!");
-          localStorage.setItem('token', res.data.token);
-          localStorage.setItem('role', res.data.role);
-          role = res.data.role;
-          console.log('role: ', role);
+          localStorage.setItem('token', response.token);
+          dispatch(login(response));
+          console.log('response: ', response);
+          role = response.employee.role;
+          console.log('user: ', user);
+          console.log('workplace: ', workplace);
         })
         .catch(err => {
           console.log(err);

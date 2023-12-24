@@ -15,6 +15,15 @@ const AdminService = {
         return employee;
     },
 
+    getEmployeeByEmail: async (email) => {
+        const employee = await prisma.employee.findUnique({
+            where: {
+                email,
+            }
+        });
+        return employee;
+    },
+
     createEmployee: async (employee) => {
         const lastEmployee = await prisma.employee.findFirst({
             orderBy: {
