@@ -4,6 +4,7 @@ import {
   Form,
   Input,
   Radio,
+  Select,
   message,
 } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -242,9 +243,17 @@ const createOrder = () => {
             </Form.Item>
 
             <Form.Item {...tailFormItemLayout}>
+              <Select style={{ width: '200px', marginRight: '20px', marginLeft: '-145px' }} placeholder="Select transaction point">
+
+              </Select>
+
               <Button type="primary" htmlType="submit">
                 Register
               </Button>
+
+              <Select style={{ width: '200px', marginLeft: '20px' }} placeholder="Select cenrtal point">
+
+              </Select>
             </Form.Item>
         </Form>
     </div>
