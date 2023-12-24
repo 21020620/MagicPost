@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
@@ -38,6 +38,21 @@ const TransactionEmployeeLayout = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const [workplace, setWorkplace] = useState({});
+  const fetchData = async () => {
+    try {
+      const workplaceResponse = await axiosInstance.get('/api/tpoint/tpFromAccount');
+      setWorkplace(workplaceResponse.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Layout hasSider>
       <Sider
