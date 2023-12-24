@@ -17,8 +17,6 @@ const createOrder = () => {
     setSelectedDropdown(value);
   };
 
-<<<<<<< HEAD
-=======
   useEffect(() => {
     
   }, []);
@@ -52,7 +50,6 @@ const createOrder = () => {
   ];
 
 
->>>>>>> d2892214927bd73922e0df97ac8ae066a35b1dbe
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>Tạo đơn hàng mới</h1>
@@ -66,9 +63,6 @@ const createOrder = () => {
         <Select.Option value="option2">Option 2</Select.Option>
       </Select>
 
-<<<<<<< HEAD
-      {selectedDropdown === 'option1' && <AddOrderForm />}
-=======
             <Form.Item
                 name="senderPhone"
                 label="Sender phone number"
@@ -220,7 +214,6 @@ const createOrder = () => {
               </Button>
             </Form.Item>
         </Form>
->>>>>>> d2892214927bd73922e0df97ac8ae066a35b1dbe
     </div>
   );
 };
