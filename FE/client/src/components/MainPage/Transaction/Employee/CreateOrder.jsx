@@ -51,7 +51,8 @@ const createOrder = () => {
 
 
   return (
-    <div>
+    <React.Fragment>
+      <Form>
       <h1 style={{ textAlign: 'center' }}>Tạo đơn hàng mới</h1>
       
       <Select
@@ -200,11 +201,11 @@ const createOrder = () => {
 
             <Form.Item name="receivePoint">
 
-            <Select style={{ width: '300px', marginLeft: '20px', marginLeft: '30px' }} placeholder="Select central point">
-            </Select>
+              <Select style={{ width: '300px', marginLeft: '20px', marginLeft: '30px' }} placeholder="Select central point">
+              </Select>
               
-            <Select style={{ width: '300px', marginLeft: '20px'}} placeholder="Select transaction point">
-            </Select>
+              <Select style={{ width: '300px', marginLeft: '20px'}} placeholder="Select transaction point">
+              </Select>
 
             </Form.Item>
 
@@ -214,7 +215,7 @@ const createOrder = () => {
               </Button>
             </Form.Item>
         </Form>
-    </div>
+    </React.Fragment>
   );
 };
 
