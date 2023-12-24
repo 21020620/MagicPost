@@ -6,6 +6,7 @@ const { Header, Content, Footer, Sider } = Layout;
 import { Outlet } from "react-router-dom";
 import logo from "../../img/icon.png"
 import MyHeader from '../Layout/MyHeader';
+import axiosInstance from '../DefaultAxios.jsx';
 
 function getItem(label, key, icon, children) {
   return {
