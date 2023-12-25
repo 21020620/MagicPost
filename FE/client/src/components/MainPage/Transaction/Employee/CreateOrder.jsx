@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Select, Form, Input, Radio, Button, InputNumber } from 'antd';
+import { Select, Form, Input, Radio, Button, InputNumber, Modal } from 'antd';
 import AddOrderForm from './AddOrderForm';
+import ParcelInfo from './ParcelInfo';
 
 const formItemLayout = {
   labelCol: {
@@ -35,6 +36,30 @@ const tailFormItemLayout = {
 };
 
 const CreateOrder = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [form] = Form.useForm();
+
+  const showModal = async () => {
+    try {
+      // Kiểm tra hợp lệ của form trước khi mở modal
+      await form.validateFields();
+      setIsModalVisible(true);
+    } catch (error) {
+      console.error('Form validation failed:', error);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleAccept = () => {
+    // Do something with the form data when "Accept" is clicked
+    console.log('Form data accepted:', formData);
+    // Close the modal
+    setIsModalVisible(false);
+  };
 
   const onChange = (checkedValues) => {
     console.log('checked = ', checkedValues);
@@ -42,6 +67,7 @@ const CreateOrder = () => {
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
+    setFormData(values);
   };
 
   const orderOptions = ['Document', 'Good'];
@@ -205,8 +231,8 @@ const CreateOrder = () => {
             </Form.Item>
 
             <Form.Item
-                name="Total Fee (include VAT)"
-                label="Tổng cước (gồm VAT)"
+                name="totalFee"
+                label="Total Fee (include VAT)"
                 rules={[
                     {
                         required: true,
@@ -214,7 +240,7 @@ const CreateOrder = () => {
                     },
                     ]}
             >
-                <Input />
+                <Input/>
             </Form.Item>
 
             <Form.Item
@@ -241,10 +267,42 @@ const CreateOrder = () => {
             </Form.Item>
 
             <Form.Item {...tailFormItemLayout}>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" onClick={showModal}>
                 Register
               </Button>
             </Form.Item>
+
+            <Modal
+              title="Modal Title"
+              visible={isModalVisible}
+              onCancel={handleCancel}
+              footer={[
+                <Button key="cancel" onClick={handleCancel}>
+                  Cancel
+                </Button>,
+                <Button key="accept" type="primary" onClick={handleAccept}>
+                  Accept
+                </Button>,
+              ]}
+              style={{minWidth: '800px'}}
+            >
+              <p>Name, address sender: {formData.senderInfo}</p>
+              <p>Sender phone number: {formData.senderPhone}</p>
+              {/* Hiển thị các trường khác tương tự */}
+              <p>Name, address receiver: {formData.receiverInfo}</p>
+              <p>Receiver phone number: {formData.receiverPhone}</p>
+              <p>Tổng cước (gồm VAT): {formData.totalFee}</p>
+              <p>Weight (kg): {formData.weight}</p>
+              <p>Type of order: {formData.orderType}</p>
+              <p>Instruction (delivery fail): {formData.instruction}</p>
+              <p>Main Fee: {formData.mainFee}</p>
+              <p>Sub Fee: {formData.subFee}</p>
+              <p>Transport Fee: {formData.transportFee}</p>
+              <p>Additional Fee: {formData.addFee}</p>
+              <p>Transaction Point: {formData.transactionPoint}</p>
+              <p>CentralPoint Point: {formData.centralPoint}</p>
+              <ParcelInfo formData={formData}/>
+            </Modal>
         </Form>
   );
 };
