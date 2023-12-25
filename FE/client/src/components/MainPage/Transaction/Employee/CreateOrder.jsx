@@ -231,7 +231,7 @@ const CreateOrder = () => {
             </Form.Item>
 
             <Form.Item name="centralPoint" label="Central Point">
-              <Select style={{ width: '300px', marginLeft: '20px', marginLeft: '30px' }} placeholder="Select central point">
+              <Select style={{ width: '300px', marginLeft: '20px' }} placeholder="Select central point">
               </Select>
             </Form.Item>
 

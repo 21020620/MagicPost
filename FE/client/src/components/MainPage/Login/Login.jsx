@@ -62,7 +62,7 @@ export default function Login() {
           localStorage.setItem('token', response.token);
           dispatch(login(response));
           console.log('response: ', response);
-          role = response.employee.role;
+          role = response.role;
           console.log('user: ', user);
           console.log('workplace: ', workplace);
         })

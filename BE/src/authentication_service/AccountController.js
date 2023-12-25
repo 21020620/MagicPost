@@ -16,9 +16,11 @@ const accountController = (fastify, options, done) => {
         const token = fastify.jwt.sign({ id: account.username, role: account.role}, {expiresIn: 300000, algorithm: 'HS512'});
         const employee = await AdminService.getEmployeeByEmail(username);
         let workplace = {};
-        if(!employee.CEmployee) workplace = await TransactionPointService.getTPointFromAccount(username);
-        else workplace = await CentralPointService.getCPointFromAccount(username);
-        return { token, employee, workplace };
+        if(employee !== null) {
+            if(!employee.CEmployee) workplace = await TransactionPointService.getTPointFromAccount(username);
+            else workplace = await CentralPointService.getCPointFromAccount(username);
+        }
+        return { token, role: account.role, employee, workplace };
     });
 
     fastify.post('/register', registerSchema, async (req, reply) => {
