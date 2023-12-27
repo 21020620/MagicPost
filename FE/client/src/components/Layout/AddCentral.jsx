@@ -33,27 +33,13 @@ const tailFormItemLayout = {
   },
 };
 
-const AddCentral = ({ setFormData }) => {
+const AddCentral = ({ setFormData, data }) => {
   const [form] = Form.useForm();
-
+  const names = data.map(item => item.name);
   const onFinish = (fieldsValue) => {
-    fieldsValue.dob = fieldsValue['dob'].format('YYYY-MM-DD') + 'T19:05:03Z';
-    const { prefix, workplace, position, ...rest } = fieldsValue;
-    setFormData(rest);
+    console.log('Received values of form: ', fieldsValue);
+    setFormData(fieldsValue);
   };
-
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
 
   return (
     <Form
@@ -85,26 +71,19 @@ const AddCentral = ({ setFormData }) => {
         rules={[
           {
             required: true,
-            message: 'Please input name!',
+            message: 'Please input the name!',
           },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || !names.includes(value)) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('This name already exists!'));
+            },
+          }),
         ]}
       >
         <Input />
-      </Form.Item>
-
-      <Form.Item
-        name="manager"
-        label="Manager"
-        rules={[
-          {
-            required: true,
-            message: 'Please select manager!',
-          },
-        ]}
-      >
-        <Select placeholder="select your gender">
-          
-        </Select>
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>

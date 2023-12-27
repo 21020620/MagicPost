@@ -1,12 +1,20 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Table, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import axiosInstance from '../../../DefaultAxios';
 
-const CentralPointTable = ({ data }) => {
-  const handleDelete = (record) => {
-    // Xử lý logic xóa dữ liệu 
+const CentralPointTable = ({ data, managers }) => {
+  const [dataSource, setDataSource] = useState([]);
+
+  const handleDelete = async (record) => {
+    await axiosInstance.delete(`/api/admin/cpoint/${record.id}`);
     console.log(`Deleting data with ID: ${record.id}`);
+    setDataSource(dataSource.filter(item => item.id !== record.id));
   };
+
+  useEffect(() => {
+    setDataSource(data.map(item => ({ ...item, key: item.id })));
+  }, [data]);
 
   const columns = [
     {
@@ -28,6 +36,10 @@ const CentralPointTable = ({ data }) => {
       title: 'Manager',
       dataIndex: 'manager',
       key: 'manager',
+      render: (text, record) => {
+        const manager = managers.find(m => m.CEmployee.cpointId === record.id);
+        return manager ? manager.firstName + ' ' + manager.lastName : '';
+      },
     },
     {
       title: 'Delete',
@@ -40,9 +52,7 @@ const CentralPointTable = ({ data }) => {
     }
   ];
 
-  const dataSource = data.map(item => ({ ...item, key: item.id }));
-
-  return <Table dataSource={dataSource} columns={columns} />;
+  return <Table dataSource={dataSource} columns={columns} pagination={{ pageSize: 5 }}/>;
 };
 
 export default CentralPointTable;

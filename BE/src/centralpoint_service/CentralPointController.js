@@ -25,6 +25,12 @@ const centralPointController = (fastify, options, done) => {
         reply.status(200).send(cpoints);
     });
 
+
+    fastify.get('/', async (req, reply) => {
+        const cpoints = await cpService.getAllCPoints();
+        reply.status(200).send(cpoints);
+    });
+
     fastify.get('/cpFromAccount', async (req, reply) => {
         const username = getUsernameFromToken(fastify, req);
         const cpoint = await cpService.getCPointFromAccount(username);

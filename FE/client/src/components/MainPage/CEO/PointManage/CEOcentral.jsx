@@ -7,6 +7,7 @@ const { Header, Content, Footer, Sider } = Layout;
 import MyHeader from '../../../Layout/MyHeader';
 import CentralPointTable from './CentralPointTable';
 import AddCentral from '../../../Layout/AddCentral';
+import axiosInstance from '../../../DefaultAxios';
 
   
 const CEOcentral = () => {
@@ -14,31 +15,10 @@ const CEOcentral = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [data, setData] = useState([
-    {
-      "id": "1",
-      "address": "Hanoi",
-      "name": "Diem so 1"
-    },
-    {
-      "id": "2",
-      "address": "HCM",
-      "name": "Diem so 2"
-    },
-    {
-      "id": "3",
-      "address": "Hoa Binh",
-      "name": "Diem so 3"
-    },
-    {
-      "id": "4",
-      "address": "Thai Binh",
-      "name": "Diem so 4"
-    },
-  ]
-  );
-
+  const [data, setData] = useState([]);
+  const [managers, setManagers] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [formData, setFormData] = useState({});
 
   const handleAddButtonClick = () => {
     setIsModalVisible(true);
@@ -48,15 +28,23 @@ const CEOcentral = () => {
     setIsModalVisible(false);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log('Response: ', data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  const fetchData = async () => {
+    const [cpoints, managers] = await Promise.all([
+      axiosInstance.get('/api/cpoint'),
+      axiosInstance.get('/api/admin/cpointm'),
+    ]);
+    setData(cpoints.data);
+    setManagers(managers.data);
+  };
 
+  const handleAddCpoint = async () => {
+    console.log(formData);
+    await axiosInstance.post('/api/admin/cpoint', formData);
+    setIsModalVisible(false);
+    fetchData();
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -65,7 +53,7 @@ const CEOcentral = () => {
       <Button type="primary" style={{ marginBottom: 16, float: "left" }} onClick={handleAddButtonClick}>
         Add
       </Button>
-      <CentralPointTable data={data} />
+      <CentralPointTable data={data} managers={managers} />
 
       <Modal
         title="Modal Title"
@@ -75,10 +63,12 @@ const CEOcentral = () => {
           <Button key="cancel" onClick={handleModalCancel}>
             Cancel
           </Button>,
+          <Button key="add" type="primary" onClick={handleAddCpoint}>
+            Add
+          </Button>
         ]}
       >
-        <p>kek</p>
-        <AddCentral />
+        <AddCentral setFormData={setFormData} data={data}/>
       </Modal>
     </div>
   );
