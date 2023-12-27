@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Select, Form, Input, Radio, Button, InputNumber, Modal } from 'antd';
-import AddOrderForm from './AddOrderForm';
+import { Select, Form, Input, Radio, Button, InputNumber, Modal, DatePicker, TimePicker } from 'antd';
 import ParcelInfo from './ParcelInfo';
+import dayjs from 'dayjs';
+import 'dayjs/locale/en';
 
 const formItemLayout = {
   labelCol: {
@@ -98,6 +99,7 @@ const CreateOrder = () => {
   return (
       <Form
         {...formItemLayout}
+        form={form}
         name="register"
         onFinish={onFinish}
         scrollToFirstError
@@ -183,6 +185,13 @@ const CreateOrder = () => {
             </Form.Item>
 
             <Form.Item
+                name="note"
+                label="Note"
+            >
+                <Input.TextArea showCount maxLength={100} />
+            </Form.Item>
+
+            <Form.Item
                 name="mainFee"
                 label="Main Fee"
                 rules={[
@@ -256,6 +265,14 @@ const CreateOrder = () => {
                 <InputNumber min = {0} initialvalues={0} precision={2}/>
             </Form.Item>
 
+            <Form.Item name="date" label="Date">
+              <DatePicker />
+            </Form.Item>
+
+            <Form.Item name="time" label="Time">
+              <TimePicker />
+            </Form.Item>
+
             <Form.Item name="centralPoint" label="Central Point">
               <Select style={{ width: '300px', marginLeft: '20px' }} placeholder="Select central point">
               </Select>
@@ -274,7 +291,7 @@ const CreateOrder = () => {
 
             <Modal
               title="Modal Title"
-              visible={isModalVisible}
+              open={isModalVisible}
               onCancel={handleCancel}
               footer={[
                 <Button key="cancel" onClick={handleCancel}>
@@ -288,7 +305,6 @@ const CreateOrder = () => {
             >
               <p>Name, address sender: {formData.senderInfo}</p>
               <p>Sender phone number: {formData.senderPhone}</p>
-              {/* Hiển thị các trường khác tương tự */}
               <p>Name, address receiver: {formData.receiverInfo}</p>
               <p>Receiver phone number: {formData.receiverPhone}</p>
               <p>Tổng cước (gồm VAT): {formData.totalFee}</p>
@@ -299,6 +315,11 @@ const CreateOrder = () => {
               <p>Sub Fee: {formData.subFee}</p>
               <p>Transport Fee: {formData.transportFee}</p>
               <p>Additional Fee: {formData.addFee}</p>
+              <p>Total Fee: {formData.totalFee}</p>
+
+              <p>Date: {dayjs(formData.date).format('YYYY-MM-DD')}</p>
+              <p>Time: {dayjs(formData.time).format('HH:mm')}</p>
+
               <p>Transaction Point: {formData.transactionPoint}</p>
               <p>CentralPoint Point: {formData.centralPoint}</p>
               <ParcelInfo formData={formData}/>

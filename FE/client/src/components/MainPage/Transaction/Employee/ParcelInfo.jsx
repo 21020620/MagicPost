@@ -1,5 +1,7 @@
 import QRCode from "react-qr-code";
-import "../../../../App.css"
+import "../../../../App.css";
+import dayjs from 'dayjs';
+import 'dayjs/locale/en';
 
 function ParcelInfo(props) {
       const senderInfo = {
@@ -25,11 +27,33 @@ function ParcelInfo(props) {
         returnAfterStorage: false,
       }
       const additionalService = "no additional service"
-      const deliveryFare = [{    
-        index: 13,
-        title: "cuoc chinh",
-        value: "5"
-      }]
+      const deliveryFare = [
+      {    
+        index: 'a',
+        title: "Main Fee",
+        value: props.formData.mainFee
+      },
+      {    
+        index: 'b',
+        title: "Sub Fee",
+        value: props.formData.subFee
+      },
+      {    
+        index: 'c',
+        title: "Transport Fee",
+        value: props.formData.transportFee
+      },
+      {    
+        index: 'd',
+        title: "Additional Fee",
+        value: props.formData.addFee
+      },
+      {    
+        index: 'e',
+        title: "Total Fee (include VAT)",
+        value: props.formData.totalFee
+      }
+    ]
       const recipientFare = [{
         title: "exchange",
         value: "4"
@@ -214,7 +238,7 @@ function ParcelInfo(props) {
                   <p>
                     <b>8. Date of Sending</b>
                   </p>
-                  <p>paths[0].time.timeArrived</p>
+                  <p>{dayjs(props.formData.date).format('YYYY-MM-DD')}|{dayjs(props.formData.time).format('HH:mm')}</p>
                 </div>
                 <div className="signature">
                   <p>
@@ -282,7 +306,7 @@ function ParcelInfo(props) {
                   <p>
                     <b>12. Notes</b>
                   </p>
-                  <p>{notes}</p>
+                  <p>{props.formData.note}</p>
                 </div>
               </div>
             </div>
