@@ -15,14 +15,19 @@ const CentralPointTable = ({ data }) => {
       key: 'id',
     },
     {
-      title: 'City',
-      dataIndex: 'city',
+      title: 'Address',
+      dataIndex: 'address',
       key: 'city',
     },
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+    },
+    {
+      title: 'Manager',
+      dataIndex: 'manager',
+      key: 'manager',
     },
     {
       title: 'Delete',

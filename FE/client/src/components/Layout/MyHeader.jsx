@@ -6,7 +6,7 @@ import AppContext from "../AppContext";
 
 //const { Header} = Layout;
 
-export default function MyHeader({ username }) {
+export default function MyHeader({ username, userRole }) {
     const { setUser, user } = useContext(AppContext);
     const userType = user.isAdmin ? "" : "";
   
@@ -29,7 +29,8 @@ export default function MyHeader({ username }) {
     const onClick = async ({ key }) => {
       switch (key) {
         case "changePassword":
-          navigate('/CEO/changePassword');
+          const changePasswordPath = `/${userRole}/changePassword`;
+          navigate(changePasswordPath);
           break;
         case "logOut":
           localStorage.removeItem("token");

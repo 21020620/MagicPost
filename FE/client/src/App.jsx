@@ -55,17 +55,20 @@ export default function App() {
         <Route index element={<MainPageLayout />} />
         <Route path="account" element={<TransactionManagerAccount />} />
         <Route path="statistic" element={<TransactionManagerStatistic />} />
+        <Route path="changePassword" element={<ChangePassword />} />
       </Route>
 
       <Route path="/TE" element={<TransactionEmployeeLayout />}>
         <Route index element={<MainPageLayout />} />
         <Route path="order" element={<CreateOrder />} />
+        <Route path="changePassword" element={<ChangePassword />} />
       </Route>
 
       <Route path="/Central" element={<CentralManagerLayout />}>
         <Route index element={<MainPageLayout />} />
         <Route path="account" element={<CentralManagerAccount />} />
         <Route path="statistic" element={<CentralManagerStatistic />} />
+        <Route path="changePassword" element={<ChangePassword />} />
       </Route>
     </Routes>
   );

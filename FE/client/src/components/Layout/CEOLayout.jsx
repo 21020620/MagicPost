@@ -85,7 +85,7 @@ const CEOLayout = () => {
             background: colorBgContainer,
           }}
         >
-          <MyHeader username={"CEO"} />
+          <MyHeader username={"CEO"} userRole="CEO"/>
         </Header>
         <Content
           style={{

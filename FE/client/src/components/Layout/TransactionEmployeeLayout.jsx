@@ -76,7 +76,7 @@ const TransactionEmployeeLayout = () => {
             background: colorBgContainer,
           }}
         >
-          <MyHeader username={"Transaction Employee"} />
+          <MyHeader username={"Transaction Employee"} userRole="TE"/>
         </Header>
         <Content
           style={{

@@ -69,7 +69,7 @@ const TransactionManagerLayout = () => {
             background: colorBgContainer,
           }}
         >
-          <MyHeader username={"Transaction Manager"} />
+          <MyHeader username={"Transaction Manager"}/>
         </Header>
         <Content
           style={{
