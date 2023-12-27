@@ -21,6 +21,11 @@ const AdminController = (fastify, options, done) => {
         reply.status(200).send(employee);
     });
 
+    fastify.get('/cpointm', async (req, reply) => {
+        const employees = await adminService.getCentralPointManagers();
+        reply.status(200).send(employees);
+    });
+
     fastify.post('/employees', async (req, reply) => {
         const employee = req.body;
         await AccountService.createAccount({
@@ -39,6 +44,17 @@ const AdminController = (fastify, options, done) => {
     fastify.delete('/employees/:companyID', async (req, reply) => {
         const deletedEmployee = await adminService.deleteEmployee(req.params.companyID);
         reply.status(200).send('Employee deleted: ', deletedEmployee);
+    });
+
+    fastify.delete('/cpoint/:id', async (req, reply) => {
+        const deletedCPoint = await adminService.deleteCPoint(parseInt(req.params.id));
+        reply.status(200).send('Central point deleted: ', deletedCPoint);
+    });
+
+    fastify.post('/cpoint', async (req, reply) => {
+        const cpoint = req.body;
+        const newCPoint = await adminService.createCPoint(cpoint);
+        reply.status(201).send('New central point created: ', newCPoint);
     });
 
     done();
