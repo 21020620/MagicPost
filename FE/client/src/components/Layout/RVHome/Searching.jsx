@@ -45,7 +45,7 @@ const DeliveryTrackingPage = () => {
         <Form
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 14 }}
-          className={styles.customer-info-form}
+          className={styles['customer-info-form']}
         >
           <Form.Item label="Tên khách hàng">{customerInfo.name}</Form.Item>
           <Form.Item label="Tuổi">{customerInfo.age}</Form.Item>
