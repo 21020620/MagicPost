@@ -31,17 +31,12 @@ export default function HomeHeader() {
       onClick: () => navigate("/search"),
     },
     {
-      text: "Giá cước phục vụ",
+      text: "Giá cước dịch vụ",
       icon: <DollarCircleOutlined />,
       onClick: () =>
         window.open(
           "https://drive.google.com/file/d/1SAVyehyUTDTp9IamGfi_OOKgKs-MKTUY/view?usp=sharing"
         ),
-    },
-    {
-      text: "Địa điểm tập kết",
-      icon: <EnvironmentOutlined />,
-      onClick: () => navigate("/TapKet"),
     },
   ];
 

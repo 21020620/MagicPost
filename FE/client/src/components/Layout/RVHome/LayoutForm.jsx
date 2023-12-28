@@ -1,6 +1,6 @@
 import QRCode from "react-qr-code";
 import { Table } from 'antd';
-import "../../../App.css";
+import "./Searching.css";
 
 function TrackingParcelInformation() {
   const senderInfo = {

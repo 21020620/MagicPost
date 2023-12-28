@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Input, Button, Empty, Form, Timeline, Modal } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import '../../../App.css'; 
+import './Searching.css'; 
 import { useNavigate } from 'react-router-dom';
 
 
