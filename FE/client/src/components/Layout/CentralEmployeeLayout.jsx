@@ -23,10 +23,6 @@ const menuItems = [
   ),
 
   getItem(
-    <NavLink to="/CE/order">Tạo đơn hàng</NavLink>, "2", <HomeOutlined />
-  ),
-
-  getItem(
     <NavLink to="/CE/confirm">Xác nhận đơn</NavLink>, "3", <HomeOutlined />
   ),
 ];
@@ -72,7 +68,7 @@ const CentralEmployeeLayout = () => {
             background: colorBgContainer,
           }}
         >
-          <MyHeader username={"Transaction Employee"} userRole="TE"/>
+          <MyHeader username={"Central Employee"} userRole="CE"/>
         </Header>
         <Content
           style={{

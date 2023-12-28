@@ -114,23 +114,23 @@ const CreateOrder = () => {
   const instructionOptions = [
     {
       label: 'Return immediately',
-      value: 1,
+      value: 'Return immediately',
     },
     {
       label: 'Call sender/Transaction point',
-      value: 2,
+      value: 'Call sender/Transaction point',
     },
     {
       label: 'Cancel order',
-      value: 3,
+      value: 'Cancel order',
     },
     {
       label: 'Return before date',
-      value: 4,
+      value: 'Return before date',
     },
     {
       label: 'Return when storing time expired',
-      value: 5,
+      value: 'Return when storing time expired',
     },
   ];
 
@@ -176,6 +176,19 @@ const CreateOrder = () => {
             </Form.Item>
 
             <Form.Item
+                name="senderPostalCode"
+                label="Sender postal code"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input sender Postal Code!',
+                    },
+                    ]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
                 name="receiverInfo"
                 label="Name, address receiver"
                 rules={[
@@ -195,6 +208,19 @@ const CreateOrder = () => {
                     {
                         required: true,
                         message: 'Please input receiver phone number!',
+                    },
+                    ]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
+                name="receiverPostalCode"
+                label="Receiver postal code"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input receiver postal code!',
                     },
                     ]}
             >
@@ -326,7 +352,7 @@ const CreateOrder = () => {
 
             <Form.Item {...tailFormItemLayout}>
               <Button type="primary" htmlType="submit" onClick={showModal}>
-                Register
+                Create
               </Button>
             </Form.Item>
 

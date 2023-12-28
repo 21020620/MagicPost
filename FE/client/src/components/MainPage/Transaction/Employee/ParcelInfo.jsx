@@ -1,5 +1,6 @@
 import QRCode from "react-qr-code";
 import "../../../../App.css";
+import { Table } from 'antd';
 import dayjs from 'dayjs';
 import 'dayjs/locale/en';
 import styles from '../../../Layout/RVHome/Searching.module.css';
@@ -55,10 +56,20 @@ function ParcelInfo(props) {
         value: props.formData.totalFee
       }
     ]
-      const recipientFare = [{
-        title: "exchange",
-        value: "4"
-      }]
+    const recipientFare = [
+      {
+        title: "COD",
+        value: "0", 
+      },
+      {
+        title: "Additional Fee",
+        value: "0", 
+      },
+      {
+        title: "Total Fee",
+        value: "0", 
+      },
+    ];
       const weight = [{
         title: "thuc te",
         value: props.formData.weight
@@ -69,7 +80,46 @@ function ParcelInfo(props) {
       },
     ]
       const delivered = true;
-      const notes = "Hoang rat dep trai nhe ae"
+      const notes = "Hoang rat dep trai nhe ae";
+      const columns = [
+        {
+          title: <strong>Nội dung</strong>,
+          dataIndex: 'content',
+          key: 'content',
+        },
+        {
+          title: <strong>Số lượng</strong>,
+          dataIndex: 'quantity',
+          key: 'quantity',
+        },
+        {
+          title: <strong>Trị giá</strong>,
+          dataIndex: 'value',
+          key: 'value',
+        },
+        {
+          title: <strong>Giấy tờ đính kèm</strong>,
+          dataIndex: 'attachment',
+          key: 'attachment',
+        },
+      ];
+
+      const data = [
+        {
+          key: '1',
+          content: '1',
+          quantity: '2',
+          value: '3',
+          attachment: '4',
+        },
+      ];
+      const tableProps = {
+        columns,
+        dataSource: data,
+        bordered: true,
+        pagination: false, 
+      };
+      
     return (
       <div className={styles.parcel-information}>
         <h2>Parcel Information</h2>

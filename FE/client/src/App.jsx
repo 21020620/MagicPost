@@ -12,6 +12,7 @@ import CentralManagerLayout from "./components/Layout/CentralManagerLayout";
 import CentralManagerAccount from "./components/MainPage/Central/Manager/Account/CentralManagerAccount";
 import CentralManagerStatistic from "./components/MainPage/Central/Manager/Statistic/CentralManagerStatistics";
 import CenLayout from "./components/Layout/RVHome/CenLayout";
+import CentralEmployeeLayout from "./components/Layout/CentralEmployeeLayout";
 import TransactionManagerLayout from "./components/Layout/TransactionManagerLayout";
 import TransactionManagerAccount from "./components/MainPage/Transaction/Manager/Account/TransactionManagerAccount";
 import TransactionManagerStatistic from "./components/MainPage/Transaction/Manager/Statistic/TransactionManagerStatistic";
@@ -69,6 +70,11 @@ export default function App() {
         <Route index element={<MainPageLayout />} />
         <Route path="account" element={<CentralManagerAccount />} />
         <Route path="statistic" element={<CentralManagerStatistic />} />
+        <Route path="changePassword" element={<ChangePassword />} />
+      </Route>
+
+      <Route path="/CE" element={<CentralEmployeeLayout />}>
+        <Route index element={<MainPageLayout />} />
         <Route path="changePassword" element={<ChangePassword />} />
       </Route>
     </Routes>

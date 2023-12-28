@@ -97,7 +97,7 @@ export default function Login() {
           name="username"
           onChange={handleChange}
           onKeyUp={handleKeyUp}
-          style={{ width: '75%' }}
+          style={{ width: '50%' }}
         />
 
         <Input.Password
@@ -106,7 +106,7 @@ export default function Login() {
           prefix={<LockOutlined />}
           name="password"
           onChange={handleChange}
-          style={{ width: '75%' }}
+          style={{ width: '50%' }}
           onKeyUp={handleKeyUp}
           iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
       />
