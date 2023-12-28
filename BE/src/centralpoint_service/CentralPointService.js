@@ -68,6 +68,15 @@ const CentralPointService = {
         });
         return employee && employee.CEmployee ? employee.CEmployee.department : null;
     },
+
+    getTPointsFromCpoint: async (CpointID) => {
+        const tpoints = await prisma.tPoint.findMany({
+            where: {
+                parentCPId: CpointID,
+            }
+        });
+        return tpoints;
+    }
 };
 
 export default CentralPointService;

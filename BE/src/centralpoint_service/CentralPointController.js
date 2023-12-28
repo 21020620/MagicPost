@@ -5,7 +5,7 @@ const centralPointController = (fastify, options, done) => {
 
     fastify.addHook('preHandler', async (request, reply) => {
         authenticationHandler(fastify, request, reply);
-        if (!['admin', 'cpointm'].includes(request.role)) {
+        if (!['admin', 'cpointm', 'tpointw'].includes(request.role)) {
             reply.code(403).send({ message: 'You are not allowed to access this resource' });
         }
     });
@@ -35,6 +35,11 @@ const centralPointController = (fastify, options, done) => {
         const username = getUsernameFromToken(fastify, req);
         const cpoint = await cpService.getCPointFromAccount(username);
         reply.status(200).send(cpoint);
+    });
+
+    fastify.get('/tpoints/:id', async (req, reply) => {
+        const tpoints = await cpService.getTPointsFromCpoint(parseInt(req.params.id));
+        reply.status(200).send(tpoints);
     });
     
     done();
