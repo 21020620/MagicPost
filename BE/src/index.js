@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Fastify from "fastify";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCors from "@fastify/cors";
@@ -29,9 +30,19 @@ fastify.register(CentralPointController, { prefix: '/api/cpoint' });
 fastify.register(AdminController, { prefix: '/api/admin' });
 fastify.register(TransactionPointController, { prefix: '/api/tpoint' });
 
-try {
-    fastify.listen({ port: 8080});
-} catch (error) {
-    fastify.log.error(error);
-    process.exit(1);
+async function main() {
+    await fastify.listen({
+        port: 8080,
+        host: '0.0.0.0'
+    });
 }
+
+["SIGINT", "SIGTERM"].forEach((signal) => {
+    process.on(signal, async () => {
+        await fastify.close();
+        process.exit(0);
+    });
+});
+
+main();
+

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
-import { Layout, Menu, theme, Button } from 'antd';
+import { Layout, Form, theme, Button, Modal } from 'antd';
 import GatheringPointTable from './CentralPointTable';
 const { Header, Content, Footer, Sider } = Layout;
 import MyHeader from '../../../Layout/MyHeader';
 import CentralPointTable from './CentralPointTable';
+import AddCentral from '../../../Layout/AddCentral';
+import axiosInstance from '../../../DefaultAxios';
 
   
 const CEOcentral = () => {
@@ -13,48 +15,61 @@ const CEOcentral = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const [data, setData] = useState([
-    {
-      "id": "1",
-      "city": "Hanoi",
-      "name": "Diem so 1"
-    },
-    {
-      "id": "2",
-      "city": "HCM",
-      "name": "Diem so 2"
-    },
-    {
-      "id": "3",
-      "city": "Hoa Binh",
-      "name": "Diem so 3"
-    },
-    {
-      "id": "4",
-      "city": "Thai Binh",
-      "name": "Diem so 4"
-    },
-  ]
-  );
+  const [data, setData] = useState([]);
+  const [managers, setManagers] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [formData, setFormData] = useState({});
+
+  const handleAddButtonClick = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleModalCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const fetchData = async () => {
+    const [cpoints, managers] = await Promise.all([
+      axiosInstance.get('/api/cpoint'),
+      axiosInstance.get('/api/admin/cpointm'),
+    ]);
+    setData(cpoints.data);
+    setManagers(managers.data);
+  };
+
+  const handleAddCpoint = async () => {
+    console.log(formData);
+    await axiosInstance.post('/api/admin/cpoint', formData);
+    setIsModalVisible(false);
+    fetchData();
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log('Response: ', data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
     fetchData();
   }, []);
 
   return (
     <div>
-      <Button type="primary" style={{ marginBottom: 16, float: "left" }}>
+      <Button type="primary" style={{ marginBottom: 16, float: "left" }} onClick={handleAddButtonClick}>
         Add
       </Button>
-      <CentralPointTable data={data} />
+      <CentralPointTable data={data} managers={managers} />
+
+      <Modal
+        title="Modal Title"
+        visible={isModalVisible}
+        onCancel={handleModalCancel}
+        footer={[
+          <Button key="cancel" onClick={handleModalCancel}>
+            Cancel
+          </Button>,
+          <Button key="add" type="primary" onClick={handleAddCpoint}>
+            Add
+          </Button>
+        ]}
+      >
+        <AddCentral setFormData={setFormData} data={data}/>
+      </Modal>
     </div>
   );
 };

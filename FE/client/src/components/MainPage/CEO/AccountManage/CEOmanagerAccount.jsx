@@ -60,7 +60,7 @@ const CEOmanagerAccount = () => {
           </Button>,
           <Button key="add" type="primary" onClick={handleAddEmployee}>
             Add
-          </Button>,
+          </Button>
         ]}
         width={700}
       >

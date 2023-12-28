@@ -9,11 +9,14 @@ const CentralManagerAccount = () => {
   const [loading, setLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [formData, setFormData] = useState({});
+  const [workplace, setWorkplace] = useState({});
 
   const fetchData = async () => {
     try {
-      const response = await axiosInstance.get('/api/admin/employees');
-      setData(response.data);
+      const workplaceResponse = await axiosInstance.get('/api/cpoint/cpFromAccount');
+      setWorkplace(workplaceResponse.data);
+      const response = await axiosInstance.get(`/api/cpoint/employees/${workplaceResponse.data.id}`);
+      setData(response.data.map((item) => (item.Employee)));
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -22,7 +25,6 @@ const CentralManagerAccount = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect triggered.');
     fetchData();
   }, []);
 
@@ -35,7 +37,10 @@ const CentralManagerAccount = () => {
   };
 
   const handleAddEmployee = () => {
+    formData.role = 'cpointw';
+    formData.CEmployee = { create: {cpointId: workplace.id} };
     console.log(formData);
+    axiosInstance.post('/api/admin/employees', formData);
     setIsModalVisible(false);
   };
 

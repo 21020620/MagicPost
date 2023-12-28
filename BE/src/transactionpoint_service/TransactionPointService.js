@@ -16,10 +16,15 @@ const TransactionPointService = {
         return transactionpoint;
     },
 
-    getEmployeesOfTransactionPoint: async (TransactionPointID) => {
+    getEmployeesOfTPoint: async (TransactionPointID) => {
         const employees = await prisma.tEmployee.findMany({
             where: {
                 tpointId: TransactionPointID,
+                Employee: {
+                    role: {
+                        not: 'tpointm',
+                    }
+                }
             },
             include: {
                 Employee: true,
@@ -46,7 +51,24 @@ const TransactionPointService = {
             }
         });
         return transactionpoints;
-    }
+    },
+
+    getTPointFromAccount: async (username) => {
+        const employee = await prisma.employee.findUnique({
+            where: {
+                email: username,
+            },
+            include: {
+                TEmployee: {
+                    include: {
+                        department: true,
+                    },
+                },
+            },
+        });
+    
+        return employee && employee.TEmployee ? employee.TEmployee.department : null;
+    },
 }
 
 export default TransactionPointService;

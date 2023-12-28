@@ -70,7 +70,7 @@ const CentralManagerLayout = () => {
             background: colorBgContainer,
           }}
         >
-          <MyHeader username={"Central Manager"} />
+          <MyHeader username={"Central Manager"} userRole="Central"/>
         </Header>
         <Content
           style={{

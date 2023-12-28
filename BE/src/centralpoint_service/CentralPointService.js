@@ -20,6 +20,11 @@ const CentralPointService = {
         const employees = await prisma.cEmployee.findMany({
             where: {
                 cpointId: CpointID,
+                Employee: {
+                    role: {
+                        not: 'cpointm',
+                    }
+                }
             },
             include: {
                 Employee: true,
@@ -46,7 +51,23 @@ const CentralPointService = {
             }
         });
         return cpoints;
-    }
+    },
+
+    getCPointFromAccount: async (username) => {
+        const employee = await prisma.employee.findUnique({
+            where: {
+                email: username,
+            },
+            include: {
+                CEmployee: {
+                    include: {
+                        department: true,
+                    },
+                },
+            },
+        });
+        return employee && employee.CEmployee ? employee.CEmployee.department : null;
+    },
 };
 
 export default CentralPointService;

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { validateEmail } from '../../logic';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../../redux/user.js';
 
 const { Title } = Typography;
 
@@ -11,6 +13,8 @@ export default function Login() {
   const [loginData, setLoginData] = useState({ username: '', password: '' });
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
+  const { user, workplace } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -50,14 +54,17 @@ export default function Login() {
     try {
       let isLoggedIn = false;
       let role = '';
-      console.log(loginData);
       await loginAxios.post('/login', loginData)
         .then(res => {
+          const response = res.data;
           isLoggedIn = true;
           console.log("User logged in successfully!");
-          localStorage.setItem('token', res.data.token);
-          localStorage.setItem('role', res.data.role);
-          role = res.data.role;
+          localStorage.setItem('token', response.token);
+          dispatch(login(response));
+          console.log('response: ', response);
+          role = response.role;
+          console.log('user: ', user);
+          console.log('workplace: ', workplace);
         })
         .catch(err => {
           console.log(err);
@@ -66,7 +73,8 @@ export default function Login() {
       if (isLoggedIn) {
         if(role === 'cpointm') navigate('/Central');
         else if(role === 'tpointm') navigate('/Transaction');
-        else navigate('/CEO');
+        else if (role === 'admin') navigate('/CEO');
+        else navigate('/TE');
       } else {
         messageApi.error('Tên đăng nhập hoặc mật khẩu không đúng.');
       }

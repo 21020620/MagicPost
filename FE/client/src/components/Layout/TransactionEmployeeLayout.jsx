@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
@@ -6,7 +6,8 @@ const { Header, Content, Footer, Sider } = Layout;
 import { Outlet } from "react-router-dom";
 import logo from "../../img/icon.png"
 import MyHeader from '../Layout/MyHeader';
-import MyFooter from '../Layout/MyFooter';
+import axiosInstance from '../DefaultAxios.jsx';
+
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -18,22 +19,28 @@ function getItem(label, key, icon, children) {
 
 const menuItems = [
   getItem(
-    <NavLink to="/Transaction">Trang chủ</NavLink>, "1", <HomeOutlined />
+    <NavLink to="/TE">Trang chủ</NavLink>, "1", <HomeOutlined />
   ),
 
   getItem(
-    <NavLink to="/Transaction/account">Quản lý tài khoản</NavLink>, "4", <HomeOutlined />
+    <NavLink to="/TE/order">Tạo đơn hàng</NavLink>, "2", <HomeOutlined />
+  ),
+
+  getItem(
+    <NavLink to="/TE/confirm">Xác nhận đơn</NavLink>, "3", <HomeOutlined />
   ),
 
   getItem(  
-    <NavLink to="/Transaction/statistic">Thống kê</NavLink>, "5", <HomeOutlined />
+    <NavLink to="/TE/statistic">Thống kê</NavLink>, "4", <HomeOutlined />
   ),
 ];
   
-const TransactionManagerLayout = () => {
+const TransactionEmployeeLayout = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+
   return (
     <Layout hasSider>
       <Sider
@@ -69,7 +76,7 @@ const TransactionManagerLayout = () => {
             background: colorBgContainer,
           }}
         >
-          <MyHeader username={"Transaction Manager"}/>
+          <MyHeader username={"Transaction Employee"} userRole="TE"/>
         </Header>
         <Content
           style={{
@@ -87,11 +94,15 @@ const TransactionManagerLayout = () => {
             <Outlet />
           </div>
         </Content>
-        <Footer>
-          <MyFooter />
+        <Footer
+          style={{
+            textAlign: 'center',
+          }}
+        >
+          Ant Design ©2023 Created by Ant UED
         </Footer>
       </Layout>
     </Layout>
   );
 };
-export default TransactionManagerLayout;
+export default TransactionEmployeeLayout;

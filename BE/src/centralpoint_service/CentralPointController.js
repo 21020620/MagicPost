@@ -1,4 +1,4 @@
-import { authenticationHandler } from "../authentication_service/AuthenService.js";
+import { authenticationHandler, getUsernameFromToken } from "../authentication_service/AuthenService.js";
 import cpService from "./CentralPointService.js";
 
 const centralPointController = (fastify, options, done) => {
@@ -10,7 +10,7 @@ const centralPointController = (fastify, options, done) => {
         }
     });
     
-    fastify.get('employees/:id', async (req, reply) => {
+    fastify.get('/employees/:id', async (req, reply) => {
         const id = parseInt(req.params.id, 10);
         if (isNaN(id)) {
             reply.code(400).send({ message: 'Invalid id parameter' });
@@ -23,6 +23,18 @@ const centralPointController = (fastify, options, done) => {
     fastify.get('/without', async (req, reply) => {
         const cpoints = await cpService.getCentralPointsWithoutManager();
         reply.status(200).send(cpoints);
+    });
+
+
+    fastify.get('/', async (req, reply) => {
+        const cpoints = await cpService.getAllCPoints();
+        reply.status(200).send(cpoints);
+    });
+
+    fastify.get('/cpFromAccount', async (req, reply) => {
+        const username = getUsernameFromToken(fastify, req);
+        const cpoint = await cpService.getCPointFromAccount(username);
+        reply.status(200).send(cpoint);
     });
     
     done();

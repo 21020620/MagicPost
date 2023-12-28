@@ -15,6 +15,27 @@ const AdminService = {
         return employee;
     },
 
+    getEmployeeByEmail: async (email) => {
+        const employee = await prisma.employee.findUnique({
+            where: {
+                email,
+            }
+        });
+        return employee;
+    },
+
+    getCentralPointManagers: async () => {
+        const employees = await prisma.employee.findMany({
+            where: {
+                role: 'cpointm',
+            },
+            include: {
+                CEmployee: true,
+            }
+        });
+        return employees;
+    },
+
     createEmployee: async (employee) => {
         const lastEmployee = await prisma.employee.findFirst({
             orderBy: {
@@ -48,6 +69,20 @@ const AdminService = {
             }
         });
         return deletedEmployee;
+    },
+
+    createCPoint: async (cpoint) => {
+        await prisma.cPoint.create({
+            data: cpoint,
+        });
+    },
+
+    deleteCPoint: async (id) => {
+        await prisma.cPoint.delete({
+            where: {
+                id,
+            }
+        });
     },
 };
 
