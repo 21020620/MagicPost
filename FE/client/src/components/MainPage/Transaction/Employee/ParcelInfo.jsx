@@ -2,10 +2,14 @@ import QRCode from "react-qr-code";
 import "../../../../App.css";
 import { Table } from 'antd';
 import dayjs from 'dayjs';
+import React from "react";
 import 'dayjs/locale/en';
 import styles from '../../../Layout/RVHome/Searching.module.css';
+import { useSelector } from "react-redux";
 
-function ParcelInfo(props) {
+const ParcelInfo = (props) => {
+  const { user, workplace } = useSelector((state) => state.user);
+
       const senderInfo = {
         nameAddress: "Nhà hát chèo",
         phoneNum: 123456789,
@@ -122,25 +126,33 @@ function ParcelInfo(props) {
       
     return (
       <div className={styles['parcel-information']}>
+<<<<<<< HEAD
         <h2>Parcel Information</h2>
+=======
+        <h2>Parcel Information: {props.formData.id}</h2>
+>>>>>>> 90ed083ed8b3d47317b9b1738a8183af071867ff
         <div className={styles.boxes}>
           <div className={styles.box}>
             <div className={styles.header}>
               <p>
                 <b>1. Sender's name and address</b>
               </p>
-              <p>{props.formData.senderInfo}</p>
+              <p>
+                {props.formData.order.sender.fullName}
+              <br />
+                {props.formData.order.sender.address}
+              </p>
             </div>
             <div>
               <p>
-                <b>Phone number:</b> {props.formData.senderPhone}
+                <b>Phone number:</b> {props.formData.order.senderPhone}
               </p>
               <div className={styles.code}>
                 <p>
-                  <b>Customer Id:</b> {senderInfo.customerId}
+                  <b>Customer Id:</b> {props.formData.sender.order.customerID}
                 </p>
                 <p>
-                  <b>Postal Code:</b> 1000
+                  <b>Postal Code:</b> {workplace.postalCode}
                 </p>
               </div>
             </div>
@@ -150,18 +162,19 @@ function ParcelInfo(props) {
               <p>
                 <b>2. Recipient's name and address</b>
               </p>
-              <p>{props.formData.receiverInfo}</p>
+              <p>
+                {props.formData.receiver.fullName}
+                <br />
+                {props.formData.receiver.address}
+              </p>
             </div>
             <div>
               <p>
-                <b>Parcel Id:</b> #{parcelId}
+                <b>Parcel ID:</b> {props.formData.id}
               </p>
               <div className={styles.code}>
                 <p>
                   <b>Phone Number:</b> {props.formData.receiverPhone}
-                </p>
-                <p>
-                  <b>Postal Code:</b> 1000
                 </p>
               </div>
             </div>
@@ -178,7 +191,7 @@ function ParcelInfo(props) {
                     <input
                       type="checkbox"
                       className={styles.input}
-                      checked={props.formData.orderType === 'Document'}
+                      checked={props.formData.orderType === true}
                       disabled
                     />
                     <span className={styles['custom-checkbox']}></span>
@@ -188,7 +201,7 @@ function ParcelInfo(props) {
                     <input
                       type="checkbox"
                       className={styles.input}
-                      checked={props.formData.orderType === 'Good'}
+                      checked={props.formData.orderType === false}
                       disabled
                     />
                     <span className={styles['custom-checkbox']}></span>
@@ -279,13 +292,14 @@ function ParcelInfo(props) {
                   reverse side of the delivery slip. I affirm that the contents of
                   this parcel comply with all safety regulations, and no
                   prohibited items are enclosed.
-                  {/* In the event that delivery is unsuccessful, kindly refer to
-              the guidelines outlined in section 6, and I commit to
-              covering any associated shipping fees. */}
                 </p>
               </div>
               <div className={styles['sender-signature']}>
+<<<<<<< HEAD
                 <div className={styles.date}>
+=======
+                <div className={styles.date} >
+>>>>>>> 90ed083ed8b3d47317b9b1738a8183af071867ff
                   <p>
                     <b>8. Date of Sending</b>
                   </p>

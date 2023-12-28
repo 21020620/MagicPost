@@ -7,6 +7,7 @@ import AccountController from "./authentication_service/AccountController.js";
 import CentralPointController from "./centralpoint_service/CentralPointController.js";
 import AdminController from "./admin_service/AdminController.js";
 import TransactionPointController from "./transactionpoint_service/TransactionPointController.js";
+import OrderController from "./order_service/OrderController.js";
 
 const logger = pino({
     transport: {
@@ -29,6 +30,7 @@ fastify.register(AccountController);
 fastify.register(CentralPointController, { prefix: '/api/cpoint' });
 fastify.register(AdminController, { prefix: '/api/admin' });
 fastify.register(TransactionPointController, { prefix: '/api/tpoint' });
+fastify.register(OrderController, { prefix: '/api/orders' });
 
 async function main() {
     await fastify.listen({

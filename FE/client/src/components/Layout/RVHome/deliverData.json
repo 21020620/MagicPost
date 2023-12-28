@@ -8,6 +8,12 @@
         "phone": "123456789",
         "gender": "Male"
       },
+      "receiver": {
+        "name": "Receiver A",
+        "age": 28,
+        "phone": "987654321",
+        "gender": "Female"
+      },
       "orderDetails": {
         "status": "Chuẩn bị hàng",
         "statusHistory": [
@@ -24,6 +30,12 @@
         "phone": "987654321",
         "gender": "Female"
       },
+      "receiver": {
+        "name": "Receiver B",
+        "age": 26,
+        "phone": "123456789",
+        "gender": "Male"
+      },
       "orderDetails": {
         "status": "Đã lấy hàng",
         "statusHistory": [
@@ -39,6 +51,12 @@
         "age": 35,
         "phone": "111222333",
         "gender": "Male"
+      },
+      "receiver": {
+        "name": "Receiver C",
+        "age": 32,
+        "phone": "444555666",
+        "gender": "Female"
       },
       "orderDetails": {
         "status": "Đang giao",
@@ -57,6 +75,12 @@
         "age": 28,
         "phone": "555666777",
         "gender": "Female"
+      },
+      "receiver": {
+        "name": "Receiver D",
+        "age": 30,
+        "phone": "777888999",
+        "gender": "Male"
       },
       "orderDetails": {
         "status": "Hoàn thành",

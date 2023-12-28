@@ -1,27 +1,3 @@
-/* css cho tra cứu */
-.ant-input {
-    width: 120px; 
-  }
-  
-  .ant-card-head-title {
-    font-size: 40px; 
-    font-weight: bold;
-    color: black;
-  }
-  
-  .customer-info-form {
-    border: 1px solid black;
-    padding: 16px;
-    margin-top: 20px;
-  }
-  
-  .ant-steps-vertical .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon {
-    background-color: #1890ff; 
-  }
-  
-  .ant-steps-vertical .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
-    background-color: #52c41a; 
-  }
 
   /*css cho trang bill*/
 .parcel-information {
@@ -292,6 +268,31 @@
 
 /*thêm*/
 /* Searching.module.css */
+
+/* css cho tra cứu */
+.ant-input {
+  width: 120px; 
+}
+
+.ant-card-head-title {
+  font-size: 80px; 
+  font-weight: bold;
+  color: black;
+}
+
+.customer-info-form {
+  border: 1px solid black;
+  padding: 16px;
+  margin-top: 20px;
+}
+
+.ant-steps-vertical .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon {
+  background-color: #1890ff; 
+}
+
+.ant-steps-vertical .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+  background-color: #52c41a; 
+}
 
 .delivery-tracking-page-container {
   display: flex;

@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Input, Button, Empty, Form, Timeline, Modal } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
-import axios from 'axios';
-import styles from './Searching.module.css';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Input, Button, Empty, Timeline, Modal, Table, Layout } from "antd";
+import axios from "axios";
+import styles from "./Searching.module.css";
+import { useNavigate } from "react-router-dom";
+import background_image from "../../../img/BG_for_search.jpg";
 
+const { Content } = Layout;
 
 const DeliveryTrackingPage = () => {
   const navigate = useNavigate();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [data, setData] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
   const [isMatchFound, setIsMatchFound] = useState(true);
@@ -16,39 +17,91 @@ const DeliveryTrackingPage = () => {
 
   useEffect(() => {
     axios
-      .get('https://65661dcbeb8bb4b70ef2ecce.mockapi.io/api/v1/dataDeliver')
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
+      .get("https://65661dcbeb8bb4b70ef2ecce.mockapi.io/api/v1/dataDeliver")
+      .then((response) => setData(response.data))
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   const handleSearch = () => {
     if (data) {
-      const matchingOrders = data.filter((order) => order.orderID.toLowerCase() === query.toLowerCase());
+      const matchingOrders = data.filter(
+        (order) => order.orderID.toLowerCase() === query.toLowerCase()
+      );
       setFilteredData(matchingOrders);
       setIsMatchFound(matchingOrders.length > 0);
-      setModalVisible(true); // Show the modal after searching
+      setModalVisible(true);
     }
   };
 
   const handleNavigateToLayoutForm = () => {
-    // Add any necessary logic here before navigating, if needed
-    navigate('/bill');
+    navigate("/bill");
   };
 
-  const renderCustomerInfo = () => {
+  const handleModalCancel = () => {
+    setModalVisible(false);
+  };
+
+  const renderRecipientInfo = () => {
     if (filteredData.length > 0) {
-      const customerInfo = filteredData[0].customer;
+      const recipientInfo = filteredData[0].customer;
+
+      const columns = [
+        { title: "Tên người nhận", dataIndex: "name" },
+        { title: "Tuổi", dataIndex: "age" },
+        { title: "Số điện thoại", dataIndex: "phone" },
+        { title: "Giới tính", dataIndex: "gender" },
+      ];
+
+      const dataSource = [
+        {
+          key: "1",
+          name: recipientInfo.name,
+          age: recipientInfo.age,
+          phone: recipientInfo.phone,
+          gender: recipientInfo.gender,
+        },
+      ];
+
       return (
-        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 14 }} className={styles['customer-info-form']}>
-          <Form.Item label="Tên khách hàng">{customerInfo.name}</Form.Item>
-          <Form.Item label="Tuổi">{customerInfo.age}</Form.Item>
-          <Form.Item label="Số điện thoại">{customerInfo.phone}</Form.Item>
-          <Form.Item label="Giới tính">{customerInfo.gender}</Form.Item>
-        </Form>
+        <Table
+          columns={columns}
+          dataSource={dataSource}
+          pagination={false}
+          size="middle"
+        />
+      );
+    }
+    return null;
+  };
+
+  const renderSenderDetails = () => {
+    if (filteredData.length > 0) {
+      const senderDetails = filteredData[0].receiver;
+
+      const columns = [
+        { title: "Tên người gửi", dataIndex: "name" },
+        { title: "Tuổi", dataIndex: "age" },
+        { title: "Số điện thoại", dataIndex: "phone" },
+        { title: "Giới tính", dataIndex: "gender" },
+      ];
+
+      const dataSource = [
+        {
+          key: "1",
+          name: senderDetails.name,
+          age: senderDetails.age,
+          phone: senderDetails.phone,
+          gender: senderDetails.gender,
+        },
+      ];
+
+      return (
+        <Table
+          columns={columns}
+          dataSource={dataSource}
+          pagination={false}
+          size="middle"
+        />
       );
     }
     return null;
@@ -65,13 +118,8 @@ const DeliveryTrackingPage = () => {
           const previousStatus = statusHistory[index - 1].status;
 
           switch (item.status) {
-            case 'Đang giao':
-              description =
-                previousStatus === 'Đã lấy hàng'
-                  ? item.locations && item.locations.length > 0
-                    ? `Đã đến ${item.locations.join(', ')} vào lúc ${item.timestamp}`
-                    : `Thời gian: ${item.timestamp}`
-                  : 'Đang giao';
+            case "Đang giao":
+              // Handle 'Đang giao' status
               break;
             default:
               break;
@@ -85,7 +133,14 @@ const DeliveryTrackingPage = () => {
       });
 
       return (
-        <Timeline style={{ marginTop: '20px', borderLeft: '2px solid #1890ff', paddingLeft: '20px' }}>
+        <Timeline
+          style={{
+            marginTop: "20px",
+            borderLeft: "2px solid #1890ff",
+            paddingLeft: "20px",
+          }}
+          mode="left"
+        >
           {timelineItems.map((item) => (
             <Timeline.Item key={item.title} label={item.title}>
               {item.description}
@@ -97,46 +152,89 @@ const DeliveryTrackingPage = () => {
     return null;
   };
 
-  const handleModalCancel = () => {
-    setModalVisible(false);
-  };
-
   return (
-    <div className={styles['delivery-tracking-page-container']}>
-      <Card title="Vui lòng nhập mã vận đơn">
-        <Input
+    <div
+      className={styles["delivery-tracking-page-container"]}
+      style={{
+        backgroundImage: `url(${background_image})`,
+        backgroundSize: "auto",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div style={{ textAlign: "center", marginBottom: "20px" }}>
+        <h1
+          style={{
+            fontSize: "80px",
+            fontWeight: "bold",
+            color: "white",
+            marginBottom: "10px",
+          }}
+        >
+          MaggicPost
+        </h1>
+        <p
+          style={{
+            fontSize: "24px",
+            fontWeight: "bold",
+            color: "white",
+            marginBottom: "20px",
+          }}
+        >
+          Tra cứu chỉ cần một bước!
+        </p>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "120px",
+        }}
+      >
+        <Input.Search
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Ví dụ: DH001..."
-          prefix={<SearchOutlined />}
+          placeholder="Nhập mã đơn cần tra cứu tại đây"
+          onSearch={handleSearch}
+          style={{ marginTop: 0, width: "500px", fontWeight: "bold" }}
+          enterButton
         />
-        <Button type={styles.primary} onClick={handleSearch} style={{ marginLeft: '10px' }}>
-          Tìm kiếm
-        </Button>
-      </Card>
+      </div>
 
       <Modal
-        title="Thông tin vận đơn"
+        title={<span style={{ fontSize: "40px" }}>Thông tin vận đơn</span>}
         visible={modalVisible}
         onCancel={handleModalCancel}
         footer={[
-          <Button key="bill" type="primary" onClick={handleNavigateToLayoutForm}>
-            Chuyển đến LayoutForm
+          <Button
+            key="bill"
+            type="primary"
+            onClick={handleNavigateToLayoutForm}
+          >
+            Chuyển đến Bill
           </Button>,
           <Button key="close" onClick={handleModalCancel}>
             Đóng
           </Button>,
         ]}
-        width={800} // Điều chỉnh chiều rộng tùy ý, ví dụ 800px
+        width={800}
       >
-        {/* Nội dung Modal */}
         {isMatchFound ? (
-          <>
-            {renderCustomerInfo()}
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              {renderRecipientInfo()}
+              {renderSenderDetails()}
+            </div>
             {renderDeliveryStatus()}
-          </>
+          </div>
         ) : (
-          <Empty style={{ marginTop: '20px' }} description={<span>Không có dữ liệu phù hợp.</span>} />
+          <Empty
+            style={{ marginTop: "40px" }}
+            description={<span>Không có dữ liệu phù hợp.</span>}
+          />
         )}
       </Modal>
     </div>

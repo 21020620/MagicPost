@@ -48,6 +48,7 @@ const CreateOrder = () => {
 
   const showModal = async () => {
     try {
+      await onFinish(form.getFieldsValue());
       // Kiểm tra hợp lệ của form trước khi mở modal
       await form.validateFields();
       setIsModalVisible(true);
@@ -60,10 +61,7 @@ const CreateOrder = () => {
     setIsModalVisible(false);
   };
 
-  const handleAccept = () => {
-    // Do something with the form data when "Accept" is clicked
-    console.log('Form data accepted:', formData);
-    // Close the modal
+  const handleAccept = async () => {
     setIsModalVisible(false);
   };
 
@@ -94,43 +92,66 @@ const CreateOrder = () => {
     console.log('checked = ', checkedValues);
   };
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
+    
+  };
+
+  const processOrder = async () => {
+    const values = await form.getFieldValue();
     const sender = {
       fullName: values.senderInfo.split('\n')[0],
       address: values.senderInfo.split('\n')[1],
-      phone: values.senderPhone,
+      phoneNumber: values.senderPhone,
     }
     const receiver = {
       fullName: values.receiverInfo.split('\n')[0],
       address: values.receiverInfo.split('\n')[1],
-      phone: values.receiverPhone,
+      phoneNumber: values.receiverPhone,
     }
-    const fee = `${values.mainFee} + ${values.subFee} + ${values.transportFee} + ${values.addFee} = ${values.totalFee}`;
-    console.log('Fee: ', fee);
-    setFormData(values);
+    const mainFee = values.mainFee || '0';
+    const subFee = values.subFee || '0';
+    const transportFee = values.transportFee || '0';
+    const addFee = values.addFee || '0';
+    const totalFee = values.totalFee || '0';
+    let fee = `${mainFee} + ${subFee} + ${transportFee} + ${addFee} = ${totalFee}`;
+    console.log('Workplace: ', workplace);
+    const order = {
+      orderStatus: 'CREATED',
+      itemType: values.orderType,
+      cannotSend: values.instruction,
+      senderTPId: workplace.id,
+      receiverTPId: values.transactionPoint,
+      fee,
+      weight: values.weight,
+      deliverNote: values.note ? values.note : '',
+      feeReceived: values.feeReceived,
+    }
+    const response = await axiosInstance.post('/api/orders', {sender, receiver, order, user});
+    console.log('Response: ', response.data);
+    setFormData(response.data);
   };
 
   const orderOptions = [{ label: 'Document', value: true }, { label: 'Goods', value: false}];
   const instructionOptions = [
     {
       label: 'Return immediately',
-      value: 'Return immediately',
+      value: 1,
     },
     {
       label: 'Call sender/Transaction point',
-      value: 'Call sender/Transaction point',
+      value: 2,
     },
     {
       label: 'Cancel order',
-      value: 'Cancel order',
+      value: 3,
     },
     {
       label: 'Return before date',
-      value: 'Return before date',
+      value: 4,
     },
     {
       label: 'Return when storing time expired',
-      value: 'Return when storing time expired',
+      value: 5,
     },
   ];
 
@@ -176,19 +197,6 @@ const CreateOrder = () => {
             </Form.Item>
 
             <Form.Item
-                name="senderPostalCode"
-                label="Sender postal code"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input sender Postal Code!',
-                    },
-                    ]}
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
                 name="receiverInfo"
                 label="Name, address receiver"
                 rules={[
@@ -208,19 +216,6 @@ const CreateOrder = () => {
                     {
                         required: true,
                         message: 'Please input receiver phone number!',
-                    },
-                    ]}
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                name="receiverPostalCode"
-                label="Receiver postal code"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input receiver postal code!',
                     },
                     ]}
             >
@@ -318,6 +313,19 @@ const CreateOrder = () => {
             </Form.Item>
 
             <Form.Item
+                name="feeReceived"
+                label="Received payment"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input sender infomation!',
+                    },
+                    ]}
+            >
+                <Input/>
+            </Form.Item>
+
+            <Form.Item
                 name="weight"
                 label="Weight (kg)"
                 rules={[
@@ -351,15 +359,18 @@ const CreateOrder = () => {
             </Form.Item>
 
             <Form.Item {...tailFormItemLayout}>
+              <Button type="primary" onClick={processOrder} style={{ marginRight: '20px'}}>
+                Process
+              </Button>
               <Button type="primary" htmlType="submit" onClick={showModal}>
                 Create
               </Button>
             </Form.Item>
 
             <Modal
-              title="Modal Title"
               open={isModalVisible}
               onCancel={handleCancel}
+              width="80%"
               footer={[
                 <Button key="cancel" onClick={handleCancel}>
                   Cancel
@@ -370,7 +381,7 @@ const CreateOrder = () => {
               ]}
               style={{minWidth: '800px'}}
             >
-              <ParcelInfo formData={formData}/>
+              {formData && <ParcelInfo formData={formData}/>}
             </Modal>
         </Form>
   );
