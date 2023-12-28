@@ -1,7 +1,7 @@
 import { authenticationHandler } from "../authentication_service/AuthenService.js";
 import orderService from "./OrderService.js";
 
-const TransactionPointController = (fastify, options, done) => {
+const orderController = (fastify, options, done) => {
 
     fastify.addHook('preHandler', async (request, reply) => {
         authenticationHandler(fastify, request, reply);
@@ -29,8 +29,13 @@ const TransactionPointController = (fastify, options, done) => {
         reply.status(200).send(order);
     });
 
-    fastify.post('/orders', async (req, reply) => {
-        const order = req.body;
+    fastify.post('/', async (req, reply) => {
+        const { sender, receiver, order, user } = req.body;
+        await Promise.all([orderService.upsertCustomer(sender), orderService.upsertCustomer(receiver)]);
+        order.senderPhone = sender.phoneNumber;
+        order.receiverPhone = receiver.phoneNumber;
+        order.id = await orderService.generateUniqueOrderId();
+        order.orderActions = [{ creatorID: user.companyID, type: 'create'}];
         const newOrder = await orderService.createOrder(order);
         reply.status(201).send(newOrder);
     });
@@ -39,4 +44,4 @@ const TransactionPointController = (fastify, options, done) => {
     done();
 }
 
-export default TransactionPointController;
+export default orderController;

@@ -2,10 +2,14 @@ import QRCode from "react-qr-code";
 import "../../../../App.css";
 import { Table } from 'antd';
 import dayjs from 'dayjs';
+import React from "react";
 import 'dayjs/locale/en';
 import styles from '../../../Layout/RVHome/Searching.module.css';
+import { useSelector } from "react-redux";
 
-function ParcelInfo(props) {
+const ParcelInfo = (props) => {
+  const { user, workplace } = useSelector((state) => state.user);
+
       const senderInfo = {
         nameAddress: "Nhà hát chèo",
         phoneNum: 123456789,
@@ -122,25 +126,29 @@ function ParcelInfo(props) {
       
     return (
       <div className={styles['parcel-information']}>
-        <h2>Parcel Information</h2>
+        <h2>Parcel Information: {props.formData.id}</h2>
         <div className={styles.boxes}>
           <div className={styles.box}>
             <div className={styles.header}>
               <p>
                 <b>1. Sender's name and address</b>
               </p>
-              <p>{props.formData.senderInfo}</p>
+              <p>
+                {props.formData.order.sender.fullName}
+              <br />
+                {props.formData.order.sender.address}
+              </p>
             </div>
             <div>
               <p>
-                <b>Phone number:</b> {props.formData.senderPhone}
+                <b>Phone number:</b> {props.formData.order.senderPhone}
               </p>
-              <div className="code">
+              <div className={styles.code}>
                 <p>
-                  <b>Customer Id:</b> {senderInfo.customerId}
+                  <b>Customer Id:</b> {props.formData.sender.order.customerID}
                 </p>
                 <p>
-                  <b>Postal Code:</b> 1000
+                  <b>Postal Code:</b> {workplace.postalCode}
                 </p>
               </div>
             </div>
@@ -150,18 +158,19 @@ function ParcelInfo(props) {
               <p>
                 <b>2. Recipient's name and address</b>
               </p>
-              <p>{props.formData.receiverInfo}</p>
+              <p>
+                {props.formData.receiver.fullName}
+                <br />
+                {props.formData.receiver.address}
+              </p>
             </div>
             <div>
               <p>
-                <b>Parcel Id:</b> #{parcelId}
+                <b>Parcel ID:</b> {props.formData.id}
               </p>
               <div className={styles.code}>
                 <p>
                   <b>Phone Number:</b> {props.formData.receiverPhone}
-                </p>
-                <p>
-                  <b>Postal Code:</b> 1000
                 </p>
               </div>
             </div>
@@ -178,7 +187,7 @@ function ParcelInfo(props) {
                     <input
                       type="checkbox"
                       className={styles.input}
-                      checked={props.formData.orderType === 'Document'}
+                      checked={props.formData.orderType === true}
                       disabled
                     />
                     <span className={styles['custom-checkbox']}></span>
@@ -188,7 +197,7 @@ function ParcelInfo(props) {
                     <input
                       type="checkbox"
                       className={styles.input}
-                      checked={props.formData.orderType === 'Good'}
+                      checked={props.formData.orderType === false}
                       disabled
                     />
                     <span className={styles['custom-checkbox']}></span>
@@ -228,7 +237,7 @@ function ParcelInfo(props) {
                 <label className={styles.checkBox}>
                   <input
                     type="checkbox"
-                    className="input"
+                    className={styles.input}
                     checked={props.formData.instruction == "2"}
                     disabled
                   />
@@ -250,17 +259,17 @@ function ParcelInfo(props) {
                 <label className={styles.checkBox}>
                   <input
                     type="checkbox"
-                    className="input"
+                    className={styles.input}
                     checked={props.formData.instruction == "4"}
                     disabled
                   />
                   <span className={styles['custom-checkbox']}></span>
                   Return before date
                 </label>
-                <label className="checkBox">
+                <label className={styles.checkBox}>
                   <input
                     type="checkbox"
-                    className="input"
+                    className={styles.input}
                     checked={props.formData.instruction == "5"}
                     disabled
                   />
@@ -328,7 +337,7 @@ function ParcelInfo(props) {
                   </p>
                   {recipientFare.map((fare, index) => {
                     return (
-                      <div className="fare" key={index}>
+                      <div className={styles.fare} key={index}>
                         <p>{fare.title}</p>
                         <p>{fare.value}</p>
                       </div>
@@ -387,7 +396,7 @@ function ParcelInfo(props) {
                     </i>
                   </p>
                 )}
-                <div className="qr-code">
+                <div className={styles['qr-code']}>
           <QRCode
             size={64}
             style={{ height: "auto", maxWidth: "100%", width: "100%" }}
