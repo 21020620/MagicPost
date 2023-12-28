@@ -2,6 +2,7 @@ import QRCode from "react-qr-code";
 import "../../../../App.css";
 import dayjs from 'dayjs';
 import 'dayjs/locale/en';
+import styles from '../../../Layout/RVHome/Searching.module.css';
 
 function ParcelInfo(props) {
       const senderInfo = {
@@ -70,11 +71,11 @@ function ParcelInfo(props) {
       const delivered = true;
       const notes = "Hoang rat dep trai nhe ae"
     return (
-      <div className="parcel-information">
+      <div className={styles.parcel-information}>
         <h2>Parcel Information</h2>
-        <div className="boxes">
-          <div className="box">
-            <div className="header">
+        <div className={styles.boxes}>
+          <div className={styles.box}>
+            <div className={styles.header}>
               <p>
                 <b>1. Sender's name and address</b>
               </p>
@@ -94,8 +95,8 @@ function ParcelInfo(props) {
               </div>
             </div>
           </div>
-          <div className="box">
-            <div className="header">
+          <div className={styles.box}>
+            <div className={styles.header}>
               <p>
                 <b>2. Recipient's name and address</b>
               </p>
@@ -105,7 +106,7 @@ function ParcelInfo(props) {
               <p>
                 <b>Parcel Id:</b> #{parcelId}
               </p>
-              <div className="code">
+              <div className={styles.code}>
                 <p>
                   <b>Phone Number:</b> {props.formData.receiverPhone}
                 </p>
@@ -115,43 +116,43 @@ function ParcelInfo(props) {
               </div>
             </div>
           </div>
-          <div className="box-3">
-            <div className="section">
-              <div className="parcel-type">
+          <div className={styles.box-3}>
+            <div className={styles.section}>
+              <div className={styles.parcel-type}>
                 <p>
                   <b>3. Type of parcel</b>
                 </p>
   
-                <div className="check-box-group">
-                  <label className="checkBox">
+                <div className={styles.check-box-group}>
+                  <label className={styles.checkBox}>
                     <input
                       type="checkbox"
-                      className="input"
+                      className={styles.input}
                       checked={props.formData.orderType === 'Document'}
                       disabled
                     />
-                    <span className="custom-checkbox"></span>
+                    <span className={styles.custom-checkbox}></span>
                     Document
                   </label>
-                  <label className="checkBox">
+                  <label className={styles.checkBox}>
                     <input
                       type="checkbox"
-                      className="input"
+                      className={styles.input}
                       checked={props.formData.orderType === 'Good'}
                       disabled
                     />
-                    <span className="custom-checkbox"></span>
+                    <span className={styles['custom-checkbox']}></span>
                     Good
                   </label>
                 </div>
               </div>
-              <div className="parcel-value">
+              <div className={styles['parcel-value']}>
                 <p>
                   <b>4. Parcel value content</b>
                 </p>
                 {/* <TrackingParcelValueTable parcelValues={parcelValues} /> */}
               </div>
-              <div className="parcel-service">
+              <div className={styles['parcel-service']}>
                 <p>
                   <b>5. Additional / Special services</b>
                 </p>
@@ -159,51 +160,51 @@ function ParcelInfo(props) {
                 <p style={{ fontSize: "1.2rem" }}>Contact Code: EMSC/PPA</p>
               </div>
             </div>
-            <div className="sender-instruction">
+            <div className={styles['sender-instruction']}>
               <p>
                 <b>6. Sender's instructions for undeliverable parcel</b>
               </p>
-              <div className="check-box-group">
-                <label className="checkBox">
+              <div className={styles['check-box-group']}>
+                <label className={styles.checkBox}>
                   <input
                     type="checkbox"
-                    className="input"
+                    className={styles.input}
                     checked={props.formData.instruction == "1"}
                     disabled
                   />
-                  <span className="custom-checkbox"></span>
+                  <span className={styles['custom-checkbox']}></span>
                   Return immediately
                 </label>
-                <label className="checkBox">
+                <label className={styles.checkBox}>
                   <input
                     type="checkbox"
                     className="input"
                     checked={props.formData.instruction == "2"}
                     disabled
                   />
-                  <span className="custom-checkbox"></span>
+                  <span className={styles['custom-checkbox']}></span>
                   Call sender/Transaction point
                 </label>
-                <label className="checkBox">
+                <label className={styles.checkBox}>
                   <input
                     type="checkbox"
-                    className="input"
+                    className={styles.input}
                     checked={props.formData.instruction == "3"}
                     disabled
                   />
-                  <span className="custom-checkbox"></span>
+                  <span className={styles['custom-checkbox']}></span>
                   Cancel order
                 </label>
               </div>
-              <div className="check-box-group">
-                <label className="checkBox">
+              <div className={styles['check-box-group']}>
+                <label className={styles.checkBox}>
                   <input
                     type="checkbox"
                     className="input"
                     checked={props.formData.instruction == "4"}
                     disabled
                   />
-                  <span className="custom-checkbox"></span>
+                  <span className={styles['custom-checkbox']}></span>
                   Return before date
                 </label>
                 <label className="checkBox">
@@ -213,7 +214,7 @@ function ParcelInfo(props) {
                     checked={props.formData.instruction == "5"}
                     disabled
                   />
-                  <span className="custom-checkbox"></span>
+                  <span className={styles['custom-checkbox']}></span>
                   Return when storing time expired
                 </label>
               </div>

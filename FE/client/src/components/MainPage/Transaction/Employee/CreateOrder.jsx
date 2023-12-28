@@ -3,6 +3,8 @@ import { Select, Form, Input, Radio, Button, InputNumber, Modal, DatePicker, Tim
 import ParcelInfo from './ParcelInfo';
 import dayjs from 'dayjs';
 import 'dayjs/locale/en';
+import { useSelector } from 'react-redux';
+import axiosInstance from '../../../DefaultAxios';
 
 const formItemLayout = {
   labelCol: {
@@ -39,7 +41,10 @@ const tailFormItemLayout = {
 const CreateOrder = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [formData, setFormData] = useState({});
+  const [cpoints, setCpoints] = useState([]);
+  const [tpoints, setTpoints] = useState([]);
   const [form] = Form.useForm();
+  const { user, workplace } = useSelector((state) => state.user);
 
   const showModal = async () => {
     try {
@@ -62,16 +67,50 @@ const CreateOrder = () => {
     setIsModalVisible(false);
   };
 
+  const fetchCpoints = async () => {
+    try {
+      const response = await axiosInstance.get('/api/cpoint');
+      setCpoints(response.data);
+    } catch (error) {
+      console.error('Failed to fetch central points:', error);
+    }
+  };
+
+  const updateTpoints = async (cpointId) => {
+    try {
+      const response = await axiosInstance.get(`/api/cpoint/tpoints/${cpointId}`);
+      setTpoints(response.data);
+    } catch (error) {
+      console.error('Failed to fetch transaction points:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCpoints();
+  }, []);
+
+
   const onChange = (checkedValues) => {
     console.log('checked = ', checkedValues);
   };
 
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+    const sender = {
+      fullName: values.senderInfo.split('\n')[0],
+      address: values.senderInfo.split('\n')[1],
+      phone: values.senderPhone,
+    }
+    const receiver = {
+      fullName: values.receiverInfo.split('\n')[0],
+      address: values.receiverInfo.split('\n')[1],
+      phone: values.receiverPhone,
+    }
+    const fee = `${values.mainFee} + ${values.subFee} + ${values.transportFee} + ${values.addFee} = ${values.totalFee}`;
+    console.log('Fee: ', fee);
     setFormData(values);
   };
 
-  const orderOptions = ['Document', 'Good'];
+  const orderOptions = [{ label: 'Document', value: true }, { label: 'Goods', value: false}];
   const instructionOptions = [
     {
       label: 'Return immediately',
@@ -265,21 +304,23 @@ const CreateOrder = () => {
                 <InputNumber min = {0} initialvalues={0} precision={2}/>
             </Form.Item>
 
-            <Form.Item name="date" label="Date">
-              <DatePicker />
-            </Form.Item>
-
-            <Form.Item name="time" label="Time">
-              <TimePicker />
-            </Form.Item>
-
             <Form.Item name="centralPoint" label="Central Point">
-              <Select style={{ width: '300px', marginLeft: '20px' }} placeholder="Select central point">
+              <Select style={{ width: '300px', marginLeft: '20px' }} placeholder="Select central point" onChange={updateTpoints}>
+                {cpoints.map((cpoint) => (
+                  <Select.Option key={cpoint.id} value={cpoint.id}>
+                    {cpoint.name} - ({cpoint.address})
+                  </Select.Option>
+                ))}
               </Select>
             </Form.Item>
 
             <Form.Item name="transactionPoint" label = "Transaction Point">
               <Select style={{ width: '300px', marginLeft: '20px'}} placeholder="Select transaction point">
+                {tpoints.map((tpoint) => (
+                  <Select.Option key={tpoint.id} value={tpoint.id}>
+                    {tpoint.name} - ({tpoint.address})
+                  </Select.Option>
+                ))}
               </Select>
             </Form.Item>
 
