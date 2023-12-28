@@ -1,5 +1,5 @@
 import { Button, Input, Space, Typography, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { validateEmail } from '../../logic';
@@ -108,7 +108,8 @@ export default function Login() {
           onChange={handleChange}
           style={{ width: '50%' }}
           onKeyUp={handleKeyUp}
-        />
+          iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+      />
 
         <Button size="large" type="primary" onClick={handleLogin}>
           Đăng nhập

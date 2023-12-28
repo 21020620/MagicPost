@@ -44,3 +44,48 @@
   color: white; /* Change the text color to contrast with the background */
 }
 
+/*css cho menu*/
+.menu-option {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  text-decoration: none;
+  color: black;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: color 0.3s ease; /* Add transition for color change */
+}
+
+.menu-option:hover {
+  color: #1890ff; /* Change color on hover */
+}
+
+@media (max-width: 1000px) {
+  .navbar-links-container a {
+    margin-right: 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .navbar-links-container {
+    display: none;
+  }
+
+  .navbar-menu-container {
+    display: flex;
+  }
+}
+
+.navbar-menu-container {
+  display: none;
+}
+
+.navbar-links-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.navbar-cart-icon {
+  font-size: 1.15rem;
+}

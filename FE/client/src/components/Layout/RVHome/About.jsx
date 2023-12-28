@@ -1,6 +1,5 @@
 import React from "react";
 import { Row, Col, Card } from "antd";
-import "../../../App.css";
 import MyCarousel from "../../../common/MyCarousel";
 
 export default function About() {
