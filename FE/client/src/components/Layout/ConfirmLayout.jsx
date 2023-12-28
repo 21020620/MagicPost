@@ -1,8 +1,12 @@
-import { SearchOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
+import { Button, Input, Space, Table, Modal, Form, Select } from 'antd';
+import {
+  EyeOutlined,
+  CheckOutlined,
+  StopOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
-import { Button, Input, Space, Table, Modal } from 'antd';
-import { EyeOutlined, CheckOutlined, StopOutlined } from '@ant-design/icons';
 
 const ConfirmLayout = ({ data }) => {
   const [searchText, setSearchText] = useState('');
@@ -12,12 +16,14 @@ const ConfirmLayout = ({ data }) => {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [detailModalVisible, setDetailModalVisible] = useState(false);
+  const [shippingAddress, setShippingAddress] = useState('');
+  const [receivingLocation, setReceivingLocation] = useState('');
 
   const handleFull = (record) => {
     setSelectedRecord(record);
     setDetailModalVisible(true);
   };
-  
+
   const handleDetailModalClose = () => {
     setDetailModalVisible(false);
   };
@@ -40,13 +46,33 @@ const ConfirmLayout = ({ data }) => {
     }
   };
 
-  
-  const handleDetailConfirm = () => {
+  /* const handleDetailConfirm = () => {
     setModalVisible(false);
     // Show an error message for unsuccessful cases
     Modal.error({
       title: 'Confirmation',
       content: 'Order confirmation failed!',
+    });
+  }; */
+
+  const handleDetailConfirm = () => {
+    setModalVisible(false);
+    // Show a confirmation message for unsuccessful cases
+    Modal.confirm({
+      title: 'Xác nhận',
+      content: `Bạn có chắc chắn muốn xác nhận đơn hàng có ID: ${selectedRecord.id} không thành công?`,
+      onOk: () => {
+        // Your logic for handling the confirmation
+        // For example, you can make an API call to update the status
+        // and then show a success or error message accordingly.
+        Modal.success({
+          title: 'Confirmation',
+          content: 'Order confirmed successfully!',
+        });
+      },
+      onCancel: () => {
+        // Handle cancelation if needed
+      },
     });
   };
 
@@ -59,10 +85,9 @@ const ConfirmLayout = ({ data }) => {
   const handleUnsuccessClick = (record) => {
     setSelectedRecord(record);
     setIsSuccess(false);
-    setConfirmModalVisible(true);
+    setModalVisible(true);
   };
 
-  // Function to get search properties for a column
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
       <div style={{ padding: 8 }}>
@@ -110,20 +135,17 @@ const ConfirmLayout = ({ data }) => {
       ),
   });
 
-  // Function to handle search
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
 
-  // Function to handle reset of search
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText('');
   };
 
-  // Table columns
   const columns = [
     {
       title: 'ID',
@@ -165,7 +187,6 @@ const ConfirmLayout = ({ data }) => {
           <Button onClick={() => handleSuccessClick(record)}>
             <CheckOutlined />
           </Button>
-
           <Button onClick={() => handleUnsuccessClick(record)} style={{ marginLeft: '10px' }}>
             <StopOutlined />
           </Button>
@@ -242,13 +263,39 @@ const ConfirmLayout = ({ data }) => {
         ]}
       >
         {selectedRecord && (
-          <div>
+          <Form>
             {Object.keys(selectedRecord).map((key) => (
-              <p key={key}>
-                <strong>{key}:</strong> {selectedRecord[key]}
-              </p>
+              <Form.Item key={key} label={<strong>{key}:</strong>}>
+                {key === 'id' ? (
+                  <span>{selectedRecord[key]}</span>
+                ) : (
+                  <span>{selectedRecord[key]}</span>
+                )}
+              </Form.Item>
             ))}
-          </div>
+            <Form.Item label="Shipping Address">
+              <Select
+                value={shippingAddress}
+                onChange={(value) => setShippingAddress(value)}
+                style={{ width: '100%' }}
+              >
+                {/* Thêm các option của Shipping Address */}
+                <Select.Option value="address1">Address 1</Select.Option>
+                <Select.Option value="address2">Address 2</Select.Option>
+              </Select>
+            </Form.Item>
+            <Form.Item label="Receiving Location">
+              <Select
+                value={receivingLocation}
+                onChange={(value) => setReceivingLocation(value)}
+                style={{ width: '100%' }}
+              >
+                {/* Thêm các option của Receiving Location */}
+                <Select.Option value="location1">Location 1</Select.Option>
+                <Select.Option value="location2">Location 2</Select.Option>
+              </Select>
+            </Form.Item>
+          </Form>
         )}
       </Modal>
     </div>
