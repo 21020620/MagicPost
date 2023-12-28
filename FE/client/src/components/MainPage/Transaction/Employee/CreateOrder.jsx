@@ -303,25 +303,6 @@ const CreateOrder = () => {
               ]}
               style={{minWidth: '800px'}}
             >
-              <p>Name, address sender: {formData.senderInfo}</p>
-              <p>Sender phone number: {formData.senderPhone}</p>
-              <p>Name, address receiver: {formData.receiverInfo}</p>
-              <p>Receiver phone number: {formData.receiverPhone}</p>
-              <p>Tổng cước (gồm VAT): {formData.totalFee}</p>
-              <p>Weight (kg): {formData.weight}</p>
-              <p>Type of order: {formData.orderType}</p>
-              <p>Instruction (delivery fail): {formData.instruction}</p>
-              <p>Main Fee: {formData.mainFee}</p>
-              <p>Sub Fee: {formData.subFee}</p>
-              <p>Transport Fee: {formData.transportFee}</p>
-              <p>Additional Fee: {formData.addFee}</p>
-              <p>Total Fee: {formData.totalFee}</p>
-
-              <p>Date: {dayjs(formData.date).format('YYYY-MM-DD')}</p>
-              <p>Time: {dayjs(formData.time).format('HH:mm')}</p>
-
-              <p>Transaction Point: {formData.transactionPoint}</p>
-              <p>CentralPoint Point: {formData.centralPoint}</p>
               <ParcelInfo formData={formData}/>
             </Modal>
         </Form>
