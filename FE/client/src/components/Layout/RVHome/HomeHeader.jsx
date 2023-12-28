@@ -2,9 +2,10 @@ import React from "react";
 import {
   HomeOutlined,
   FileSearchOutlined,
-  DollarOutlined,
+  DollarCircleOutlined,
   AuditOutlined,
   LoginOutlined,
+  EnvironmentOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../img/icon.png"
@@ -17,23 +18,28 @@ export default function HomeHeader() {
     {
       text: "Trang chủ",
       icon: <HomeOutlined />,
-      onClick: () => navigate("/"), // Add the appropriate URL for each menu item
+      onClick: () => navigate("/"), 
     },
     {
       text: "Về chúng tôi",
       icon: <AuditOutlined />,
-      onClick: () => navigate("/about"), // Example: replace with the actual URL
+      onClick: () => navigate("/about"), 
     },
     {
-      text: "Bảng giá",
-      icon: <DollarOutlined />,
-      onClick: () => navigate("/pricing"), // Example: replace with the actual URL
-    },
-    {
-      text: "Tra cứu đơn hàng",
+      text: "Tra cứu vận đơn",
       icon: <FileSearchOutlined />,
-      onClick: () => navigate("/search"), // Example: replace with the actual URL
+      onClick: () => navigate("/search"), 
     },
+    {
+      text: "Giá cước phục vụ",
+      icon: <DollarCircleOutlined />,
+      onClick: () => window.open("https://drive.google.com/file/d/1SAVyehyUTDTp9IamGfi_OOKgKs-MKTUY/view?usp=sharing"),
+    },
+    {
+      text: "Địa điểm tập kết",
+      icon: <EnvironmentOutlined />,
+      onClick: () => navigate("/TapKet"),
+    }
   ];
 
   return (

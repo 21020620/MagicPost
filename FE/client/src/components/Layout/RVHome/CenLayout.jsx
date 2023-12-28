@@ -1,11 +1,11 @@
-import "./footer.css";
+import "../../footer.css";
 import { NavLink } from "react-router-dom";
 import { Layout, theme } from "antd";
 import { useContext } from "react";
 const { Header, Content, Footer } = Layout;
 import { Outlet } from "react-router-dom";
-import HomeFooter from "./HomeFooter"
 import HomeHeader from "./HomeHeader";
+import HomeFooter from "../MyFooter";
 import AppContext from "../../AppContext";
 
 export default function CenLayout() {

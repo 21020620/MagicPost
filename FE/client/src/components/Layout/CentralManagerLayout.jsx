@@ -6,6 +6,7 @@ const { Header, Content, Footer, Sider } = Layout;
 import { Outlet } from "react-router-dom";
 import logo from "../../img/icon.png"
 import MyHeader from '../Layout/MyHeader';
+import MyFooter from '../Layout/MyFooter';
 
 function getItem(label, key, icon, children) {
   return {
@@ -87,12 +88,8 @@ const CentralManagerLayout = () => {
             <Outlet />
           </div>
         </Content>
-        <Footer
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          Ant Design ©2023 Created by Ant UED
+        <Footer>
+          <MyFooter />
         </Footer>
       </Layout>
     </Layout>

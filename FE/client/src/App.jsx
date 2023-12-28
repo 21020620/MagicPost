@@ -1,10 +1,5 @@
 import "./App.css";
-import {
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Login from "./components/MainPage/Login/Login";
 import LoginLayout from "./components/MainPage/Login/LoginLayout";
 import { history } from "./hooks/myHistory";
@@ -16,13 +11,16 @@ import CEOcentral from "./components/MainPage/CEO/PointManage/CEOcentral";
 import CentralManagerLayout from "./components/Layout/CentralManagerLayout";
 import CentralManagerAccount from "./components/MainPage/Central/Manager/Account/CentralManagerAccount";
 import CentralManagerStatistic from "./components/MainPage/Central/Manager/Statistic/CentralManagerStatistics";
+import CenLayout from "./components/Layout/RVHome/CenLayout";
 import TransactionManagerLayout from "./components/Layout/TransactionManagerLayout";
 import TransactionManagerAccount from "./components/MainPage/Transaction/Manager/Account/TransactionManagerAccount";
 import TransactionManagerStatistic from "./components/MainPage/Transaction/Manager/Statistic/TransactionManagerStatistic";
 import MainPageLayout from "./components/MainPageLayout";
 import ChangePassword from "./components/Layout/ChangePassword";
 import RVHome from "./components/Layout/RVHome/RVHome";
-import LayoutForSearching from "./components/Layout/RVHome/LayoutForSearching";
+import RVAbout from "./components/Layout/RVHome/About";
+import RVSearch from "./components/Layout/RVHome/Searching";
+import BillForm from "./components/Layout/RVHome/LayoutForm";
 
 export default function App() {
   history.navigate = useNavigate();
@@ -30,13 +28,14 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/search" element={<LayoutForSearching />}>
+      <Route path="/" element={<CenLayout />}>
+        <Route index element={<RVHome />} />
+        <Route path="about" element={<RVAbout />} />
+        <Route path="search" element={<RVSearch />} />
+        <Route path="bill" element={<BillForm />} />
       </Route>
 
-      <Route path="/home" element={<RVHome />}>
-      </Route>
-
-      <Route path="/" element={<LoginLayout />}>
+      <Route path="/login" element={<LoginLayout />}>
         <Route index element={<Login />} />
       </Route>
 
