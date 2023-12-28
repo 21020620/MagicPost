@@ -121,7 +121,7 @@ function ParcelInfo(props) {
       };
       
     return (
-      <div className={styles.parcel-information}>
+      <div className={styles['parcel-information']}>
         <h2>Parcel Information</h2>
         <div className={styles.boxes}>
           <div className={styles.box}>
@@ -168,12 +168,12 @@ function ParcelInfo(props) {
           </div>
           <div className={styles.box-3}>
             <div className={styles.section}>
-              <div className={styles.parcel-type}>
+              <div className={styles['parcel-type']}>
                 <p>
                   <b>3. Type of parcel</b>
                 </p>
   
-                <div className={styles.check-box-group}>
+                <div className={styles['check-box-group']}>
                   <label className={styles.checkBox}>
                     <input
                       type="checkbox"
@@ -181,7 +181,7 @@ function ParcelInfo(props) {
                       checked={props.formData.orderType === 'Document'}
                       disabled
                     />
-                    <span className={styles.custom-checkbox}></span>
+                    <span className={styles['custom-checkbox']}></span>
                     Document
                   </label>
                   <label className={styles.checkBox}>
@@ -269,8 +269,8 @@ function ParcelInfo(props) {
                 </label>
               </div>
             </div>
-            <div className="section">
-              <div className="sender-commiment">
+            <div className={styles.section}>
+              <div className={styles['sender-commiment']}>
                 <p>
                   <b>7. Sender's commiment</b>
                 </p>
@@ -279,19 +279,16 @@ function ParcelInfo(props) {
                   reverse side of the delivery slip. I affirm that the contents of
                   this parcel comply with all safety regulations, and no
                   prohibited items are enclosed.
-                  {/* In the event that delivery is unsuccessful, kindly refer to
-              the guidelines outlined in section 6, and I commit to
-              covering any associated shipping fees. */}
                 </p>
               </div>
-              <div className="sender-signature">
-                <div className="date">
+              <div className={styles['sender-signature']}>
+                <div className={styles.date} >
                   <p>
                     <b>8. Date of Sending</b>
                   </p>
                   <p>{dayjs(props.formData.date).format('YYYY-MM-DD')}|{dayjs(props.formData.time).format('HH:mm')}</p>
                 </div>
-                <div className="signature">
+                <div className={styles.signature}>
                   <p>
                     <b>Sender's signature</b>
                   </p>
@@ -307,16 +304,16 @@ function ParcelInfo(props) {
               </div>
             </div>
           </div>
-          <div className="box-4">
-            <div className="section">
-              <div className="left">
-                <div className="delivery-fare">
+          <div className={styles['box-4']}>
+            <div className={styles.section}>
+              <div className={styles.left}>
+                <div className={styles['delivery-fare']}>
                   <p>
                     <b>9. Delivery fare:</b>
                   </p>
                   {deliveryFare.map((fare, index) => {
                     return (
-                      <div className="fare" key={index}>
+                      <div className={styles.fare} key={index}>
                         <p>
                           {fare.index}. {fare.title}
                         </p>
@@ -325,7 +322,7 @@ function ParcelInfo(props) {
                     );
                   })}
                 </div>
-                <div className="recipient-fare">
+                <div className={styles['recipient-fare']}>
                   <p>
                     <b>11. Recipient's fare:</b>
                   </p>
@@ -339,21 +336,21 @@ function ParcelInfo(props) {
                   })}
                 </div>
               </div>
-              <div className="right">
-                <div className="parcel-weight">
+              <div className={styles.right}>
+                <div className={styles['parcel-weight']}>
                   <p>
                     <b>10. Weight (kg):</b>
                   </p>
                   {weight.map((weight, index) => {
                     return (
-                      <div className="weight" key={index}>
+                      <div className={styles.weight} key={index}>
                         <p>{weight.title}</p>
                         <p>{weight.value}</p>
                       </div>
                     );
                   })}
                 </div>
-                <div className="parcel-note">
+                <div className={styles['parcel-note']}>
                   <p>
                     <b>12. Notes</b>
                   </p>
@@ -361,8 +358,8 @@ function ParcelInfo(props) {
                 </div>
               </div>
             </div>
-            <div className="section">
-              <div className="parcel-approval">
+            <div className={styles.section}>
+              <div className={styles['parcel-approval']}>
                 <p>
                   <b>13. Post office approval</b>
                 </p>
@@ -372,7 +369,7 @@ function ParcelInfo(props) {
                   {/* <i>{paths[0]?.user_name}</i> */}
                 </p>
               </div>
-              <div className="delivery-date">
+              <div className={styles['delivery-date']}>
                 <p>
                   <b>14. Received date</b>
                 </p>
