@@ -1,0 +1,75 @@
+{
+  "orders": [
+    {
+      "orderID": "DH001",
+      "customer": {
+        "name": "Nguyen Van A",
+        "age": 30,
+        "phone": "123456789",
+        "gender": "Male"
+      },
+      "orderDetails": {
+        "status": "Chuẩn bị hàng",
+        "statusHistory": [
+          {"status": "Chuẩn bị hàng", "timestamp": "2023-01-02T10:30:00"}
+        ],
+        "locations": []
+      }
+    },
+    {
+      "orderID": "DH002",
+      "customer": {
+        "name": "Tran Thi B",
+        "age": 25,
+        "phone": "987654321",
+        "gender": "Female"
+      },
+      "orderDetails": {
+        "status": "Đã lấy hàng",
+        "statusHistory": [
+          {"status": "Đã lấy hàng", "timestamp": "2023-01-02T12:00:00"}
+        ],
+        "locations": []
+      }
+    },
+    {
+      "orderID": "DH003",
+      "customer": {
+        "name": "Le Van C",
+        "age": 35,
+        "phone": "111222333",
+        "gender": "Male"
+      },
+      "orderDetails": {
+        "status": "Đang giao",
+        "statusHistory": [
+          {"status": "Chuẩn bị hàng", "timestamp": "2023-01-03T14:00:00"},
+          {"status": "Đã lấy hàng", "timestamp": "2023-01-03T14:30:00"},
+          {"status": "Đang giao", "timestamp": "2023-01-03T15:00:00"}
+        ],
+        "locations": ["Địa điểm tập kết 1", "Địa điểm tập kết 2"]
+      }
+    },
+    {
+      "orderID": "DH004",
+      "customer": {
+        "name": "Pham Thi D",
+        "age": 28,
+        "phone": "555666777",
+        "gender": "Female"
+      },
+      "orderDetails": {
+        "status": "Hoàn thành",
+        "statusHistory": [
+          {"status": "Chuẩn bị hàng", "timestamp": "2023-01-04T09:00:00"},
+          {"status": "Đã lấy hàng", "timestamp": "2023-01-04T10:00:00"},
+          {"status": "Đã đến điểm 1", "timestamp": "2023-01-04T12:00:00"},
+          {"status": "Đã đến điểm 2", "timestamp": "2023-01-04T14:00:00"},
+          {"status": "Đã đến điểm 3", "timestamp": "2023-01-04T16:00:00"},
+          {"status": "Hoàn thành", "timestamp": "2023-01-04T18:00:00"}
+        ],
+        "locations": []
+      }
+    }
+  ]
+}

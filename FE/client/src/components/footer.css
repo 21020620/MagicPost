@@ -1,28 +1,46 @@
-#logo {
-    background-image: none;
+.footer {
+  display: flex;
 }
 
-.header {
-    background-color: #fff;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-.user-info {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-  }
-  
-.user-info span {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-left: 10px;
-  }
 
-.footer-top {
-    display: flex;
-  }
+.footer-left,
+.footer-right {
+  flex: 2;
+}
 
+.footer-left {
+  display: flex;
+  justify-content: flex-end;
+  align-self: right;
+  padding-right: 10;
+}
+
+.footer-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: left;
+  padding-left: 10;
+}
+
+.footer-left span,
+.footer-right span {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  white-space: normal;
+}
+/* footer.css */
+
+/* Add your existing styles here */
+
+.menu-option:hover {
+  background-color: grey; /* Change the color to your desired hover color */
+  color: white; /* Change the text color to contrast with the background */
+}
+
+.button-hover:hover {
+  background-color: grey; /* Change the color to your desired hover color */
+  border-color: grey; /* Change the border color to match the background color */
+  color: white; /* Change the text color to contrast with the background */
+}
 
