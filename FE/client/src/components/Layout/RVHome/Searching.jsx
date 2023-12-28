@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Card, Input, Button, Empty, Form, Timeline, Modal } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import './Searching.css'; 
+import styles from './Searching.module.css'; 
 import { useNavigate } from 'react-router-dom';
+
 
 
 const DeliveryTrackingPage = () => {
@@ -44,7 +45,7 @@ const DeliveryTrackingPage = () => {
         <Form
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 14 }}
-          className="customer-info-form"
+          className={styles['customer-info-form']}
         >
           <Form.Item label="Tên khách hàng">{customerInfo.name}</Form.Item>
           <Form.Item label="Tuổi">{customerInfo.age}</Form.Item>
@@ -109,13 +110,13 @@ const DeliveryTrackingPage = () => {
           placeholder="Ví dụ: DH001..."
           prefix={<SearchOutlined />}
         />
-        <Button type="primary" onClick={handleSearch} style={{ marginLeft: '10px' }}>
+        <Button type={styles.primary} onClick={handleSearch} style={{ marginLeft: '10px' }}>
           Tìm kiếm
         </Button>
         
         {/* Add the button to navigate to LayoutForm */}
         {isMatchFound && (
-          <Button type="primary" onClick={handleNavigateToLayoutForm} style={{ marginLeft: '10px' }}>
+          <Button type={styles.primary} onClick={handleNavigateToLayoutForm} style={{ marginLeft: '10px' }}>
             Chuyển đến LayoutForm
           </Button>
         )}
