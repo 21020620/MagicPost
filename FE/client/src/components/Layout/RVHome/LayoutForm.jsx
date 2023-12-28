@@ -112,7 +112,7 @@ function TrackingParcelInformation() {
     pagination: false, 
   };
   return (
-    <div className={styles.parcel-information}>
+    <div className={styles['parcel-information']}>
       <h2>Parcel Information</h2>
       <div className={styles.boxes}>
         <div className={styles.box}>
@@ -157,14 +157,14 @@ function TrackingParcelInformation() {
             </div>
           </div>
         </div>
-        <div className={styles.box-3}>
+        <div className={styles['box-3']}>
           <div className={styles.section}>
-            <div className={styles.parcel-type}>
+            <div className={styles['parcel-type']}>
               <p>
                 <b>3. Type of parcel</b>
               </p>
 
-              <div className={styles.check-box-group}>
+              <div className={styles['check-box-group']}>
                 <label className={styles.checkBox}>
                   <input
                     type="checkbox"
@@ -172,7 +172,7 @@ function TrackingParcelInformation() {
                     checked={!typeOfParcel.isDocument}
                     disabled
                   />
-                  <span className={styles.custom-checkbox}></span>
+                  <span className={styles['custom-checkbox']}></span>
                   Document
                 </label>
                 <label className={styles.checkBox}>
@@ -182,18 +182,18 @@ function TrackingParcelInformation() {
                     checked={!typeOfParcel.isDocument}
                     disabled
                   />
-                  <span className={styles.custom-checkbox}></span>
+                  <span className={styles['custom-checkbox']}></span>
                   Package
                 </label>
               </div>
             </div>
-            <div className={styles.parcel-value}>
+            <div className={styles['parcel-value']}>
               <p>
                 <b>4. Parcel value content</b>
               </p>
               <Table {...tableProps} />
             </div>
-            <div className={styles.parcel-service}>
+            <div className={styles['parcel-service']}>
               <p>
                 <b>5. Additional / Special services</b>
               </p>
@@ -201,11 +201,11 @@ function TrackingParcelInformation() {
               <p style={{ fontSize: "1.2rem" }}>Contact Code: EMSC/PPA</p>
             </div>
           </div>
-          <div className={styles.sender-instruction}>
+          <div className={styles['sender-instruction']}>
             <p>
               <b>6. Sender's instructions for undeliverable parcel</b>
             </p>
-            <div className={styles.check-box-group}>
+            <div className={styles['check-box-group']}>
               <label className={styles.checkBox}>
                 <input
                   type="checkbox"
@@ -213,7 +213,7 @@ function TrackingParcelInformation() {
                   checked={senderInstruction.returnImmediately}
                   disabled
                 />
-                <span className={styles.custom-checkbox}></span>
+                <span className={styles['custom-checkbox']}></span>
                 Return immediately
               </label>
               <label className={styles.checkBox}>
@@ -223,7 +223,7 @@ function TrackingParcelInformation() {
                   checked={senderInstruction.callRecipient}
                   disabled
                 />
-                <span className={styles.custom-checkbox}></span>
+                <span className={styles['custom-checkbox']}></span>
                 Call the recipient
               </label>
               <label className={styles.checkBox}>
@@ -233,11 +233,11 @@ function TrackingParcelInformation() {
                   checked={senderInstruction.cancel}
                   disabled
                 />
-                <span className={styles.custom-checkbox}></span>
+                <span className={styles['custom-checkbox']}></span>
                 Cancel
               </label>
             </div>
-            <div className={styles.check-box-group}>
+            <div className={styles['check-box-group']}>
               <label className={styles.checkBox}>
                 <input
                   type="checkbox"
@@ -245,7 +245,7 @@ function TrackingParcelInformation() {
                   checked={senderInstruction.returnBefore}
                   disabled
                 />
-                <span className={styles.custom-checkbox}></span>
+                <span className={styles['custom-checkbox']}></span>
                 Return before Sep 6th
               </label>
               <label className={styles.checkBox}>
@@ -255,13 +255,13 @@ function TrackingParcelInformation() {
                   checked={senderInstruction.returnAfterStorage}
                   disabled
                 />
-                <span className={styles.custom-checkbox}></span>
+                <span className={styles['custom-checkbox']}></span>
                 Return at the end of storage period
               </label>
             </div>
           </div>
           <div className={styles.section}>
-            <div className={styles.sender-commiment}>
+            <div className={styles['sender-commiment']}>
               <p>
                 <b>7. Sender's commiment</b>
               </p>
@@ -275,7 +275,7 @@ function TrackingParcelInformation() {
               covering any associated shipping fees. */}
               </p>
             </div>
-            <div className={styles.sender-signature}>
+            <div className={styles['sender-signature']}>
               <div className={styles.date}>
                 <p>
                   <b>8. Date of Sending</b>
@@ -298,10 +298,10 @@ function TrackingParcelInformation() {
             </div>
           </div>
         </div>
-        <div className={styles.box-4}>
+        <div className={styles['box-4']}>
           <div className={styles.section}>
             <div className={styles.left}>
-              <div className={styles.delivery-fare}>
+              <div className={styles['delivery-fare']}>
                 <p>
                   <b>9. Delivery fare:</b>
                 </p>
@@ -316,7 +316,7 @@ function TrackingParcelInformation() {
                   );
                 })}
               </div>
-              <div className={styles.recipient-fare}>
+              <div className={styles['recipient-fare']}>
                 <p>
                   <b>11. Recipient's fare:</b>
                 </p>
@@ -331,7 +331,7 @@ function TrackingParcelInformation() {
               </div>
             </div>
             <div className={styles.right}>
-              <div className={styles.parcel-weight}>
+              <div className={styles['parcel-weight']}>
                 <p>
                   <b>10. Weight (kg):</b>
                 </p>
@@ -344,7 +344,7 @@ function TrackingParcelInformation() {
                   );
                 })}
               </div>
-              <div className={styles.parcel-note}>
+              <div className={styles['parcel-note']}>
                 <p>
                   <b>12. Notes</b>
                 </p>
@@ -353,7 +353,7 @@ function TrackingParcelInformation() {
             </div>
           </div>
           <div className={styles.section}>
-            <div className={styles.parcel-approval}>
+            <div className={styles['parcel-approval']}>
               <p>
                 <b>13. Post office approval</b>
               </p>
@@ -361,7 +361,7 @@ function TrackingParcelInformation() {
               {/* <img src={approvedImg} alt="post office aproval" width="110px" /> */}
               <p>{/* <i>{paths[0]?.user_name}</i> */}</p>
             </div>
-            <div className={styles.delivery-date}>
+            <div className={styles['delivery-date']}>
               <p>
                 <b>14. Received date</b>
               </p>
@@ -381,7 +381,7 @@ function TrackingParcelInformation() {
                   </i>
                 </p>
               )}
-              <div className={styles.qr-code}>
+              <div className={styles['qr-code']}>
                 <QRCode
                   size={64}
                   style={{ height: "auto", maxWidth: "100%", width: "100%" }}
