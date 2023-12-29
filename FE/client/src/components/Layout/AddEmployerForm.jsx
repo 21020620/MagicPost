@@ -1,8 +1,14 @@
+// Import React, useState, and useEffect from React
 import React, { useState, useEffect } from 'react';
+
+// Import necessary components and functions from Ant Design
 import { Button, Form, Input, Select, DatePicker } from 'antd';
 const { Option } = Select;
+
+// Import Axios instance for making API requests
 import axiosInstance from '../DefaultAxios';
 
+// Layout configurations for form items
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -22,6 +28,7 @@ const formItemLayout = {
   },
 };
 
+// Layout configuration for the tail form item
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -35,14 +42,23 @@ const tailFormItemLayout = {
   },
 };
 
+// Define the AddEmployerForm component
 const AddEmployerForm = ({ setFormData }) => {
+  // Create a form instance
   const [form] = Form.useForm();
+
+  // State to store workplace options
   const [workplaces, setWorkplaces] = useState([]);
 
+  // Handle form submission
   const onFinish = (fieldsValue) => {
+    // Format date of birth
     fieldsValue.dob = fieldsValue['dob'].format('YYYY-MM-DD') + 'T14:42:07Z';
-    console.log(fieldsValue.dob)
+    
+    // Remove the 'prefix' field
     delete fieldsValue.prefix;
+
+    // Determine role and set additional fields based on the role
     if (fieldsValue.role === 'Transaction Manager') {
       fieldsValue.role = 'tpointm';
       fieldsValue.TEmployee = { create: {tpointId: fieldsValue.workplace} };
@@ -50,17 +66,23 @@ const AddEmployerForm = ({ setFormData }) => {
       fieldsValue.role = 'cpointm';
       fieldsValue.CEmployee = { create: {cpointId: fieldsValue.workplace} };
     }
+
+    // Remove the 'workplace' field
     delete fieldsValue.workplace;
+
+    // Set form data using the provided callback
     setFormData(fieldsValue);
   };
 
-  const defineWorplace = async (value) => {
+  // Fetch workplaces based on the selected role
+  const defineWorkplace = async (value) => {
     let tempArr = [];
     if (value === 'Transaction Manager') tempArr = await axiosInstance.get('/api/tpoint/without');
     else tempArr = await axiosInstance.get('/api/cpoint/without');
     setWorkplaces(tempArr.data);
   };
 
+  // JSX element for selecting a prefix for phone number
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select
@@ -74,6 +96,7 @@ const AddEmployerForm = ({ setFormData }) => {
     </Form.Item>
   );
 
+  // Render the form
   return (
     <Form
       {...formItemLayout}
@@ -85,6 +108,7 @@ const AddEmployerForm = ({ setFormData }) => {
       }}
       scrollToFirstError
     >
+      {/* Form Item for First Name */}
       <Form.Item
         name="firstName"
         label="First Name"
@@ -98,6 +122,7 @@ const AddEmployerForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Last Name */}
       <Form.Item
         name="lastName"
         label="Last Name"
@@ -111,10 +136,12 @@ const AddEmployerForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Date of Birth */}
       <Form.Item name="dob" label="Date Of Birth">
         <DatePicker />
       </Form.Item>
 
+      {/* Form Item for Address */}
       <Form.Item
         name="address"
         label="Address"
@@ -128,13 +155,14 @@ const AddEmployerForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Email */}
       <Form.Item
         name="email"
         label="E-mail"
         rules={[
           {
             type: 'email',
-            message: 'The input is not valid E-mail!',
+            message: 'The input is not a valid E-mail!',
           },
           {
             required: true,
@@ -145,6 +173,7 @@ const AddEmployerForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Phone Number with Prefix Selector */}
       <Form.Item
         name="phoneNumber"
         label="Phone Number"
@@ -163,6 +192,7 @@ const AddEmployerForm = ({ setFormData }) => {
         />
       </Form.Item>
 
+      {/* Form Item for Role Selection */}
       <Form.Item
         name="role"
         label="Role"
@@ -173,12 +203,13 @@ const AddEmployerForm = ({ setFormData }) => {
           },
         ]}
       >
-        <Select placeholder="Select Role" onChange={defineWorplace}>
+        <Select placeholder="Select Role" onChange={defineWorkplace}>
           <Option value="Transaction Manager">Transaction Manager</Option>
           <Option value="Central Manager">Central Manager</Option>
         </Select>
       </Form.Item>
 
+      {/* Form Item for Workplace Selection */}
       <Form.Item
         name="workplace"
         label="Workplace"
@@ -196,6 +227,7 @@ const AddEmployerForm = ({ setFormData }) => {
         </Select>
       </Form.Item>
 
+      {/* Form Item for the submit button */}
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Check
@@ -205,4 +237,5 @@ const AddEmployerForm = ({ setFormData }) => {
   );
 };
 
+// Export the AddEmployerForm component
 export default AddEmployerForm;

@@ -1,6 +1,8 @@
+// Import necessary components and functions from Ant Design
 import { Button, Form, Input, Select, DatePicker } from 'antd';
 const { Option } = Select;
 
+// Layout configurations for form items
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -20,6 +22,7 @@ const formItemLayout = {
   },
 };
 
+// Layout configuration for the tail form item
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -33,15 +36,24 @@ const tailFormItemLayout = {
   },
 };
 
+// Define the AddTransactionEmployeeForm component
 const AddTransactionEmployeeForm = ({ setFormData }) => {
+  // Create a form instance
   const [form] = Form.useForm();
 
+  // Handle form submission
   const onFinish = (fieldsValue) => {
+    // Format date of birth
     fieldsValue.dob = fieldsValue['dob'].format('YYYY-MM-DD') + 'T19:05:03Z';
+
+    // Destructure and extract values from fieldsValue
     const { prefix, workplace, position, ...rest } = fieldsValue;
+
+    // Set form data using the provided callback
     setFormData(rest);
   };
 
+  // JSX element for selecting a prefix for phone number
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select
@@ -55,6 +67,7 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
     </Form.Item>
   );
 
+  // JSX element for rendering the form
   return (
     <Form
       {...formItemLayout}
@@ -66,6 +79,7 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
       }}
       scrollToFirstError
     >
+      {/* Form Item for First Name */}
       <Form.Item
         name="firstName"
         label="First Name"
@@ -79,6 +93,7 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Last Name */}
       <Form.Item
         name="lastName"
         label="Last Name"
@@ -92,10 +107,12 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Date of Birth */}
       <Form.Item name="dob" label="Date Of Birth">
         <DatePicker />
       </Form.Item>
 
+      {/* Form Item for Address */}
       <Form.Item
         name="address"
         label="Address"
@@ -109,6 +126,7 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Email */}
       <Form.Item
         name="email"
         label="E-mail"
@@ -126,6 +144,7 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Phone Number with Prefix Selector */}
       <Form.Item
         name="phoneNumber"
         label="Phone Number"
@@ -144,6 +163,7 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
         />
       </Form.Item>
 
+      {/* Form Item for Position (Read-only) */}
       <Form.Item
         name="position"
         label="Position"
@@ -157,6 +177,7 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
         <Input readOnly />
       </Form.Item>
 
+      {/* Form Item for the submit button */}
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Check
@@ -166,4 +187,5 @@ const AddTransactionEmployeeForm = ({ setFormData }) => {
   );
 };
 
+// Export the AddTransactionEmployeeForm component
 export default AddTransactionEmployeeForm;
