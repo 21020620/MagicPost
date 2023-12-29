@@ -24,7 +24,7 @@ const StatisticTable = ({ data }) => {
   const statusText = {
     'DONE': 'GIAO THÀNH CÔNG',
     'TRANSPORTING1': 'ĐANG TỚI ĐIỂM TẬP KẾT ĐẦU',
-    'TRANSPORTING1': 'ĐANG TỚI ĐIỂM TẬP KẾT ĐÍCH',
+    'TRANSPORTING2': 'ĐANG TỚI ĐIỂM TẬP KẾT ĐÍCH',
     'ARRIVED': 'ĐÃ TỚI ĐIỂM GIAO DỊCH ĐÍCH',
     'FAIL': 'GIAO THẤT BẠI',
     'RETRIVAL1': 'ĐANG TRỞ VỀ ĐIỂM TẬP KẾT ĐÍCH',
