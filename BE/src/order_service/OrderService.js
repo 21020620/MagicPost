@@ -271,6 +271,34 @@ const OrderService = {
             }
         });
         return [...orderToCpoint1, ...orderToCpoint2, ...orderToCpoint3, ...orderToCpoint4];
+    },
+
+    getOrderForGuest: async (orderID) => {
+        const actions = await prisma.orderAction.findMany({
+            where: {
+                orderID,
+            },
+            orderBy: {
+                actionDate: 'asc',
+            },
+            include : {
+                creator: {
+                    include: {
+                        CEmployee: {
+                            include: {
+                                department: true,
+                            }
+                        },
+                        TEmployee: {
+                            include: {
+                                department: true,
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        return actions;
     }
 };
 

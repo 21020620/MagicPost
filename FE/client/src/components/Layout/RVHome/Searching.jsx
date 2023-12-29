@@ -15,11 +15,21 @@ const DeliveryTrackingPage = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [isMatchFound, setIsMatchFound] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
+  const [dataSource, setDataSource] = useState([]);
 
   const handleSearch = async () => {
-    const response = await axiosInstance.get(`/find/${query}`);
-    console.log(response.data);
-    setFilteredData(response.data);
+    try {
+      const response = await axiosInstance.get(`guest/find/${query}`);
+      console.log(response.data);
+      setFilteredData(response.data);
+      setIsMatchFound(true);
+      setDataSource([response.data]);
+      setModalVisible(true);
+    } catch (error) {
+      console.error(error);
+      setIsMatchFound(false);
+      setModalVisible(true);
+    }
   };
 
   const handleNavigateToLayoutForm = () => {
@@ -30,115 +40,53 @@ const DeliveryTrackingPage = () => {
     setModalVisible(false);
   };
 
-  const renderRecipientInfo = () => {
-    if (filteredData.length > 0) {
-      const recipientInfo = filteredData[0].customer;
-
-      const columns = [
-        { title: "Tên người nhận", dataIndex: "name" },
-        { title: "Tuổi", dataIndex: "age" },
-        { title: "Số điện thoại", dataIndex: "phone" },
-        { title: "Giới tính", dataIndex: "gender" },
-      ];
-
-      const dataSource = [
-        {
-          key: "1",
-          name: recipientInfo.name,
-          age: recipientInfo.age,
-          phone: recipientInfo.phone,
-          gender: recipientInfo.gender,
-        },
-      ];
-
-      return (
-        <Table
-          columns={columns}
-          dataSource={dataSource}
-          pagination={false}
-          size="middle"
-        />
-      );
-    }
-    return null;
-  };
-
-  const renderSenderDetails = () => {
-    if (filteredData.length > 0) {
-      const senderDetails = filteredData[0].receiver;
-
-      const columns = [
-        { title: "Tên người gửi", dataIndex: "name" },
-        { title: "Tuổi", dataIndex: "age" },
-        { title: "Số điện thoại", dataIndex: "phone" },
-        { title: "Giới tính", dataIndex: "gender" },
-      ];
-
-      const dataSource = [
-        {
-          key: "1",
-          name: senderDetails.name,
-          age: senderDetails.age,
-          phone: senderDetails.phone,
-          gender: senderDetails.gender,
-        },
-      ];
-
-      return (
-        <Table
-          columns={columns}
-          dataSource={dataSource}
-          pagination={false}
-          size="middle"
-        />
-      );
-    }
-    return null;
-  };
-
-  const renderDeliveryStatus = () => {
-    if (filteredData.length > 0) {
-      const statusHistory = filteredData[0].orderDetails.statusHistory;
-
-      const timelineItems = statusHistory.map((item, index) => {
-        let description = `Thời gian: ${item.timestamp}`;
-
-        if (index > 0) {
-          const previousStatus = statusHistory[index - 1].status;
-
-          switch (item.status) {
-            case "Đang giao":
-              // Handle 'Đang giao' status
-              break;
-            default:
-              break;
+  const renderInfo = () => {
+    console.log('Received:', dataSource);
+    const flattenedData = dataSource.flat()
+    const columns = [
+      { title: "Thời gian", dataIndex: "actionDate" },
+      { 
+        title: "Trạng thái", 
+        dataIndex: 'type' ,
+        render: (text, record) => {
+          let workplace = '';
+          if(record.creator && record.creator.CEmployee) {
+            workplace = record.creator.CEmployee.department.name;
+          } else if(record.creator && record.creator.TEmployee) {
+            workplace = record.creator.TEmployee.department.name;
           }
-        }
+          switch(text) {
+            case 'LEAVE':
+              return 'Rời khỏi điểm' + ' ' + workplace;
+            case 'CREATE':
+              return 'Đơn hàng được tạo' + ' tại ' + workplace;
+            case 'CONFIRM':
+              return 'Đơn hàng đã đến điểm nhận' + ' tại ' + workplace;
+            case 'RETURN':
+              return 'Đơn hàng đã hoàn trả' + ' tại ' + workplace;
+          }
+        } 
+      },
+      { title: "Nhan vien thuc hien", 
+        dataIndex: "creator",
+        render: (text, record) => {
+          if(record.creator) {
+            return record.creator.firstName + ' ' + record.creator.lastName;
+          }
+          return '';
+        } 
+    },
+    ];
+    console.log('Flattened data:', flattenedData);
 
-        return {
-          title: item.status,
-          description,
-        };
-      });
-
-      return (
-        <Timeline
-          style={{
-            marginTop: "20px",
-            borderLeft: "2px solid #1890ff",
-            paddingLeft: "20px",
-          }}
-          mode="left"
-        >
-          {timelineItems.map((item) => (
-            <Timeline.Item key={item.title} label={item.title}>
-              {item.description}
-            </Timeline.Item>
-          ))}
-        </Timeline>
-      );
-    }
-    return null;
+     return (
+      <Table
+        columns={columns}
+        dataSource={flattenedData}
+        pagination={false}
+        size="middle"
+      />
+    );
   };
 
   return (
@@ -214,10 +162,8 @@ const DeliveryTrackingPage = () => {
         {isMatchFound ? (
           <div>
             <div style={{ display: "flex", justifyContent: "space-around" }}>
-              {renderRecipientInfo()}
-              {renderSenderDetails()}
+              {renderInfo()}
             </div>
-            {renderDeliveryStatus()}
           </div>
         ) : (
           <Empty
