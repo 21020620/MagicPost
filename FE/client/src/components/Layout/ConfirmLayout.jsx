@@ -38,7 +38,7 @@ const ConfirmLayout = ({ data }) => {
   const handleConfirm = async () => {
     const orderId = selectedRecord.id;
     const orderAction = {
-      createrID: user.companyID,
+      creatorID: user.companyID,
       type: "LEAVE"
     }
     const orderStatus = "TRANSPORTING";

@@ -91,12 +91,13 @@ CREATE TABLE `Orders` (
 
 -- CreateTable
 CREATE TABLE `OrderAction` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `orderID` VARCHAR(191) NOT NULL,
     `actionDate` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `creatorID` VARCHAR(191) NOT NULL,
     `type` VARCHAR(50) NOT NULL,
 
-    PRIMARY KEY (`orderID`)
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable

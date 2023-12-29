@@ -138,6 +138,7 @@ const OrderService = {
                 },
             },
         });
+        console.log('new order action', order)
         return order;
     },
 

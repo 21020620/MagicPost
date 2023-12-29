@@ -95,8 +95,9 @@ model Orders {
 }
 
 model OrderAction {
+    id         Int      @id @default(autoincrement())
     order      Orders   @relation(fields: [orderID], references: [id])
-    orderID    String   @id
+    orderID    String
     actionDate DateTime @default(now())
     creator    Employee @relation(fields: [creatorID], references: [companyID])
     creatorID  String
