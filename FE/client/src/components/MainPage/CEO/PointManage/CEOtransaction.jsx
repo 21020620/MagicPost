@@ -28,7 +28,12 @@ const CEOtransaction = () => {
   };
 
   const fetchData = async () => {
-    
+    try {
+      const response = await axiosInstance.get('/api/tpoint');
+      setData(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   const handleAddCpoint = async () => {
