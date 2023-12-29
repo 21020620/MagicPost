@@ -20,11 +20,13 @@ export default function CenLayout() {
     >
       <Header
         className="header"
+        theme= "dark"
+        mode="horizontal"
         style={{
           height: 100,
-          // backgroundColor: "#26205c",
-          position: "relative",
-          boxShadow: "0px 0px 8px",
+          // backgroundColor: colorBgContainer,
+          // position: "relative",  
+          // boxShadow: "0px 0px 8px",
         }}
       >
         <HomeHeader />
@@ -32,7 +34,6 @@ export default function CenLayout() {
       <Layout >
         <Content
           style={{
-            // margin: "20px 20px",
             backgroundColor: "#FFFFFF",
           }}
         >

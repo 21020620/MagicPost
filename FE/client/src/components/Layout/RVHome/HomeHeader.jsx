@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   HomeOutlined,
   FileSearchOutlined,
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../../img/icon.png";
 import { Divider, Button } from "antd";
 import "../../footer.css";
+
 
 export default function HomeHeader() {
   const navigate = useNavigate();
@@ -42,6 +43,33 @@ export default function HomeHeader() {
   const handleLoginButtonClick = () => {
     navigate("/login");
   };
+  const [visibleMenuOptions, setVisibleMenuOptions] = useState(menuOptions);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // Adjust the number of visible menu options based on window width
+      const windowWidth = window.innerWidth;
+  
+      if (windowWidth < 1000) {
+        setVisibleMenuOptions(menuOptions.slice(0, 3)); 
+      } else if (windowWidth < 800) {
+        setVisibleMenuOptions(menuOptions.slice(0, 2)); 
+      } else if (windowWidth < 600) {
+        setVisibleMenuOptions(menuOptions.slice(0, 1)); 
+      } else {
+        setVisibleMenuOptions(menuOptions); 
+      }
+    };
+    handleResize();
+  
+    // Attach the event listener
+    window.addEventListener("resize", handleResize);
+  
+    // Detach the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [menuOptions]);
 
   return (
     <>
@@ -56,7 +84,7 @@ export default function HomeHeader() {
       <Divider />
       <div className="navbar-container">
         <div className="navbar-links-container">
-          {menuOptions.map((option, index) => (
+          {visibleMenuOptions.map((option, index) => (
             <a
               key={index}
               href=""
