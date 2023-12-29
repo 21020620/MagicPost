@@ -9,10 +9,11 @@ export default function LoginLayout() {
   return (
     <div
       style={{
-        margin: "-10px",
-        width: "1500px",
-        height: "800px",
-        backgroundImage: `url(${background})`
+        margin: "0px",
+        width: "100%",  // Set width to 100%
+        height: "100%", // Set height to 100%
+        backgroundImage: `url(${background})`,
+        backgroundSize: 'cover',
       }}
     >
       <Outlet/>

@@ -306,40 +306,12 @@ const ConfirmLayout = ({ data }) => {
           </Button>,
         ]}
       >
-        {selectedRecord && (
-          <Form>
-            {Object.keys(selectedRecord).map((key) => (
-              <Form.Item key={key} label={<strong>{key}:</strong>}>
-                {key === 'id' ? (
-                  <span>{selectedRecord[key]}</span>
-                ) : (
-                  <span>{selectedRecord[key]}</span>
-                )}
-              </Form.Item>
-            ))}
-            <Form.Item label="Shipping Address">
-              <Select
-                value={shippingAddress}
-                onChange={(value) => setShippingAddress(value)}
-                style={{ width: '100%' }}
-              >
-                {/* Thêm các option của Shipping Address */}
-                <Select.Option value="address1">Address 1</Select.Option>
-                <Select.Option value="address2">Address 2</Select.Option>
-              </Select>
-            </Form.Item>
-            <Form.Item label="Receiving Location">
-              <Select
-                value={receivingLocation}
-                onChange={(value) => setReceivingLocation(value)}
-                style={{ width: '100%' }}
-              >
-                {/* Thêm các option của Receiving Location */}
-                <Select.Option value="location1">Location 1</Select.Option>
-                <Select.Option value="location2">Location 2</Select.Option>
-              </Select>
-            </Form.Item>
-          </Form>
+        {selectedRecord && !isSuccess && (
+          <div>
+            <p>
+              Bạn có chắc chắn muốn xác nhận đơn hàng có ID: {selectedRecord.id} không thành công?
+            </p>
+          </div>
         )}
       </Modal>
     </div>

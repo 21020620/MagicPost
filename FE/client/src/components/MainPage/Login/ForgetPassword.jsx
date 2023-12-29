@@ -22,11 +22,11 @@ export default function ForgottenPassword() {
 
   const handleSendVerifyCode = async () => {
     try {
-      // Send a test email (replace with your actual email template and details)
+      // Send the email with the specified content
       const templateParams = {
         to_email: email,
         subject: "Verification Code",
-        body: "Your verification code is: 123456", // Replace with the actual verification code
+        body: "Trang chủ của google là: https://www.google.com", // Updated content
       };
 
       // Use your email template and service ID
@@ -44,47 +44,6 @@ export default function ForgottenPassword() {
     }
   };
 
-
-  /* return (
-    <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      {contextHolder}
-      <Space
-        direction="vertical"
-        size="large"
-        style={{
-          position: "relative",
-          paddingTop: 50,
-
-          textAlign: 'center', borderRadius: "10px", backgroundColor: "white", width: "500px", height: "300px"
-        }}
-      >
-        <Title>Quên mật khẩu</Title>
-        <Input
-          size="large"
-          placeholder="Email"
-          prefix={<UserOutlined />}
-          name="email"
-          onChange={handleChange}
-          style={{ width: '75%' }}
-        />
-        <div>
-          <Button
-            size="large"
-            type="primary"
-            style={{ float: "right", right: '12%' }}
-            onClick={handleSendVerifyCode}
-          >
-            Gửi mã xác thực
-          </Button>
-          <Button size="large" style={{ float: "left", left: '12%' }} onClick={handleLogin}>
-            <ArrowLeftOutlined />
-            Đăng nhập
-          </Button>
-        </div>
-      </Space>
-    </div>
-  ); */
-
   return (
     <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       {contextHolder}
@@ -94,7 +53,6 @@ export default function ForgottenPassword() {
         style={{
           position: "relative",
           paddingTop: 50,
-
           textAlign: 'center', borderRadius: "10px", backgroundColor: "white", width: "500px", height: "300px"
         }}
       >
