@@ -37,15 +37,23 @@ const ConfirmLayout = ({ data }) => {
 
   const handleConfirm = async () => {
     const orderId = selectedRecord.id;
+    let orderStatus = "";
+    let type = "LEAVE";
+    if(selectedRecord.orderStatus === "CREATE") orderStatus = "TRANSPORTING1";
+    else if(selectedRecord.orderStatus === "TRANSPORTING1") orderStatus = "TRANSPORTING2";
+    else if(selectedRecord.orderStatus === "TRANSPORTING2") orderStatus = "ARRIVED";
+    else if(selectedRecord.orderStatus === "ARRIVED") {
+      orderStatus = "DONE";
+      type = "CONFIRM";
+    }
     const orderAction = {
       creatorID: user.companyID,
-      type: "LEAVE"
-    }
-    const orderStatus = "TRANSPORTING";
+      type,
+    };
     try {
       console.log({ orderId, orderAction, orderStatus })
       await axiosInstance.put(`/api/orders`, { orderId, orderAction, orderStatus });
-      console.log("Order sUccesS!");
+      console.log("Update order success!");
       setIsSuccess(true);
     } catch (error) {
       setIsSuccess(false);

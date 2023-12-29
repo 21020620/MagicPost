@@ -19,6 +19,10 @@ const AdminService = {
         const employee = await prisma.employee.findUnique({
             where: {
                 email,
+            },
+            include: {
+                CEmployee: true,
+                TEmployee: true,
             }
         });
         return employee;
