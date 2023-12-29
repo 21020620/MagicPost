@@ -97,7 +97,7 @@ export default function Login() {
           name="username"
           onChange={handleChange}
           onKeyUp={handleKeyUp}
-          style={{ width: '50%' }}
+          style={{ width: '75%' }}
         />
 
         <Input.Password
@@ -106,7 +106,7 @@ export default function Login() {
           prefix={<LockOutlined />}
           name="password"
           onChange={handleChange}
-          style={{ width: '50%' }}
+          style={{ width: '75%' }}
           onKeyUp={handleKeyUp}
           iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
       />
@@ -115,7 +115,7 @@ export default function Login() {
           Đăng nhập
         </Button>
 
-        <NavLink to="/forgotten-password">Quên mật khẩu?</NavLink>
+        <NavLink to="/login/forget">Quên mật khẩu?</NavLink>
       </Space>
     </div>
   );
