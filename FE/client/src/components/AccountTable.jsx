@@ -36,8 +36,10 @@ const AccountTable = ({ data }) => {
 
   // Function to format role for display
   const formatRole = (role) => {
-    if (role === 'cpointm') return 'Điểm tập kết';
-    return 'Điểm giao dịch';
+    if (role === 'cpointm') return 'Trưởng điểm tập kết';
+    else if (role === 'cpointw') return 'Nhân viên điểm tập kết';
+    else if (role === 'tpointm') return 'Trưởng điểm giao dịch';
+    return 'Nhân viên điểm tập kết';
   };
 
   // Function to handle delete action
