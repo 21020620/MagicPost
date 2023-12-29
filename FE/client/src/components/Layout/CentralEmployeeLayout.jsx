@@ -1,11 +1,12 @@
 import {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
-import {HomeOutlined} from '@ant-design/icons';
+import {HomeOutlined, CheckCircleOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import { Outlet } from "react-router-dom";
 import logo from "../../img/icon.png"
 import MyHeader from '../Layout/MyHeader';
+import MyFooter from './MyFooter';
 import axiosInstance from '../DefaultAxios.jsx';
 
 function getItem(label, key, icon, children) {
@@ -23,7 +24,7 @@ const menuItems = [
   ),
 
   getItem(
-    <NavLink to="/CE/confirm">Xác nhận đơn</NavLink>, "3", <HomeOutlined />
+    <NavLink to="/CE/confirm">Xác nhận đơn</NavLink>, "3", <CheckCircleOutlined />
   ),
 ];
   
@@ -50,6 +51,7 @@ const CentralEmployeeLayout = () => {
               style={{
                 width: "60px",
                 height: "60px",
+                marginLeft: "50px",
               }}
           />
         </div>
@@ -88,10 +90,10 @@ const CentralEmployeeLayout = () => {
         </Content>
         <Footer
           style={{
-            textAlign: 'center',
+            backgroundColor: "#F5F5F5",
           }}
         >
-          Ant Design ©2023 Created by Ant UED
+          <MyFooter />
         </Footer>
       </Layout>
     </Layout>
