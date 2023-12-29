@@ -3,7 +3,12 @@ import prisma from "../PrismaInstance.js";
 const TransactionPointService = {
     
     getAllTransactionPoints: async () => {
-        const transactionpoints = await prisma.tPoint.findMany();
+        const transactionpoints = await prisma.tPoint.findMany({
+            include: {
+                parentCP: true,
+            }
+            
+        });
         return transactionpoints;
     },
     
@@ -69,6 +74,15 @@ const TransactionPointService = {
     
         return employee && employee.TEmployee ? employee.TEmployee.department : null;
     },
+
+    deleteTransactionPoint: async (TransactionPointID) => {
+        const transactionpoint = await prisma.tPoint.delete({
+            where: {
+                id: TransactionPointID,
+            }
+        });
+        return transactionpoint;
+    }
 }
 
 export default TransactionPointService;

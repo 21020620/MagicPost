@@ -56,8 +56,8 @@ const CEOcentral = () => {
       <CentralPointTable data={data} managers={managers} />
 
       <Modal
-        title="Modal Title"
-        open={isModalVisible}
+        title="Add Central Point"
+        visible={isModalVisible}
         onCancel={handleModalCancel}
         footer={[
           <Button key="cancel" onClick={handleModalCancel}>

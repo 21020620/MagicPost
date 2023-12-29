@@ -1,12 +1,20 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Table, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
 const TransactionPointTable = ({ data }) => {
-  const handleDelete = (record) => {
-    // Xử lý logic xóa dữ liệu 
+  const [dataSource, setDataSource] = useState([]);
+  const handleDelete = async (record) => {
+    await axiosInstance.delete(`/api/tpoint/${record.id}`);
+    setDataSource(dataSource.filter((item) => item.id !== record.id));
     console.log(`Deleting data with ID: ${record.id}`);
   };
+
+  useEffect(() => {
+    setDataSource(data.map(item => ({ ...item, key: item.id })));
+  }, [data]);
+
+  console.log(data);
 
   const columns = [
     {
@@ -15,14 +23,19 @@ const TransactionPointTable = ({ data }) => {
       key: 'id',
     },
     {
-      title: 'City',
-      dataIndex: 'city',
-      key: 'city',
-    },
-    {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
+      title: 'Central Point',
+      dataIndex: ['parentCP', 'address'],
+      key: 'parentCP.address',
     },
     {
       title: 'Delete',
@@ -34,8 +47,6 @@ const TransactionPointTable = ({ data }) => {
       ),
     }
   ];
-
-  const dataSource = data.map(item => ({ ...item, key: item.id }));
 
   return <Table dataSource={dataSource} columns={columns} />;
 };
