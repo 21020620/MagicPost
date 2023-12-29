@@ -7,6 +7,8 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
+import { useSelector } from 'react-redux';
+import axiosInstance from '../DefaultAxios';
 
 const ConfirmLayout = ({ data }) => {
   const [searchText, setSearchText] = useState('');
@@ -18,6 +20,7 @@ const ConfirmLayout = ({ data }) => {
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [shippingAddress, setShippingAddress] = useState('');
   const [receivingLocation, setReceivingLocation] = useState('');
+  const { user, workplace } = useSelector((state) => state.user);
 
   const handleFull = (record) => {
     setSelectedRecord(record);
@@ -32,7 +35,21 @@ const ConfirmLayout = ({ data }) => {
     setModalVisible(false);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    const orderId = selectedRecord.id;
+    const orderAction = {
+      createrID: user.companyID,
+      type: "LEAVE"
+    }
+    const orderStatus = "TRANSPORTING";
+    try {
+      await axiosInstance.put(`/api/orders`, { orderId, orderAction, orderStatus });
+      console.log("Order sUccesS!");
+      setIsSuccess(true);
+    } catch (error) {
+      setIsSuccess(false);
+      console.log(error);
+    }
     setConfirmModalVisible(false);
     if (isSuccess) {
       // Show a success message
@@ -41,23 +58,13 @@ const ConfirmLayout = ({ data }) => {
         content: 'Order confirmed successfully!',
       });
     } else {
-      // For unsuccessful cases, show the "Chi tiết" modal with an additional confirmation button
       setModalVisible(true);
     }
   };
 
-  /* const handleDetailConfirm = () => {
-    setModalVisible(false);
-    // Show an error message for unsuccessful cases
-    Modal.error({
-      title: 'Confirmation',
-      content: 'Order confirmation failed!',
-    });
-  }; */
 
   const handleDetailConfirm = () => {
     setModalVisible(false);
-    // Show a confirmation message for unsuccessful cases
     Modal.confirm({
       title: 'Xác nhận',
       content: `Bạn có chắc chắn muốn xác nhận đơn hàng có ID: ${selectedRecord.id} không thành công?`,
@@ -134,6 +141,12 @@ const ConfirmLayout = ({ data }) => {
         text
       ),
   });
+
+  const convertKeyName = (input) => {
+    return input
+    .replace(/([A-Z])/g, ' $1') 
+    .replace(/^./, function(str){ return str.toUpperCase(); })
+  }
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -213,7 +226,7 @@ const ConfirmLayout = ({ data }) => {
           <div>
             {Object.keys(selectedRecord).map((key) => (
               <p key={key}>
-                <strong>{key}:</strong> {selectedRecord[key]}
+                <strong>{convertKeyName(key)}:</strong> {selectedRecord[key]}
               </p>
             ))}
           </div>
@@ -222,7 +235,7 @@ const ConfirmLayout = ({ data }) => {
 
       <Modal
         title="Xác nhận đơn hàng"
-        visible={confirmModalVisible}
+        open={confirmModalVisible}
         onCancel={() => setConfirmModalVisible(false)}
         footer={[
           <Button key="cancel" onClick={() => setConfirmModalVisible(false)}>

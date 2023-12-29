@@ -125,7 +125,43 @@ const OrderService = {
         } while (existingOrder !== null);
 
         return id;
-    }
+    },
+
+    addActionOrder: async (OrderID, OrderAction) => {
+        const order = await prisma.orders.update({
+            where: {
+                id: OrderID,
+            },
+            data: {
+                orderActions: {
+                    create: OrderAction,
+                },
+            },
+        });
+        return order;
+    },
+
+    updateOrderStatus: async (OrderID, OrderStatus) => {
+        const order = await prisma.orders.update({
+            where: {
+                id: OrderID,
+            },
+            data: {
+                orderStatus: OrderStatus,
+            },
+        });
+        return order;
+    },
+
+    getOrderFromTpoint: async (TransactionPointID) => {
+        const order = await prisma.orders.findMany({
+            where: {
+                senderTPId: TransactionPointID,
+                orderStatus: 'CREATED'
+            }
+        });
+        return order;
+    },
 };
 
 export default OrderService;
