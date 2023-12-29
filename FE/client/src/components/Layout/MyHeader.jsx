@@ -8,7 +8,7 @@ import AppContext from "../AppContext";
 export default function MyHeader({ username, userRole }) {
   // Access user-related data from the AppContext
   const { setUser, user } = useContext(AppContext);
-  const userType = user.isAdmin ? "" : "";
+  //const userType = user.isAdmin ? "" : "";
   const navigate = useNavigate();
 
   // Dropdown menu items for user actions

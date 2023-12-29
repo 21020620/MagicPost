@@ -8,7 +8,7 @@ import axios from 'axios';
 import StatisticTable from '../../../../StatisticTable';
 
   
-const TransactionManagerStatistic = () => {
+const CentralManagerStatistic = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -180,4 +180,4 @@ const TransactionManagerStatistic = () => {
     </div>
   );
 };
-export default TransactionManagerStatistic;
+export default CentralManagerStatistic;

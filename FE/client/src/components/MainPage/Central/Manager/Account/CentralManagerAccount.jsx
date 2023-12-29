@@ -4,19 +4,25 @@ import AccountTable from '../../../../AccountTable';
 import axiosInstance from '../../../../DefaultAxios';
 import AddCentralEmployeeForm from '../../../../Layout/AddCentralEmployeeForm';
 
+// Component for managing central manager accounts
 const CentralManagerAccount = () => {
+  // State variables
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [formData, setFormData] = useState({});
   const [workplace, setWorkplace] = useState({});
 
+  // Function to fetch data from the server
   const fetchData = async () => {
     try {
+      // Fetch workplace information
       const workplaceResponse = await axiosInstance.get('/api/cpoint/cpFromAccount');
       setWorkplace(workplaceResponse.data);
+
+      // Fetch employee data for the current workplace
       const response = await axiosInstance.get(`/api/cpoint/employees/${workplaceResponse.data.id}`);
-      setData(response.data.map((item) => (item.Employee)));
+      setData(response.data.map((item) => item.Employee));
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -24,38 +30,53 @@ const CentralManagerAccount = () => {
     }
   };
 
+  // Effect hook to fetch data when the component mounts
   useEffect(() => {
     fetchData();
   }, []);
 
+  // Event handler for the "Add" button click
   const handleAddButtonClick = () => {
     setIsModalVisible(true);
   };
 
+  // Event handler for closing the modal
   const handleModalClose = () => {
     setIsModalVisible(false);
   };
 
+  // Event handler for adding a new employee
   const handleAddEmployee = () => {
+    // Set the role and associate the employee with the current cpoint
     formData.role = 'cpointw';
-    formData.CEmployee = { create: {cpointId: workplace.id} };
+    formData.CEmployee = { create: { cpointId: workplace.id } };
     console.log(formData);
+    
+    // Send a POST request to add the employee
     axiosInstance.post('/api/admin/employees', formData);
+    
+    // Close the modal after adding an employee
     setIsModalVisible(false);
   };
 
+  // Loading state check
   if (loading) {
     return <p>Loading data...</p>;
   }
 
+  // Render the component
   return (
     <div>
-      <Button type="primary" style={{ marginBottom: 16, float: "left" }} onClick={handleAddButtonClick}>
+      {/* "Add" button */}
+      <Button type="primary" style={{ marginBottom: 16, float: 'left' }} onClick={handleAddButtonClick}>
         Add
       </Button>
+
+      {/* Display employee accounts */}
       <AccountTable data={data} />
+
+      {/* Modal for adding a central employee */}
       <Modal
-        //title="Add Employee"
         open={isModalVisible}
         onCancel={handleModalClose}
         footer={[
@@ -68,13 +89,12 @@ const CentralManagerAccount = () => {
         ]}
         width={700}
       >
-        <AddCentralEmployeeForm setFormData={setFormData}/>
+        {/* Form for adding a central employee */}
+        <AddCentralEmployeeForm setFormData={setFormData} />
       </Modal>
     </div>
   );
 };
 
+// Export the CentralManagerAccount component as the default export
 export default CentralManagerAccount;
-
-
-

@@ -145,11 +145,6 @@ export default function Login() {
         <Button size="large" type="primary" onClick={handleLogin}>
           Đăng nhập
         </Button>
-
-        {/* Link to the "Forget Password" page */}
-        <NavLink to="/login/forget">Quên mật khẩu?</NavLink>
-        {/* Additional link (commented out) for a "Reset Password" page */}
-        {/* <NavLink to="/login/reset-password">Reset password</NavLink> */}
       </Space>
     </div>
   );
