@@ -21,6 +21,8 @@ import CreateOrder from "./components/MainPage/Transaction/Employee/CreateOrder"
 import ConfirmOrder from "./components/MainPage/Transaction/Employee/ConfirmOrder";
 import MainPageLayout from "./components/MainPageLayout";
 import ChangePassword from "./components/Layout/ChangePassword";
+import ForgetPassword from "./components/MainPage/Login/ForgetPassword";
+import ForgetpasswordLayout from "./components/MainPage/Login/ForgetpasswordLayout";
 import RVHome from "./components/Layout/RVHome/RVHome";
 import RVAbout from "./components/Layout/RVHome/About";
 import RVSearch from "./components/Layout/RVHome/Searching";
@@ -41,7 +43,11 @@ export default function App() {
 
       <Route path="/login" element={<LoginLayout />}>
         <Route index element={<Login />} />
+        <Route path="forget" element={<ForgetpasswordLayout />}>
+          <Route index element={<ForgetPassword />} />
+        </Route>
       </Route>
+
 
       <Route path="/CEO" element={<CEOLayout />}>
         <Route index element={<MainPageLayout />} />
