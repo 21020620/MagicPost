@@ -29,8 +29,13 @@ const orderController = (fastify, options, done) => {
         reply.status(200).send(order);
     });
 
-    fastify.get('/createHere/:id', async (req, reply) => {
+    fastify.get('/toTpoint/:id', async (req, reply) => {
         const orders = await orderService.getOrderFromTpoint(parseInt(req.params.id));
+        reply.status(200).send(orders);
+    });
+
+    fastify.get('/toCpoint/:id', async (req, reply) => {
+        const orders = await orderService.getOrderToCpoint(parseInt(req.params.id));
         reply.status(200).send(orders);
     });
 
@@ -53,7 +58,7 @@ const orderController = (fastify, options, done) => {
         order.senderPhone = sender.phoneNumber;
         order.receiverPhone = receiver.phoneNumber;
         order.id = await orderService.generateUniqueOrderId();
-        order.orderActions = [{ creatorID: user.companyID, type: 'create'}];
+        order.orderActions = [{ creatorID: user.companyID, type: 'CREATE'}];
         const newOrder = await orderService.createOrder(order);
         reply.status(201).send(newOrder);
     });

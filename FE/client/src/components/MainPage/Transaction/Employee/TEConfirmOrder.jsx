@@ -10,7 +10,7 @@ const ConfirmOrder = () => {
   const getAllOrders = async () => {
     try {
       console.log(workplace.id)
-      const response = await axiosInstance.get(`/api/orders/createHere/${workplace.id}`);
+      const response = await axiosInstance.get(`/api/orders/toTpoint/${workplace.id}`);
       setData(response.data);
     } catch (error) {
       console.log(error);
