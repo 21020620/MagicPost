@@ -126,11 +126,7 @@ const ParcelInfo = (props) => {
       
     return (
       <div className={styles['parcel-information']}>
-<<<<<<< HEAD
         <h2>Parcel Information</h2>
-=======
-        <h2>Parcel Information: {props.formData.id}</h2>
->>>>>>> 90ed083ed8b3d47317b9b1738a8183af071867ff
         <div className={styles.boxes}>
           <div className={styles.box}>
             <div className={styles.header}>
@@ -295,11 +291,7 @@ const ParcelInfo = (props) => {
                 </p>
               </div>
               <div className={styles['sender-signature']}>
-<<<<<<< HEAD
                 <div className={styles.date}>
-=======
-                <div className={styles.date} >
->>>>>>> 90ed083ed8b3d47317b9b1738a8183af071867ff
                   <p>
                     <b>8. Date of Sending</b>
                   </p>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Select, Form, Input, Radio, Button, InputNumber, Modal, DatePicker, TimePicker } from 'antd';
+import { Select, Form, Input, Radio, Button, InputNumber, Modal, message } from 'antd';
 import ParcelInfo from './ParcelInfo';
 import dayjs from 'dayjs';
 import 'dayjs/locale/en';
@@ -129,6 +129,7 @@ const CreateOrder = () => {
     const response = await axiosInstance.post('/api/orders', {sender, receiver, order, user});
     console.log('Response: ', response.data);
     setFormData(response.data);
+    message.success('Order processed successfully');
   };
 
   const orderOptions = [{ label: 'Document', value: true }, { label: 'Goods', value: false}];
