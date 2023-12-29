@@ -33,15 +33,15 @@
 
 /* Add your existing styles here */
 
-.menu-option:hover {
-  background-color: grey; /* Change the color to your desired hover color */
-  color: white; /* Change the text color to contrast with the background */
-}
 
 .button-hover:hover {
-  background-color: grey; /* Change the color to your desired hover color */
-  border-color: grey; /* Change the border color to match the background color */
-  color: white; /* Change the text color to contrast with the background */
+  background-color: rgb(74, 163, 66); 
+  border-color: grey;
+  /* color: rgb(253, 251, 251) !important;  */
+
+  &:hover {
+    color: #fff !important; /* Change text color to white on hover */
+  }
 }
 
 /*css cho menu*/
@@ -50,14 +50,14 @@
   align-items: center;
   margin-right: 1rem;
   text-decoration: none;
-  color: black;
+  color: rgb(171, 160, 160);
   font-size: 1.5rem;
   font-weight: 600;
-  transition: color 0.3s ease; /* Add transition for color change */
+  transition: color 0.3s ease; 
 }
 
 .menu-option:hover {
-  color: #1890ff; /* Change color on hover */
+  color: #1890ff; 
 }
 
 @media (max-width: 1000px) {
