@@ -50,12 +50,12 @@ export default function HomeHeader() {
       // Adjust the number of visible menu options based on window width
       const windowWidth = window.innerWidth;
   
-      if (windowWidth < 1000) {
-        setVisibleMenuOptions(menuOptions.slice(0, 3)); 
+      if (windowWidth < 600) {
+        setVisibleMenuOptions(menuOptions.slice(0, 1)); 
       } else if (windowWidth < 800) {
         setVisibleMenuOptions(menuOptions.slice(0, 2)); 
-      } else if (windowWidth < 600) {
-        setVisibleMenuOptions(menuOptions.slice(0, 1)); 
+      } else if (windowWidth < 1000) {
+        setVisibleMenuOptions(menuOptions.slice(0, 3)); 
       } else {
         setVisibleMenuOptions(menuOptions); 
       }
@@ -69,7 +69,7 @@ export default function HomeHeader() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [menuOptions]);
+  }, []);
 
   return (
     <>

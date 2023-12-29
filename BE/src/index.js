@@ -8,6 +8,7 @@ import CentralPointController from "./centralpoint_service/CentralPointControlle
 import AdminController from "./admin_service/AdminController.js";
 import TransactionPointController from "./transactionpoint_service/TransactionPointController.js";
 import OrderController from "./order_service/OrderController.js";
+import orderService from "./order_service/OrderService.js";
 
 const logger = pino({
     transport: {
@@ -25,6 +26,15 @@ fastify.register(fastifyCors, {
 });
 
 fastify.decorateRequest('role', 'default');
+
+fastify.get('/find/:id', async (req, reply) => {
+    const order = await orderService.getOrder(req.params.id);
+    if (order === null) {
+        reply.code(404).send({ message: 'Order not found' });
+        return;
+    }
+    reply.status(200).send(order);
+});
 
 fastify.register(AccountController);
 fastify.register(CentralPointController, { prefix: '/api/cpoint' });

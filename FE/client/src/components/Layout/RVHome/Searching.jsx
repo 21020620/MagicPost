@@ -1,36 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Input, Button, Empty, Timeline, Modal, Table, Layout } from "antd";
+import axiosInstance from "../../DefaultAxios";
 import axios from "axios";
 import styles from "./Searching.module.css";
 import { useNavigate } from "react-router-dom";
 import background_image from "../../../img/BG_for_search.jpg";
+
 
 const { Content } = Layout;
 
 const DeliveryTrackingPage = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
-  const [data, setData] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
   const [isMatchFound, setIsMatchFound] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get("https://65661dcbeb8bb4b70ef2ecce.mockapi.io/api/v1/dataDeliver")
-      .then((response) => setData(response.data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
-
-  const handleSearch = () => {
-    if (data) {
-      const matchingOrders = data.filter(
-        (order) => order.orderID.toLowerCase() === query.toLowerCase()
-      );
-      setFilteredData(matchingOrders);
-      setIsMatchFound(matchingOrders.length > 0);
-      setModalVisible(true);
-    }
+  const handleSearch = async () => {
+    const response = await axiosInstance.get(`/find/${query}`);
+    console.log(response.data);
+    setFilteredData(response.data);
   };
 
   const handleNavigateToLayoutForm = () => {

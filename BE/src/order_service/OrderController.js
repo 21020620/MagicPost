@@ -15,7 +15,7 @@ const orderController = (fastify, options, done) => {
         reply.status(200).send(orders);
     });
 
-    fastify.get('/orders/:id', async (req, reply) => {
+    fastify.get('/find/:id', async (req, reply) => {
         const id = parseInt(req.params.id, 10);
         if (isNaN(id)) {
             reply.code(400).send({ message: 'Invalid id parameter' });
@@ -28,6 +28,8 @@ const orderController = (fastify, options, done) => {
         }
         reply.status(200).send(order);
     });
+
+    
 
     fastify.get('/toTpoint/:id', async (req, reply) => {
         const orders = await orderService.getOrderFromTpoint(parseInt(req.params.id));
