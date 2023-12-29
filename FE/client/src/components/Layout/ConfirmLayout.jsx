@@ -52,15 +52,6 @@ const ConfirmLayout = ({ data }) => {
       console.log(error);
     }
     setConfirmModalVisible(false);
-    if (isSuccess) {
-      // Show a success message
-      Modal.success({
-        title: 'Confirmation',
-        content: 'Order confirmed successfully!',
-      });
-    } else {
-      setModalVisible(true);
-    }
   
     try {
       if (isSuccess) {
