@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/en';
 import { useSelector } from 'react-redux';
 import axiosInstance from '../../../DefaultAxios';
+import html2canvas from 'html2canvas';
 
 const formItemLayout = {
   labelCol: {
@@ -62,7 +63,24 @@ const CreateOrder = () => {
   };
 
   const handleAccept = async () => {
-    setIsModalVisible(false);
+    //setIsModalVisible(false);
+
+    try {
+      // Use html2canvas to capture the content of the ParcelInfo component
+      const parcelInfoElement = document.getElementById('parcel-info-container');
+      const canvas = await html2canvas(parcelInfoElement);
+  
+      // Convert the canvas to a data URL representing a PNG image
+      const dataUrl = canvas.toDataURL('image/png');
+  
+      // Create a temporary anchor element and trigger a download
+      const downloadLink = document.createElement('a');
+      downloadLink.href = dataUrl;
+      downloadLink.download = 'parcel_info.png';
+      downloadLink.click();
+    } catch (error) {
+      console.error('Error while generating PNG:', error);
+    }
   };
 
   const fetchCpoints = async () => {

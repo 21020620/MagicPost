@@ -23,14 +23,20 @@ const TransactionPointTable = ({ data }) => {
       key: 'id',
     },
     {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'Manager',
+      dataIndex: 'manager',
+      key: 'manager',
+      //render ...
     },
     {
       title: 'Central Point',

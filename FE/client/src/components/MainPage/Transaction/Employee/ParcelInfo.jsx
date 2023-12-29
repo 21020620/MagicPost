@@ -102,7 +102,7 @@ const ParcelInfo = (props) => {
     return (
       console.log('FormData: ', props.formData),
 
-      <div className={styles['parcel-information']}>
+      <div id="parcel-info-container" className={styles['parcel-information']}>
         <h2>Parcel Information: {props.formData.id}</h2>
         <div className={styles.boxes}>
           <div className={styles.box}>

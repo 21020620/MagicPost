@@ -1,5 +1,5 @@
 import { Button, Input, Space, Typography, message } from 'antd';
-import { UserOutlined, LockOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { validateEmail } from '../../logic';
