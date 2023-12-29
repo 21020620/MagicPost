@@ -14,7 +14,7 @@ const TransactionManagerStatistic = () => {
 
   const fetchData = async () => {
     try {
-      console.log('Fetching data from API...');
+      console.log('Fetching data from API');
       const response = await axiosInstance.get(`api/orders/tpointStats/${workplace.id}`);
       setData(response.data);
     } catch (error) {        
