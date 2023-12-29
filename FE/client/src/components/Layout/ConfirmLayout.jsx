@@ -42,9 +42,15 @@ const ConfirmLayout = ({ data }) => {
     if(selectedRecord.orderStatus === "CREATE") orderStatus = "TRANSPORTING1";
     else if(selectedRecord.orderStatus === "TRANSPORTING1") orderStatus = "TRANSPORTING2";
     else if(selectedRecord.orderStatus === "TRANSPORTING2") orderStatus = "ARRIVED";
+    else if(selectedRecord.orderStatus === "RETRIVAL1") orderStatus = "RETRIVAL2";
+    else if(selectedRecord.orderStatus === "RETRIVAL2") orderStatus = "RETURNING";
     else if(selectedRecord.orderStatus === "ARRIVED") {
       orderStatus = "DONE";
       type = "CONFIRM";
+    }
+    else if(selectedRecord.orderStatus === "RETURNING") {
+      orderStatus = "RETURNED";
+      type = "RETURN";
     }
     const orderAction = {
       creatorID: user.companyID,
@@ -88,25 +94,37 @@ const ConfirmLayout = ({ data }) => {
   };
 
   const handleDetailConfirm = async () => {
+    console.log('from here');
     setModalVisible(false);
   
     try {
-      await new Promise((resolve, reject) => {
-        // Simulate an asynchronous operation, replace this with your actual logic
-        setTimeout(() => {
-          // For example, you can make an API call to update the status
-          // resolve(); // resolve if the operation is successful
-          reject(new Error('Order confirmation failed!')); // reject with an error if the operation fails
-        }, 1000);
-      });
-  
-      // If the promise is resolved without errors, show a success message
+      let orderStatus = "";
+      let type = "";
+      const orderId = selectedRecord.id;
+      if(selectedRecord.cannotSend === 3) {
+        orderStatus = "FAIL";
+        type = "CANCEL";
+      } else {
+        orderStatus = "RETRIVAL1";
+        type = "LEAVE";
+      }
+      const orderAction = {
+        creatorID: user.companyID,
+        type,
+      };
+      try {
+        console.log({ orderId, orderAction, orderStatus })
+        await axiosInstance.put(`/api/orders`, { orderId, orderAction, orderStatus });
+        console.log("Update order success!");
+      } catch (error) {
+        console.log(error);
+      }
+     
       Modal.success({
         title: 'Confirmation',
         content: 'Order confirmed successfully!',
       });
     } catch (error) {
-      // If an error occurs, show an error message
       Modal.error({
         title: 'Confirmation',
         content: error.message || 'Order confirmation failed!',

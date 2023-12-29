@@ -167,7 +167,13 @@ const OrderService = {
                 orderStatus: 'ARRIVED'
             }
         });
-        return [...order1, ...order2];
+        const order3 = await prisma.orders.findMany({
+            where: {
+                senderTPId: TransactionPointID,
+                orderStatus: 'RETURNING'
+            }
+        });
+        return [...order1, ...order2, ...order3];
     },
 
     getOrderToCpoint: async (CentralPointID) => {
@@ -187,7 +193,84 @@ const OrderService = {
                 orderStatus: 'TRANSPORTING2'
             }
         });
-        return [...orderToCpoint1, ...orderToCpoint2];
+        const orderToCpoint3 = await prisma.orders.findMany({
+            where: {
+                senderTP: {
+                    parentCPId: CentralPointID
+                },
+                orderStatus: 'RETRIVAL2'
+            }
+        });
+        const orderToCpoint4 = await prisma.orders.findMany({
+            where: {
+                receiverTP: {
+                    parentCPId: CentralPointID
+                },
+                orderStatus: 'RETRIVAL1'
+            }
+        });
+        return [...orderToCpoint1, ...orderToCpoint2, ...orderToCpoint3, ...orderToCpoint4];
+    },
+
+    getStatisticsOrderTpoint: async (TPointID) => {
+        const orderToTpoint1 = await prisma.orders.findMany({
+            where: {
+                senderTPId: TPointID,
+            }
+        });
+        const orderToTpoint2 = await prisma.orders.findMany({
+            where: {
+                receiverTPId: TPointID,
+                orderStatus: {
+                    in: ['DONE', 'RETURNED']
+                }
+            }
+        });
+        return [...orderToTpoint1, ...orderToTpoint2];
+    },
+
+    getStatisticsOrderCpoint: async (CPointID) => {
+        const orderToCpoint1 = await prisma.orders.findMany({
+            where: {
+                senderTP: {
+                    parentCPId: CPointID
+                },
+                orderStatus: {
+                    in: ['DONE', 'RETURNED']
+                }
+            }
+        });
+        const orderToCpoint2 = await prisma.orders.findMany({
+            where: {
+                receiverTP: {
+                    parentCPId: CPointID
+                },
+                orderStatus: {
+                    in: ['DONE', 'RETURNED']
+                }
+            }
+        });
+        const orderToCpoint3 = await prisma.orders.findMany({
+            where: {
+                senderTP: {
+                    parentCPId: CPointID
+                },
+                orderStatus: {
+                    in: ['TRANSPORTING2', 'RETURNING']
+                }
+            }
+        });
+        const orderToCpoint4 = await prisma.orders.findMany({
+            where: {
+                receiverTP: {
+                    parentCPId: CPointID
+                },
+                orderStatus: {
+                    in: ['ARRIVED', 'RETRIVAL2']
+                }
+            }
+        });
+        return [...orderToCpoint1, ...orderToCpoint2, ...orderToCpoint3, ...orderToCpoint4];
     }
 };
 

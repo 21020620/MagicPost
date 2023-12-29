@@ -39,6 +39,16 @@ const orderController = (fastify, options, done) => {
         reply.status(200).send(orders);
     });
 
+    fastify.get('/tpointStats/:id', async (req, reply) => {
+        const stats = await orderService.getStatisticsOrderTpoint(parseInt(req.params.id));
+        reply.status(200).send(stats);
+    });
+
+    fastify.get('/cpointStats/:id', async (req, reply) => {
+        const stats = await orderService.getStatisticsOrderCpoint(parseInt(req.params.id));
+        reply.status(200).send(stats);
+    });
+
     fastify.put('/', async (req, reply) => {
         const { orderId, orderAction, orderStatus } = req.body;
         try {
