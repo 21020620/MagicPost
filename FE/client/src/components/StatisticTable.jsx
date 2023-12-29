@@ -21,7 +21,18 @@ const StatisticTable = ({ data }) => {
     setModalVisible(false);
   };
 
-  // Table columns configuration
+  const statusText = {
+    'DONE': 'GIAO THÀNH CÔNG',
+    'TRANSPORTING1': 'ĐANG TỚI ĐIỂM TẬP KẾT ĐẦU',
+    'TRANSPORTING1': 'ĐANG TỚI ĐIỂM TẬP KẾT ĐÍCH',
+    'ARRIVED': 'ĐÃ TỚI ĐIỂM GIAO DỊCH ĐÍCH',
+    'FAIL': 'GIAO THẤT BẠI',
+    'RETRIVAL1': 'ĐANG TRỞ VỀ ĐIỂM TẬP KẾT ĐÍCH',
+    'RETRIVAL2': 'ĐANG TRỞ VỀ ĐIỂM TẬP KẾT ĐẦU',
+    'RETURNING': 'ĐANG TRỞ VỀ ĐIỂM GIAO DỊCH ĐẦU',
+    'RETURNED': 'ĐÃ HOÀN TRẢ',
+  };
+
   const columns = [
     {
       title: 'ID',
@@ -30,8 +41,9 @@ const StatisticTable = ({ data }) => {
     },
     {
       title: 'Status',
-      dataIndex: 'status',
+      dataIndex: 'orderStatus',
       key: 'status',
+      render: text => statusText[text] || text,
     },
     {
       // Detail column with "Eye" icon button
