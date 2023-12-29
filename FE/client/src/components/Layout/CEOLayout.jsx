@@ -67,6 +67,7 @@ const CEOLayout = () => {
               style={{
                 width: "60px",
                 height: "60px",
+                marginLeft: "50px",
               }}
           />
         </div>
