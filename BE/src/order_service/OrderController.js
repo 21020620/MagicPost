@@ -29,6 +29,24 @@ const orderController = (fastify, options, done) => {
         reply.status(200).send(order);
     });
 
+    fastify.get('/createHere/:id', async (req, reply) => {
+        const orders = await orderService.getOrderFromTpoint(parseInt(req.params.id));
+        reply.status(200).send(orders);
+    });
+
+    fastify.put('/', async (req, reply) => {
+        const { orderId, orderAction, orderStatus } = req.body;
+        try {
+            await Promise.all([
+                orderService.addActionOrder(orderId, orderAction),
+                orderService.updateOrderStatus(orderId, orderStatus)
+            ]);
+            reply.status(200).send({ message: 'Update order successfully' });
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    });
+
     fastify.post('/', async (req, reply) => {
         const { sender, receiver, order, user } = req.body;
         await Promise.all([orderService.upsertCustomer(sender), orderService.upsertCustomer(receiver)]);

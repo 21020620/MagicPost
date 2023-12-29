@@ -7,6 +7,8 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
+import { useSelector } from 'react-redux';
+import axiosInstance from '../DefaultAxios';
 
 const ConfirmLayout = ({ data }) => {
   const [searchText, setSearchText] = useState('');
@@ -18,6 +20,7 @@ const ConfirmLayout = ({ data }) => {
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [shippingAddress, setShippingAddress] = useState('');
   const [receivingLocation, setReceivingLocation] = useState('');
+  const { user, workplace } = useSelector((state) => state.user);
 
   const handleFull = (record) => {
     setSelectedRecord(record);
@@ -33,7 +36,31 @@ const ConfirmLayout = ({ data }) => {
   };
 
   const handleConfirm = async () => {
+    const orderId = selectedRecord.id;
+    const orderAction = {
+      creatorID: user.companyID,
+      type: "LEAVE"
+    }
+    const orderStatus = "TRANSPORTING";
+    try {
+      console.log({ orderId, orderAction, orderStatus })
+      await axiosInstance.put(`/api/orders`, { orderId, orderAction, orderStatus });
+      console.log("Order sUccesS!");
+      setIsSuccess(true);
+    } catch (error) {
+      setIsSuccess(false);
+      console.log(error);
+    }
     setConfirmModalVisible(false);
+    if (isSuccess) {
+      // Show a success message
+      Modal.success({
+        title: 'Confirmation',
+        content: 'Order confirmed successfully!',
+      });
+    } else {
+      setModalVisible(true);
+    }
   
     try {
       if (isSuccess) {
@@ -60,7 +87,6 @@ const ConfirmLayout = ({ data }) => {
       });
     }
   };
-
 
   const handleDetailConfirm = async () => {
     setModalVisible(false);
@@ -148,6 +174,12 @@ const ConfirmLayout = ({ data }) => {
       ),
   });
 
+  const convertKeyName = (input) => {
+    return input
+    .replace(/([A-Z])/g, ' $1') 
+    .replace(/^./, function(str){ return str.toUpperCase(); })
+  }
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -226,7 +258,7 @@ const ConfirmLayout = ({ data }) => {
           <div>
             {Object.keys(selectedRecord).map((key) => (
               <p key={key}>
-                <strong>{key}:</strong> {selectedRecord[key]}
+                <strong>{convertKeyName(key)}:</strong> {selectedRecord[key]}
               </p>
             ))}
           </div>
@@ -235,7 +267,7 @@ const ConfirmLayout = ({ data }) => {
 
       <Modal
         title="Xác nhận đơn hàng"
-        visible={confirmModalVisible}
+        open={confirmModalVisible}
         onCancel={() => setConfirmModalVisible(false)}
         footer={[
           <Button key="cancel" onClick={() => setConfirmModalVisible(false)}>
