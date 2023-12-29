@@ -1,8 +1,14 @@
-import { Button, Form, Input, Select, DatePicker } from 'antd';
+// Import necessary components and functions from Ant Design
+import { Button, Form, Input, Select } from 'antd';
 const { Option } = Select;
+
+// Import Axios instance for making API requests
 import axiosInstance from '../DefaultAxios';
+
+// Import useEffect and useState from React
 import { useEffect, useState } from 'react';
 
+// Layout configurations for form items
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -22,6 +28,7 @@ const formItemLayout = {
   },
 };
 
+// Layout configuration for the tail form item
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -35,15 +42,26 @@ const tailFormItemLayout = {
   },
 };
 
+// Define the AddCentral component
 const AddCentral = ({ setFormData, data }) => {
+  // Create a form instance
   const [form] = Form.useForm();
+
+  // State to store central points
   const [cpoints, setCpoints] = useState([]);
+
+  // Extract names from data to check for duplicates
   const names = data.map(item => item.name);
+
+  // Handle form submission
   const onFinish = (fieldsValue) => {
     console.log('Received values of form: ', fieldsValue);
+
+    // Set form data using the provided callback
     setFormData(fieldsValue);
   };
 
+  // Fetch central points from the API
   const fetchCPoints = async () => {
     try {
       const response = await axiosInstance.get('/api/cpoint');
@@ -51,12 +69,14 @@ const AddCentral = ({ setFormData, data }) => {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }
+  };
 
+  // useEffect hook to fetch central points when the component mounts
   useEffect(() => {
     fetchCPoints();
   }, []);
 
+  // JSX element for rendering the form
   return (
     <Form
       {...formItemLayout}
@@ -68,6 +88,7 @@ const AddCentral = ({ setFormData, data }) => {
       }}
       scrollToFirstError
     >
+      {/* Form Item for Address */}
       <Form.Item
         name="address"
         label="Address"
@@ -81,6 +102,7 @@ const AddCentral = ({ setFormData, data }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Name */}
       <Form.Item
         name="name"
         label="Name"
@@ -94,6 +116,7 @@ const AddCentral = ({ setFormData, data }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Postal Code */}
       <Form.Item
         name="postalCode"
         label="Postal Code"
@@ -107,6 +130,7 @@ const AddCentral = ({ setFormData, data }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Central Point Selection */}
       <Form.Item
         name="parentCPId"
         label="Central Point"
@@ -124,6 +148,7 @@ const AddCentral = ({ setFormData, data }) => {
         </Select>
       </Form.Item>
 
+      {/* Form Item for the submit button */}
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Check
@@ -133,4 +158,5 @@ const AddCentral = ({ setFormData, data }) => {
   );
 };
 
+// Export the AddCentral component
 export default AddCentral;

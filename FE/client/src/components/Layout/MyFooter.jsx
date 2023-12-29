@@ -16,7 +16,7 @@ export default function HomeFooter() {
             <strong>Công ty cổ phần giao hàng MagicPost</strong>
           </li>
           <li>
-            Maggic Post là doanh nghiệp hàng đầu cung cấp dịch vụ chuyển phát
+            Magic Post là doanh nghiệp hàng đầu cung cấp dịch vụ chuyển phát
             nhanh hàng hoá, bưu kiện trong nước, quốc tế tại Việt Nam.
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               <li>
@@ -27,12 +27,11 @@ export default function HomeFooter() {
               <br />
             </ul>
           </li>
-         
         </ul>
       </div>
       <div className="footer-right">
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-        <li style={{ fontSize: 24 }}>
+          <li style={{ fontSize: 24 }}>
             <strong>Thông tin liên hệ</strong>
           </li>
           <li>
@@ -40,7 +39,7 @@ export default function HomeFooter() {
             <strong>Trụ sở chính:</strong>
             <a
               href="https://goo.gl/maps/srZTEraEbkfE7pBX6"
-              style={{ color: "grey" }}
+              style={{ color: "#007bff", textDecoration: "underline" }}
             >
               {" "}
               Tòa nhà VTV, số 8 Đường Phạm Hùng, Phường Mễ Trì, Quận Nam Từ
@@ -53,7 +52,10 @@ export default function HomeFooter() {
           </li>
           <li>
             <MailFilled style={{ color: "red" }} />
-            <strong>Email:</strong> kinhdoanh@magicpost.com
+            <strong>Email:</strong>{" "}
+            <a href="mailto:kinhdoanh@magicpost.com" style={{ color: "#007bff", textDecoration: "underline" }}>
+              kinhdoanh@magicpost.com
+            </a>
           </li>
         </ul>
       </div>

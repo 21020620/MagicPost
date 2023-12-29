@@ -1,6 +1,8 @@
+// Import necessary components from Ant Design
 import { Button, Form, Input, Select, DatePicker } from 'antd';
 const { Option } = Select;
 
+// Layout configurations for form items
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -20,6 +22,7 @@ const formItemLayout = {
   },
 };
 
+// Layout configuration for the tail form item
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -33,15 +36,22 @@ const tailFormItemLayout = {
   },
 };
 
+// Define the AddCentralEmployeeForm component
 const AddCentralEmployeeForm = ({ setFormData }) => {
+  // Create a form instance
   const [form] = Form.useForm();
 
+  // Handle form submission
   const onFinish = (fieldsValue) => {
+    // Format date of birth and extract specific fields
     fieldsValue.dob = fieldsValue['dob'].format('YYYY-MM-DD') + 'T19:05:03Z';
     const { prefix, workplace, position, ...rest } = fieldsValue;
+
+    // Set form data using the provided callback
     setFormData(rest);
   };
 
+  // JSX element for selecting a prefix for phone number
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select
@@ -55,6 +65,7 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
     </Form.Item>
   );
 
+  // Render the form
   return (
     <Form
       {...formItemLayout}
@@ -66,6 +77,7 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
       }}
       scrollToFirstError
     >
+      {/* Form Item for First Name */}
       <Form.Item
         name="firstName"
         label="First Name"
@@ -79,6 +91,7 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Last Name */}
       <Form.Item
         name="lastName"
         label="Last Name"
@@ -92,10 +105,12 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Date of Birth */}
       <Form.Item name="dob" label="Date Of Birth">
         <DatePicker />
       </Form.Item>
 
+      {/* Form Item for Address */}
       <Form.Item
         name="address"
         label="Address"
@@ -109,13 +124,14 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Email */}
       <Form.Item
         name="email"
         label="E-mail"
         rules={[
           {
             type: 'email',
-            message: 'The input is not valid E-mail!',
+            message: 'The input is not a valid E-mail!',
           },
           {
             required: true,
@@ -126,6 +142,7 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Phone Number with Prefix Selector */}
       <Form.Item
         name="phoneNumber"
         label="Phone Number"
@@ -144,6 +161,7 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
         />
       </Form.Item>
 
+      {/* Form Item for Position (Read-Only) */}
       <Form.Item
         name="position"
         label="Position"
@@ -157,6 +175,7 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
         <Input readOnly />
       </Form.Item>
 
+      {/* Form Item for the submit button */}
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Check
@@ -166,4 +185,5 @@ const AddCentralEmployeeForm = ({ setFormData }) => {
   );
 };
 
+// Export the AddCentralEmployeeForm component
 export default AddCentralEmployeeForm;

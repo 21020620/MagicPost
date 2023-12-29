@@ -1,6 +1,8 @@
-import { Button, Form, Input, Select, DatePicker } from 'antd';
-const { Option } = Select;
+// Import necessary components from Ant Design
+import { Button, Form, Input } from 'antd';
+//const { Option } = Select;
 
+// Layout configurations for form items
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -20,6 +22,7 @@ const formItemLayout = {
   },
 };
 
+// Layout configuration for the tail form item
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -33,14 +36,23 @@ const tailFormItemLayout = {
   },
 };
 
+// Define the AddCentral component
 const AddCentral = ({ setFormData, data }) => {
+  // Create a form instance
   const [form] = Form.useForm();
+
+  // Extract names from data to check for duplicates
   const names = data.map(item => item.name);
+
+  // Handle form submission
   const onFinish = (fieldsValue) => {
     console.log('Received values of form: ', fieldsValue);
+
+    // Set form data using the provided callback
     setFormData(fieldsValue);
   };
 
+  // Render the form
   return (
     <Form
       {...formItemLayout}
@@ -52,6 +64,7 @@ const AddCentral = ({ setFormData, data }) => {
       }}
       scrollToFirstError
     >
+      {/* Form Item for Address */}
       <Form.Item
         name="address"
         label="Address"
@@ -65,6 +78,7 @@ const AddCentral = ({ setFormData, data }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for Name */}
       <Form.Item
         name="name"
         label="Name"
@@ -73,6 +87,7 @@ const AddCentral = ({ setFormData, data }) => {
             required: true,
             message: 'Please input the name!',
           },
+          // Custom validation for checking duplicate names
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || !names.includes(value)) {
@@ -86,6 +101,7 @@ const AddCentral = ({ setFormData, data }) => {
         <Input />
       </Form.Item>
 
+      {/* Form Item for the submit button */}
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Check
@@ -95,4 +111,5 @@ const AddCentral = ({ setFormData, data }) => {
   );
 };
 
+// Export the AddCentral component
 export default AddCentral;
