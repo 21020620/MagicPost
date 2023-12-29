@@ -1,5 +1,5 @@
 import prisma from "../PrismaInstance.js";
-import { hashPassword } from "./PasswordService.js";
+import { hashPassword, checkPassword } from "./PasswordService.js";
 
 const AccountService = {
     getAllAccounts: async () => {
@@ -55,7 +55,33 @@ const AccountService = {
         await prisma.tEmployee.create({
             data: tEmployee,
         });
-    }
+    },
+
+    changePassword: async (username, oldPassword, newPassword) => {
+        const account = await prisma.account.findUnique({
+            where: {
+                username,
+            }
+        });
+        if (!account) {
+            return false;
+        }
+        const isPasswordMatch = await checkPassword(oldPassword, account.password);
+        if (!isPasswordMatch) {
+            return false;
+        }
+        const hashedPassword = await hashPassword(newPassword);
+        await prisma.account.update({
+            where: {
+                username,
+            },
+            data: {
+                password: hashedPassword,
+            }
+        });
+        return true;
+    },
+
 };
 
 export default AccountService;

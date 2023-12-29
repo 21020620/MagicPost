@@ -5,6 +5,7 @@ import AccountService from "./AccountService.js";
 import AdminService from "../admin_service/AdminService.js";
 import CentralPointService from "../centralpoint_service/CentralPointService.js";
 import TransactionPointService from "../transactionpoint_service/TransactionPointService.js";
+import { getUsernameFromToken } from "./AuthenService.js";
 
 const accountController = (fastify, options, done) => {
     fastify.post('/login', loginSchema, async (req, reply) => {
@@ -35,6 +36,14 @@ const accountController = (fastify, options, done) => {
         });
         return account;
     });
+
+    fastify.put('/changePassword', async (req, reply) => {
+        const username = getUsernameFromToken(fastify, req);
+        const { oldPassword, newPassword } = req.body;
+        AccountService.changePassword(username, oldPassword, newPassword);
+        reply.status(200).send('Password changed successfully');
+    });
+
     done();
 }
 

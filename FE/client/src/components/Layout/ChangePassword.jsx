@@ -2,6 +2,7 @@ import { KeyOutlined, ToolOutlined, UndoOutlined } from "@ant-design/icons";
 import { Button, Input, Space, message } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../DefaultAxios";
 
 export default function ChangePassword() {
   const [formData, setFormData] = useState({});
@@ -24,6 +25,16 @@ export default function ChangePassword() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleOk = async () => {
+    try {
+      await axiosInstance.put("/changePassword", formData);
+      message.success("Change password successfully!");
+    } catch (error) { 
+      message.error(error.response.data.message);
+      return;
+    }
+  }
 
   return (
     <div>
@@ -61,7 +72,7 @@ export default function ChangePassword() {
           size="large"
           type="primary"
           style={{ float: "right" }}
-          // onClick={handleOk}
+          onClick={handleOk}
           disabled= {disabledButton}
         >
           Change Password
