@@ -32,48 +32,61 @@ const ConfirmLayout = ({ data }) => {
     setModalVisible(false);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setConfirmModalVisible(false);
-    if (isSuccess) {
-      // Show a success message
-      Modal.success({
-        title: 'Confirmation',
-        content: 'Order confirmed successfully!',
-      });
-    } else {
-      // For unsuccessful cases, show the "Chi tiết" modal with an additional confirmation button
-      setModalVisible(true);
-    }
-  };
-
-  /* const handleDetailConfirm = () => {
-    setModalVisible(false);
-    // Show an error message for unsuccessful cases
-    Modal.error({
-      title: 'Confirmation',
-      content: 'Order confirmation failed!',
-    });
-  }; */
-
-  const handleDetailConfirm = () => {
-    setModalVisible(false);
-    // Show a confirmation message for unsuccessful cases
-    Modal.confirm({
-      title: 'Xác nhận',
-      content: `Bạn có chắc chắn muốn xác nhận đơn hàng có ID: ${selectedRecord.id} không thành công?`,
-      onOk: () => {
-        // Your logic for handling the confirmation
-        // For example, you can make an API call to update the status
-        // and then show a success or error message accordingly.
+  
+    try {
+      if (isSuccess) {
+        // Show a success message
         Modal.success({
           title: 'Confirmation',
           content: 'Order confirmed successfully!',
         });
-      },
-      onCancel: () => {
-        // Handle cancelation if needed
-      },
-    });
+      } else {
+        // For unsuccessful cases, show the "Chi tiết" modal with an additional confirmation button
+        Modal.error({
+          title: 'Confirmation',
+          content: 'Order confirmation failed!',
+        });
+  
+        // Optionally, you can open the "Chi tiết" modal for further confirmation
+        setModalVisible(true);
+      }
+    } catch (error) {
+      // Handle any unexpected errors
+      Modal.error({
+        title: 'Error',
+        content: error.message || 'An unexpected error occurred during order confirmation!',
+      });
+    }
+  };
+
+
+  const handleDetailConfirm = async () => {
+    setModalVisible(false);
+  
+    try {
+      await new Promise((resolve, reject) => {
+        // Simulate an asynchronous operation, replace this with your actual logic
+        setTimeout(() => {
+          // For example, you can make an API call to update the status
+          // resolve(); // resolve if the operation is successful
+          reject(new Error('Order confirmation failed!')); // reject with an error if the operation fails
+        }, 1000);
+      });
+  
+      // If the promise is resolved without errors, show a success message
+      Modal.success({
+        title: 'Confirmation',
+        content: 'Order confirmed successfully!',
+      });
+    } catch (error) {
+      // If an error occurs, show an error message
+      Modal.error({
+        title: 'Confirmation',
+        content: error.message || 'Order confirmation failed!',
+      });
+    }
   };
 
   const handleSuccessClick = (record) => {
