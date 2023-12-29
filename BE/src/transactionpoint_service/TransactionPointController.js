@@ -25,9 +25,19 @@ const TransactionPointController = (fastify, options, done) => {
         reply.status(200).send(cpoints);
     });
 
+    fastify.get('/', async (req, reply) => {
+        const tpoints = await tpService.getAllTransactionPoints();
+        reply.status(200).send(tpoints);
+    });
+
     fastify.get('/tpFromAccount', async (req, reply) => {
         const username = getUsernameFromToken(fastify, req);
         const tpoint = await tpService.getTPointFromAccount(username);
+        reply.status(200).send(tpoint);
+    });
+
+    fastify.delete('/:id', async (req, reply) => {
+        const tpoint = await tpService.deleteTransactionPoint(parseInt(req.params.id));
         reply.status(200).send(tpoint);
     });
 

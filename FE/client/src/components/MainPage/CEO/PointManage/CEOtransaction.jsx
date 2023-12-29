@@ -5,46 +5,25 @@ import { Layout, Menu, theme, Button } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import TransactionPointTable from './TransactionPointTable';
 import MyHeader from '../../../Layout/MyHeader';
+import axiosInstance from '../../../DefaultAxios';
 
   
 const CEOtransaction = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const [data, setData] = useState([]);
 
-  const [data, setData] = useState([
-    {
-      "id": "1",
-      "city": "Hanoi",
-      "name": "Diem so 1"
-    },
-    {
-      "id": "2",
-      "city": "HCM",
-      "name": "Diem so 2"
-    },
-    {
-      "id": "3",
-      "city": "Hoa Binh",
-      "name": "Diem so 3"
-    },
-    {
-      "id": "4",
-      "city": "Thai Binh",
-      "name": "Diem so 4"
-    },
-  ]
-  );
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get('/api/tpoint');
+      setData(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log('Response: ', data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
     fetchData();
   }, []);
 
