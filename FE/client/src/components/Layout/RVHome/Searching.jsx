@@ -206,7 +206,7 @@ const DeliveryTrackingPage = () => {
 
       <Modal
         title={<span style={{ fontSize: "40px" }}>Thông tin vận đơn</span>}
-        visible={modalVisible}
+        open={modalVisible}
         onCancel={handleModalCancel}
         footer={[
           <Button

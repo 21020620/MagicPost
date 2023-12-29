@@ -44,7 +44,7 @@ const StatisticTable = ({ data }) => {
       <Table dataSource={dataSource} columns={columns} />
       <Modal
         title="Chi tiết"
-        visible={modalVisible}
+        open={modalVisible}
         onCancel={handleModalClose}
         footer={[
           <Button key="close" onClick={handleModalClose}>

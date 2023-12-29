@@ -57,7 +57,7 @@ const TransactionManagerAccount = () => {
       <AccountTable data={data} />
       <Modal
         //title="Add Employee"
-        visible={isModalVisible}
+        open={isModalVisible}
         onCancel={handleModalClose}
         footer={[
           <Button key="cancel" onClick={handleModalClose}>

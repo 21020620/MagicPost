@@ -201,7 +201,7 @@ const ConfirmLayout = ({ data }) => {
 
       <Modal
         title="Thông tin của đơn"
-        visible={detailModalVisible}
+        open={detailModalVisible}
         onCancel={handleDetailModalClose}
         footer={[
           <Button key="cancel" onClick={handleDetailModalClose}>
@@ -251,7 +251,7 @@ const ConfirmLayout = ({ data }) => {
 
       <Modal
         title="Chi tiết"
-        visible={modalVisible}
+        open={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={[
           <Button key="confirmDetail" type="primary" onClick={isSuccess ? handleModalClose : handleDetailConfirm}>

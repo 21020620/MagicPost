@@ -18,7 +18,8 @@ import TransactionManagerAccount from "./components/MainPage/Transaction/Manager
 import TransactionManagerStatistic from "./components/MainPage/Transaction/Manager/Statistic/TransactionManagerStatistic";
 import TransactionEmployeeLayout from "./components/Layout/TransactionEmployeeLayout";
 import CreateOrder from "./components/MainPage/Transaction/Employee/CreateOrder";
-import ConfirmOrder from "./components/MainPage/Transaction/Employee/ConfirmOrder";
+import TEConfirmOrder from "./components/MainPage/Transaction/Employee/TEConfirmOrder";
+import CEConfirmOrder from "./components/MainPage/Central/Employee/CEConfirmOrder";
 import MainPageLayout from "./components/MainPageLayout";
 import ChangePassword from "./components/Layout/ChangePassword";
 import ForgetPassword from "./components/MainPage/Login/ForgetPassword";
@@ -69,7 +70,7 @@ export default function App() {
         <Route index element={<MainPageLayout />} />
         <Route path="order" element={<CreateOrder />} />
         <Route path="changePassword" element={<ChangePassword />} />
-        <Route path="confirm" element={<ConfirmOrder />} />
+        <Route path="confirm" element={<TEConfirmOrder />} />
       </Route>
 
       <Route path="/Central" element={<CentralManagerLayout />}>
@@ -81,6 +82,7 @@ export default function App() {
 
       <Route path="/CE" element={<CentralEmployeeLayout />}>
         <Route index element={<MainPageLayout />} />
+        <Route path="confirm" element={<CEConfirmOrder />} />
         <Route path="changePassword" element={<ChangePassword />} />
       </Route>
     </Routes>
