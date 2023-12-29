@@ -30,6 +30,11 @@ const TransactionPointController = (fastify, options, done) => {
         reply.status(200).send(tpoints);
     });
 
+    fastify.post('/', async (req, reply) => {
+        const tpoint = await tpService.createTPoint(req.body);
+        reply.status(200).send(tpoint);
+    });
+
     fastify.get('/tpFromAccount', async (req, reply) => {
         const username = getUsernameFromToken(fastify, req);
         const tpoint = await tpService.getTPointFromAccount(username);

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 import {HomeOutlined} from '@ant-design/icons';
-import { Layout, Menu, theme, Button, Modal } from 'antd';
+import { Layout, Menu, theme, Button, Modal, message } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import TransactionPointTable from './TransactionPointTable';
 import MyHeader from '../../../Layout/MyHeader';
@@ -36,7 +36,13 @@ const CEOtransaction = () => {
     }
   };
 
-  const handleAddCpoint = async () => {
+  const handleAddTpoint = async () => {
+    try {
+      await axiosInstance.post('/api/tpoint', formData);
+      message.success('Add transaction point successfully!');
+    } catch (error) {
+      message.error(error.response.data.message);
+    }
     setIsModalVisible(false);
   };
 
@@ -60,7 +66,7 @@ const CEOtransaction = () => {
           <Button key="cancel" onClick={handleModalCancel}>
             Cancel
           </Button>,
-          <Button key="add" type="primary" onClick={handleAddCpoint}>
+          <Button key="add" type="primary" onClick={handleAddTpoint}>
             Add
           </Button>
         ]}

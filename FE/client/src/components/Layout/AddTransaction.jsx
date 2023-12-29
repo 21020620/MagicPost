@@ -1,5 +1,7 @@
 import { Button, Form, Input, Select, DatePicker } from 'antd';
 const { Option } = Select;
+import axiosInstance from '../DefaultAxios';
+import { useEffect, useState } from 'react';
 
 const formItemLayout = {
   labelCol: {
@@ -35,11 +37,25 @@ const tailFormItemLayout = {
 
 const AddCentral = ({ setFormData, data }) => {
   const [form] = Form.useForm();
+  const [cpoints, setCpoints] = useState([]);
   const names = data.map(item => item.name);
   const onFinish = (fieldsValue) => {
     console.log('Received values of form: ', fieldsValue);
     setFormData(fieldsValue);
   };
+
+  const fetchCPoints = async () => {
+    try {
+      const response = await axiosInstance.get('/api/cpoint');
+      setCpoints(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCPoints();
+  }, []);
 
   return (
     <Form
@@ -92,7 +108,7 @@ const AddCentral = ({ setFormData, data }) => {
       </Form.Item>
 
       <Form.Item
-        name="centralPoint"
+        name="parentCPId"
         label="Central Point"
         rules={[
           {
@@ -102,7 +118,9 @@ const AddCentral = ({ setFormData, data }) => {
         ]}
       >
         <Select placeholder="Select central point">
-          
+          {cpoints.map((cpoint, index) => (
+            <Option key={cpoint.id} value={cpoint.id}>{cpoint.name} - ({cpoint.address})</Option>
+          ))}
         </Select>
       </Form.Item>
 
