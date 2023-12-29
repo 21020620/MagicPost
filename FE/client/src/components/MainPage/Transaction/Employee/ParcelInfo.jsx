@@ -6,6 +6,7 @@ import React from "react";
 import 'dayjs/locale/en';
 import styles from '../../../Layout/RVHome/Searching.module.css';
 import { useSelector } from "react-redux";
+import icon from "../../../../img/icon.png";
 
 const ParcelInfo = (props) => {
       const { user, workplace } = useSelector((state) => state.user);
@@ -102,7 +103,8 @@ const ParcelInfo = (props) => {
     return (
       console.log('FormData: ', props.formData),
 
-      <div className={styles['parcel-information']}>
+      <div id="parcel-info-container" className={styles['parcel-information']}>
+        <img src={icon} alt="Icon" className={styles.icon} style={{width: '100px', height: '100px'}} />
         <h2>Parcel Information: {props.formData.id}</h2>
         <div className={styles.boxes}>
           <div className={styles.box}>

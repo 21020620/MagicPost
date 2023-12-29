@@ -4,8 +4,6 @@ import React, {useContext} from "react"
 import { useNavigate } from "react-router-dom";
 import AppContext from "../AppContext";
 
-//const { Header} = Layout;
-
 export default function MyHeader({ username, userRole }) {
     const { setUser, user } = useContext(AppContext);
     const userType = user.isAdmin ? "" : "";
@@ -45,7 +43,7 @@ export default function MyHeader({ username, userRole }) {
     return (
       <>
         <div style={{ position: "absolute", left: 10 }}>
-          {/* <img id="headerLogo" src={logo} alt="logo" /> */}
+          
         </div>
         <div style={{ position: "absolute", right: 1, top: -15 }}>
           <Dropdown menu={{ items, onClick }}>

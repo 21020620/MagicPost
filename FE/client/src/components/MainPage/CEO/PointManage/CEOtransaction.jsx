@@ -60,7 +60,7 @@ const CEOtransaction = () => {
 
       <Modal
         title="Add Transaction Point"
-        visible={isModalVisible}
+        open={isModalVisible}
         onCancel={handleModalCancel}
         footer={[
           <Button key="cancel" onClick={handleModalCancel}>

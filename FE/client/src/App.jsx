@@ -17,6 +17,7 @@ import TransactionManagerLayout from "./components/Layout/TransactionManagerLayo
 import TransactionManagerAccount from "./components/MainPage/Transaction/Manager/Account/TransactionManagerAccount";
 import TransactionManagerStatistic from "./components/MainPage/Transaction/Manager/Statistic/TransactionManagerStatistic";
 import TransactionEmployeeLayout from "./components/Layout/TransactionEmployeeLayout";
+import TEStatistic from "./components/MainPage/Transaction/Employee/TEStatistic";
 import CreateOrder from "./components/MainPage/Transaction/Employee/CreateOrder";
 import TEConfirmOrder from "./components/MainPage/Transaction/Employee/TEConfirmOrder";
 import CEConfirmOrder from "./components/MainPage/Central/Employee/CEConfirmOrder";
@@ -24,6 +25,8 @@ import MainPageLayout from "./components/MainPageLayout";
 import ChangePassword from "./components/Layout/ChangePassword";
 import ForgetPassword from "./components/MainPage/Login/ForgetPassword";
 import ForgetpasswordLayout from "./components/MainPage/Login/ForgetpasswordLayout";
+import ResetPassword from "./components/MainPage/Login/ResetPassword";
+import ResetPasswordLayout from "./components/MainPage/Login/ResetPasswordLayout";
 import RVHome from "./components/Layout/RVHome/RVHome";
 import RVAbout from "./components/Layout/RVHome/About";
 import RVSearch from "./components/Layout/RVHome/Searching";
@@ -46,6 +49,9 @@ export default function App() {
         <Route index element={<Login />} />
         <Route path="forget" element={<ForgetpasswordLayout />}>
           <Route index element={<ForgetPassword />} />
+        </Route>
+        <Route path="reset-password" element={<ResetPasswordLayout />}>
+          <Route index element={<ResetPassword />} />
         </Route>
       </Route>
 
@@ -71,6 +77,7 @@ export default function App() {
         <Route path="order" element={<CreateOrder />} />
         <Route path="changePassword" element={<ChangePassword />} />
         <Route path="confirm" element={<TEConfirmOrder />} />
+        <Route path="statistic" element={<TEStatistic />} />
       </Route>
 
       <Route path="/Central" element={<CentralManagerLayout />}>

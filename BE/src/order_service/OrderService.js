@@ -125,6 +125,69 @@ const OrderService = {
         } while (existingOrder !== null);
 
         return id;
+    },
+
+    addActionOrder: async (OrderID, OrderAction) => {
+        const order = await prisma.orders.update({
+            where: {
+                id: OrderID,
+            },
+            data: {
+                orderActions: {
+                    create: OrderAction,
+                },
+            },
+        });
+        console.log('new order action', order)
+        return order;
+    },
+
+    updateOrderStatus: async (OrderID, OrderStatus) => {
+        const order = await prisma.orders.update({
+            where: {
+                id: OrderID,
+            },
+            data: {
+                orderStatus: OrderStatus,
+            },
+        });
+        return order;
+    },
+
+    getOrderFromTpoint: async (TransactionPointID) => {
+        const order1 = await prisma.orders.findMany({
+            where: {
+                senderTPId: TransactionPointID,
+                orderStatus: 'CREATED'
+            }
+        });
+        const order2 = await prisma.orders.findMany({
+            where: {
+                receiverTPId: TransactionPointID,
+                orderStatus: 'ARRIVED'
+            }
+        });
+        return [...order1, ...order2];
+    },
+
+    getOrderToCpoint: async (CentralPointID) => {
+        const orderToCpoint1 = await prisma.orders.findMany({
+            where: {
+                senderTP: {
+                    parentCPId: CentralPointID
+                },
+                orderStatus: 'TRANSPORTING1'
+            }
+        });
+        const orderToCpoint2 = await prisma.orders.findMany({
+            where: {
+                receiverTP: {
+                    parentCPId: CentralPointID
+                },
+                orderStatus: 'TRANSPORTING2'
+            }
+        });
+        return [...orderToCpoint1, ...orderToCpoint2];
     }
 };
 

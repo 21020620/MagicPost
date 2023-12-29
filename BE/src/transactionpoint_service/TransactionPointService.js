@@ -90,6 +90,7 @@ const TransactionPointService = {
         });
         return transactionpoint;
     }
+
 }
 
 export default TransactionPointService;

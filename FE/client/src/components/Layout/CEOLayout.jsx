@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import {HomeOutlined, BarChartOutlined} from '@ant-design/icons';
+import {HomeOutlined, BarChartOutlined, AppstoreOutlined, AccountBookOutlined, BankOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import { Outlet } from "react-router-dom";
@@ -22,16 +22,16 @@ const menuItems = [
   ),
 
   getItem(
-    "Quản lý điểm", "sub2", <HomeOutlined />, [
+    "Quản lý điểm", "sub2", <AppstoreOutlined />, [
       getItem(
         <NavLink to="/CEO/central">Điểm tập kết</NavLink>,
         "2",
-        <HomeOutlined />
+        <AccountBookOutlined />
       ),
       getItem(
         <NavLink to="/CEO/transaction">Điểm giao dịch</NavLink>,
         "3",
-        <HomeOutlined />
+        <BankOutlined />
       ),
     ]
   ),
@@ -67,6 +67,7 @@ const CEOLayout = () => {
               style={{
                 width: "60px",
                 height: "60px",
+                marginLeft: "50px",
               }}
           />
         </div>

@@ -1,100 +1,27 @@
-import React, { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ConfirmLayout from '../../../Layout/ConfirmLayout';
-const data = [
-  {
-    key: '1',
-    id: '1',
-    senderInfo: 'DTD',
-    senderPhone: '091089291823',
-    senderPostalCode: '0901',
-    receiverInfo: 'DTD',
-    receiverPhone: '01923813322',
-    receiverPostalCode: '0912',
-    orderType: 'Good',
-    instruction: 'Return immediately',
-    note: '129281212',
-    mainFee: '192921',
-    subFee: '1920',
-    transportFee: '9129812',
-    addFee: '0120210',
-    totalFee: '19213',
-    weight: '190212',
-    date: '2023-12-12',
-    time: '19:09',
-    centralPoint: 'kkkkk',
-    transactionPoint: '9020102',
-  },
-  {
-    key: '1',
-    id: '1',
-    senderInfo: 'DTD',
-    senderPhone: '091089291823',
-    senderPostalCode: '0901',
-    receiverInfo: 'DTD',
-    receiverPhone: '01923813322',
-    receiverPostalCode: '0912',
-    orderType: 'Good',
-    instruction: 'Return immediately',
-    note: '129281212',
-    mainFee: '192921',
-    subFee: '1920',
-    transportFee: '9129812',
-    addFee: '0120210',
-    totalFee: '19213',
-    weight: '190212',
-    date: '2023-12-12',
-    time: '19:09',
-    centralPoint: 'kkkkk',
-    transactionPoint: '9020102',
-  },
-  {
-    key: '1',
-    id: '1',
-    senderInfo: 'DTD',
-    senderPhone: '091089291823',
-    senderPostalCode: '0901',
-    receiverInfo: 'DTD',
-    receiverPhone: '01923813322',
-    receiverPostalCode: '0912',
-    orderType: 'Good',
-    instruction: 'Return immediately',
-    note: '129281212',
-    mainFee: '192921',
-    subFee: '1920',
-    transportFee: '9129812',
-    addFee: '0120210',
-    totalFee: '19213',
-    weight: '190212',
-    date: '2023-12-12',
-    time: '19:09',
-    centralPoint: 'kkkkk',
-    transactionPoint: '9020102',
-  },
-  {
-    key: '1',
-    id: '1',
-    senderInfo: 'DTD',
-    senderPhone: '091089291823',
-    senderPostalCode: '0901',
-    receiverInfo: 'DTD',
-    receiverPhone: '01923813322',
-    receiverPostalCode: '0912',
-    orderType: 'Good',
-    instruction: 'Return immediately',
-    note: '129281212',
-    mainFee: '192921',
-    subFee: '1920',
-    transportFee: '9129812',
-    addFee: '0120210',
-    totalFee: '19213',
-    weight: '190212',
-    date: '2023-12-12',
-    time: '19:09',
-    centralPoint: 'kkkkk',
-    transactionPoint: '9020102',
-  },
-];
+import { useSelector } from 'react-redux';
+import axiosInstance from '../../../DefaultAxios';
+
 const ConfirmOrder = () => {
+  const[data, setData] = useState([]);
+  const { user, workplace } = useSelector((state) => state.user);
+
+  const getAllOrders = async () => {
+    try {
+      console.log(workplace.id)
+      const response = await axiosInstance.get(`/api/orders/toTpoint/${workplace.id}`);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllOrders();
+    console.log(data);
+  }, []);
+
   return (
     <div>
       <ConfirmLayout data={data} />

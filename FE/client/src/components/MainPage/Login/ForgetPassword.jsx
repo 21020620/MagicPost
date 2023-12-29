@@ -2,7 +2,10 @@ import { Button, Input, Space, Typography, message } from "antd";
 import { UserOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { init, send } from "emailjs-com";
+
 const { Title } = Typography;
+init("user_your_emailjs_user_id");
 
 export default function ForgottenPassword() {
   const [email, setEmail] = useState("");
@@ -18,7 +21,27 @@ export default function ForgottenPassword() {
   };
 
   const handleSendVerifyCode = async () => {
-    
+    try {
+      // Send the email with the specified content
+      const templateParams = {
+        to_email: email,
+        subject: "Verification Code",
+        body: "Trang chủ của google là: https://www.google.com", // Updated content
+      };
+
+      // Use your email template and service ID
+      const response = await send("your_emailjs_service_id", "your_emailjs_template_id", templateParams);
+
+      // Check the response and show a success message
+      if (response && response.status === 200) {
+        messageApi.success("Verification code sent successfully");
+      } else {
+        messageApi.error("Failed to send verification code");
+      }
+    } catch (error) {
+      console.error("Error sending verification code:", error);
+      messageApi.error("Error sending verification code");
+    }
   };
 
   return (
@@ -30,7 +53,6 @@ export default function ForgottenPassword() {
         style={{
           position: "relative",
           paddingTop: 50,
-
           textAlign: 'center', borderRadius: "10px", backgroundColor: "white", width: "500px", height: "300px"
         }}
       >

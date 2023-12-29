@@ -7,6 +7,8 @@ import {
   SearchOutlined,
 } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
+import { useSelector } from 'react-redux';
+import axiosInstance from '../DefaultAxios';
 
 const ConfirmLayout = ({ data }) => {
   const [searchText, setSearchText] = useState('');
@@ -18,6 +20,7 @@ const ConfirmLayout = ({ data }) => {
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [shippingAddress, setShippingAddress] = useState('');
   const [receivingLocation, setReceivingLocation] = useState('');
+  const { user, workplace } = useSelector((state) => state.user);
 
   const handleFull = (record) => {
     setSelectedRecord(record);
@@ -32,48 +35,83 @@ const ConfirmLayout = ({ data }) => {
     setModalVisible(false);
   };
 
-  const handleConfirm = () => {
-    setConfirmModalVisible(false);
-    if (isSuccess) {
-      // Show a success message
-      Modal.success({
-        title: 'Confirmation',
-        content: 'Order confirmed successfully!',
-      });
-    } else {
-      // For unsuccessful cases, show the "Chi tiết" modal with an additional confirmation button
-      setModalVisible(true);
+  const handleConfirm = async () => {
+    const orderId = selectedRecord.id;
+    let orderStatus = "";
+    let type = "LEAVE";
+    if(selectedRecord.orderStatus === "CREATE") orderStatus = "TRANSPORTING1";
+    else if(selectedRecord.orderStatus === "TRANSPORTING1") orderStatus = "TRANSPORTING2";
+    else if(selectedRecord.orderStatus === "TRANSPORTING2") orderStatus = "ARRIVED";
+    else if(selectedRecord.orderStatus === "ARRIVED") {
+      orderStatus = "DONE";
+      type = "CONFIRM";
     }
-  };
-
-  /* const handleDetailConfirm = () => {
-    setModalVisible(false);
-    // Show an error message for unsuccessful cases
-    Modal.error({
-      title: 'Confirmation',
-      content: 'Order confirmation failed!',
-    });
-  }; */
-
-  const handleDetailConfirm = () => {
-    setModalVisible(false);
-    // Show a confirmation message for unsuccessful cases
-    Modal.confirm({
-      title: 'Xác nhận',
-      content: `Bạn có chắc chắn muốn xác nhận đơn hàng có ID: ${selectedRecord.id} không thành công?`,
-      onOk: () => {
-        // Your logic for handling the confirmation
-        // For example, you can make an API call to update the status
-        // and then show a success or error message accordingly.
+    const orderAction = {
+      creatorID: user.companyID,
+      type,
+    };
+    try {
+      console.log({ orderId, orderAction, orderStatus })
+      await axiosInstance.put(`/api/orders`, { orderId, orderAction, orderStatus });
+      console.log("Update order success!");
+      setIsSuccess(true);
+    } catch (error) {
+      setIsSuccess(false);
+      console.log(error);
+    }
+    setConfirmModalVisible(false);
+  
+    try {
+      if (isSuccess) {
+        // Show a success message
         Modal.success({
           title: 'Confirmation',
           content: 'Order confirmed successfully!',
         });
-      },
-      onCancel: () => {
-        // Handle cancelation if needed
-      },
-    });
+      } else {
+        // For unsuccessful cases, show the "Chi tiết" modal with an additional confirmation button
+        Modal.error({
+          title: 'Confirmation',
+          content: 'Order confirmation failed!',
+        });
+  
+        // Optionally, you can open the "Chi tiết" modal for further confirmation
+        setModalVisible(true);
+      }
+    } catch (error) {
+      // Handle any unexpected errors
+      Modal.error({
+        title: 'Error',
+        content: error.message || 'An unexpected error occurred during order confirmation!',
+      });
+    }
+  };
+
+  const handleDetailConfirm = async () => {
+    setModalVisible(false);
+  
+    try {
+      await new Promise((resolve, reject) => {
+        // Simulate an asynchronous operation, replace this with your actual logic
+        setTimeout(() => {
+          // For example, you can make an API call to update the status
+          // resolve(); // resolve if the operation is successful
+          reject(new Error('Order confirmation failed!')); // reject with an error if the operation fails
+        }, 1000);
+      });
+  
+      // If the promise is resolved without errors, show a success message
+      Modal.success({
+        title: 'Confirmation',
+        content: 'Order confirmed successfully!',
+      });
+    } catch (error) {
+      // If an error occurs, show an error message
+      Modal.error({
+        title: 'Confirmation',
+        content: error.message || 'Order confirmation failed!',
+      });
+    }
   };
 
   const handleSuccessClick = (record) => {
@@ -134,6 +172,12 @@ const ConfirmLayout = ({ data }) => {
         text
       ),
   });
+
+  const convertKeyName = (input) => {
+    return input
+    .replace(/([A-Z])/g, ' $1') 
+    .replace(/^./, function(str){ return str.toUpperCase(); })
+  }
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -213,7 +257,7 @@ const ConfirmLayout = ({ data }) => {
           <div>
             {Object.keys(selectedRecord).map((key) => (
               <p key={key}>
-                <strong>{key}:</strong> {selectedRecord[key]}
+                <strong>{convertKeyName(key)}:</strong> {selectedRecord[key]}
               </p>
             ))}
           </div>
@@ -222,7 +266,7 @@ const ConfirmLayout = ({ data }) => {
 
       <Modal
         title="Xác nhận đơn hàng"
-        visible={confirmModalVisible}
+        open={confirmModalVisible}
         onCancel={() => setConfirmModalVisible(false)}
         footer={[
           <Button key="cancel" onClick={() => setConfirmModalVisible(false)}>
@@ -262,40 +306,12 @@ const ConfirmLayout = ({ data }) => {
           </Button>,
         ]}
       >
-        {selectedRecord && (
-          <Form>
-            {Object.keys(selectedRecord).map((key) => (
-              <Form.Item key={key} label={<strong>{key}:</strong>}>
-                {key === 'id' ? (
-                  <span>{selectedRecord[key]}</span>
-                ) : (
-                  <span>{selectedRecord[key]}</span>
-                )}
-              </Form.Item>
-            ))}
-            <Form.Item label="Shipping Address">
-              <Select
-                value={shippingAddress}
-                onChange={(value) => setShippingAddress(value)}
-                style={{ width: '100%' }}
-              >
-                {/* Thêm các option của Shipping Address */}
-                <Select.Option value="address1">Address 1</Select.Option>
-                <Select.Option value="address2">Address 2</Select.Option>
-              </Select>
-            </Form.Item>
-            <Form.Item label="Receiving Location">
-              <Select
-                value={receivingLocation}
-                onChange={(value) => setReceivingLocation(value)}
-                style={{ width: '100%' }}
-              >
-                {/* Thêm các option của Receiving Location */}
-                <Select.Option value="location1">Location 1</Select.Option>
-                <Select.Option value="location2">Location 2</Select.Option>
-              </Select>
-            </Form.Item>
-          </Form>
+        {selectedRecord && !isSuccess && (
+          <div>
+            <p>
+              Bạn có chắc chắn muốn xác nhận đơn hàng có ID: {selectedRecord.id} không thành công?
+            </p>
+          </div>
         )}
       </Modal>
     </div>

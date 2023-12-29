@@ -1,11 +1,12 @@
 import {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
-import {HomeOutlined} from '@ant-design/icons';
+import {HomeOutlined, CheckCircleOutlined, BarChartOutlined, InboxOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import { Outlet } from "react-router-dom";
 import logo from "../../img/icon.png"
 import MyHeader from '../Layout/MyHeader';
+import MyFooter from './MyFooter';
 import axiosInstance from '../DefaultAxios.jsx';
 
 function getItem(label, key, icon, children) {
@@ -23,15 +24,15 @@ const menuItems = [
   ),
 
   getItem(
-    <NavLink to="/TE/order">Tạo đơn hàng</NavLink>, "2", <HomeOutlined />
+    <NavLink to="/TE/order">Tạo đơn hàng</NavLink>, "2", <InboxOutlined />
   ),
 
   getItem(
-    <NavLink to="/TE/confirm">Xác nhận đơn</NavLink>, "3", <HomeOutlined />
+    <NavLink to="/TE/confirm">Xác nhận đơn</NavLink>, "3", <CheckCircleOutlined />
   ),
 
   getItem(  
-    <NavLink to="/TE/statistic">Thống kê</NavLink>, "4", <HomeOutlined />
+    <NavLink to="/TE/statistic">Thống kê</NavLink>, "4", <BarChartOutlined />
   ),
 ];
   
@@ -58,6 +59,7 @@ const TransactionEmployeeLayout = () => {
               style={{
                 width: "60px",
                 height: "60px",
+                marginLeft: "50px",
               }}
           />
         </div>
@@ -96,10 +98,10 @@ const TransactionEmployeeLayout = () => {
         </Content>
         <Footer
           style={{
-            textAlign: 'center',
+            backgroundColor: "#F5F5F5",
           }}
         >
-          Ant Design ©2023 Created by Ant UED
+          <MyFooter />
         </Footer>
       </Layout>
     </Layout>

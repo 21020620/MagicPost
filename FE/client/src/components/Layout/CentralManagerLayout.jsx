@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {HomeOutlined} from '@ant-design/icons';
+import {HomeOutlined, AppstoreOutlined, BarChartOutlined} from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 const { Header, Content, Footer, Sider } = Layout;
 import { Outlet } from "react-router-dom";
@@ -23,11 +23,11 @@ const menuItems = [
   ),
 
   getItem(
-    <NavLink to="/Central/account">Quản lý tài khoản</NavLink>, "4", <HomeOutlined />
+    <NavLink to="/Central/account">Quản lý tài khoản</NavLink>, "4", <AppstoreOutlined />
   ),
 
   getItem(  
-    <NavLink to="/Central/statistic">Thống kê</NavLink>, "5", <HomeOutlined />
+    <NavLink to="/Central/statistic">Thống kê</NavLink>, "5", <BarChartOutlined />
   ),
 ];
   
@@ -52,6 +52,7 @@ const CentralManagerLayout = () => {
               style={{
                 width: "60px",
                 height: "60px",
+                marginLeft: "50px",
               }}
           />
         </div>

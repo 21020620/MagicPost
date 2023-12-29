@@ -5,7 +5,7 @@ import background from '../../../img/bg.jpg';
 
 const { Title } = Typography;
 
-export default function ForgetPasswordLayout() {
+export default function ResetPasswordLayout() {
   return (
     <div
       style={{
