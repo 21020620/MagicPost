@@ -117,7 +117,7 @@ export default function Login() {
         </Button>
 
         <NavLink to="/login/forget">Quên mật khẩu?</NavLink>
-        <NavLink to="/login/reset-password">Reset password</NavLink>
+        {/* <NavLink to="/login/reset-password">Reset password</NavLink> */}
       </Space>
     </div>
   );
