@@ -129,7 +129,7 @@ const CreateOrder = () => {
     const response = await axiosInstance.post('/api/orders', {sender, receiver, order, user});
     console.log('Response: ', response.data);
     setFormData(response.data);
-    message.success('Order processed successfully');
+    message.success('Order created successfully');
   };
 
   const orderOptions = [{ label: 'Document', value: true }, { label: 'Goods', value: false}];
@@ -361,10 +361,10 @@ const CreateOrder = () => {
 
             <Form.Item {...tailFormItemLayout}>
               <Button type="primary" onClick={processOrder} style={{ marginRight: '20px'}}>
-                Process
+                Create
               </Button>
               <Button type="primary" htmlType="submit" onClick={showModal}>
-                Create
+                Print
               </Button>
             </Form.Item>
 

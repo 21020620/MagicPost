@@ -8,56 +8,36 @@ import styles from '../../../Layout/RVHome/Searching.module.css';
 import { useSelector } from "react-redux";
 
 const ParcelInfo = (props) => {
-  const { user, workplace } = useSelector((state) => state.user);
-
-      const senderInfo = {
-        nameAddress: "Nhà hát chèo",
-        phoneNum: 123456789,
-        customerId: 1245,
-      }
-      const recipientInfo = {
-        nameAddress: "Viet Nam",
-        phoneNum: 1234598796,
-      }
-
-      const parcelId = 100
-      const typeOfParcel =  {
-        isDocument: true
-      }
-
-      const senderInstruction = {
-        returnImmediately: false,
-        callRecipient: false,
-        cancel: false,
-        returnBefore: false,
-        returnAfterStorage: false,
-      }
-      const additionalService = "no additional service"
+      const { user, workplace } = useSelector((state) => state.user);
+      const additionalService = "No additional service"
+      const str = props.formData.fee;
+      const numbers = str.match(/\d+/g).map(Number);
+      let total = numbers.reduce((sum, num) => sum + parseInt(num), 0);
       const deliveryFare = [
       {    
         index: 'a',
         title: "Main Fee",
-        value: props.formData.mainFee
+        value: numbers[0]
       },
       {    
         index: 'b',
         title: "Sub Fee",
-        value: props.formData.subFee
+        value: numbers[1]
       },
       {    
         index: 'c',
         title: "Transport Fee",
-        value: props.formData.transportFee
+        value: numbers[2]
       },
       {    
         index: 'd',
         title: "Additional Fee",
-        value: props.formData.addFee
+        value: numbers[3]
       },
       {    
         index: 'e',
         title: "Total Fee (include VAT)",
-        value: props.formData.totalFee
+        value: numbers[4]
       }
     ]
     const recipientFare = [
@@ -70,21 +50,16 @@ const ParcelInfo = (props) => {
         value: "0", 
       },
       {
-        title: "Total Fee",
-        value: "0", 
+        title: "Exchange",
+        value: parseInt(props.formData.feeReceived) - total, 
       },
     ];
       const weight = [{
-        title: "thuc te",
+        title: "Actual weight:",
         value: props.formData.weight
-      },
-      {
-        title: "quy doi",
-        value: 120
       },
     ]
       const delivered = true;
-      const notes = "Hoang rat dep trai nhe ae";
       const columns = [
         {
           title: <strong>Nội dung</strong>,
@@ -125,8 +100,10 @@ const ParcelInfo = (props) => {
       };
       
     return (
+      console.log('FormData: ', props.formData),
+
       <div className={styles['parcel-information']}>
-        <h2>Parcel Information</h2>
+        <h2>Parcel Information: {props.formData.id}</h2>
         <div className={styles.boxes}>
           <div className={styles.box}>
             <div className={styles.header}>
@@ -134,18 +111,18 @@ const ParcelInfo = (props) => {
                 <b>1. Sender's name and address</b>
               </p>
               <p>
-                {props.formData.order.sender.fullName}
+                {props.formData.sender.fullName}
               <br />
-                {props.formData.order.sender.address}
+                {props.formData.sender.address}
               </p>
             </div>
             <div>
               <p>
-                <b>Phone number:</b> {props.formData.order.senderPhone}
+                <b>Phone number:</b> {props.formData.senderPhone}
               </p>
               <div className={styles.code}>
                 <p>
-                  <b>Customer Id:</b> {props.formData.sender.order.customerID}
+                  <b>Customer Id:</b> {props.formData.sender.customerID}
                 </p>
                 <p>
                   <b>Postal Code:</b> {workplace.postalCode}
@@ -187,7 +164,7 @@ const ParcelInfo = (props) => {
                     <input
                       type="checkbox"
                       className={styles.input}
-                      checked={props.formData.orderType === true}
+                      checked={props.formData.itemType === true}
                       disabled
                     />
                     <span className={styles['custom-checkbox']}></span>
@@ -197,7 +174,7 @@ const ParcelInfo = (props) => {
                     <input
                       type="checkbox"
                       className={styles.input}
-                      checked={props.formData.orderType === false}
+                      checked={props.formData.itemType === false}
                       disabled
                     />
                     <span className={styles['custom-checkbox']}></span>
@@ -228,7 +205,7 @@ const ParcelInfo = (props) => {
                   <input
                     type="checkbox"
                     className={styles.input}
-                    checked={props.formData.instruction == "1"}
+                    checked={props.formData.cannotSend == 1}
                     disabled
                   />
                   <span className={styles['custom-checkbox']}></span>
@@ -238,7 +215,7 @@ const ParcelInfo = (props) => {
                   <input
                     type="checkbox"
                     className={styles.input}
-                    checked={props.formData.instruction == "2"}
+                    checked={props.formData.cannotSend == 2}
                     disabled
                   />
                   <span className={styles['custom-checkbox']}></span>
@@ -248,7 +225,7 @@ const ParcelInfo = (props) => {
                   <input
                     type="checkbox"
                     className={styles.input}
-                    checked={props.formData.instruction == "3"}
+                    checked={props.formData.cannotSend == 3}
                     disabled
                   />
                   <span className={styles['custom-checkbox']}></span>
@@ -260,7 +237,7 @@ const ParcelInfo = (props) => {
                   <input
                     type="checkbox"
                     className={styles.input}
-                    checked={props.formData.instruction == "4"}
+                    checked={props.formData.cannotSend == 4}
                     disabled
                   />
                   <span className={styles['custom-checkbox']}></span>
@@ -270,7 +247,7 @@ const ParcelInfo = (props) => {
                   <input
                     type="checkbox"
                     className={styles.input}
-                    checked={props.formData.instruction == "5"}
+                    checked={props.formData.cannotSend == 5}
                     disabled
                   />
                   <span className={styles['custom-checkbox']}></span>
@@ -295,7 +272,7 @@ const ParcelInfo = (props) => {
                   <p>
                     <b>8. Date of Sending</b>
                   </p>
-                  <p>{dayjs(props.formData.date).format('YYYY-MM-DD')}|{dayjs(props.formData.time).format('HH:mm')}</p>
+                  <p>{dayjs(props.formData.date).format('YYYY-MM-DD')} | {dayjs(props.formData.time).format('HH:mm')}</p>
                 </div>
                 <div className={styles.signature}>
                   <p>
@@ -303,8 +280,8 @@ const ParcelInfo = (props) => {
                   </p>
                   <p>
                     <i>
-                      {senderInfo.nameAddress
-                        ?.split(".")[0]
+                      {props.formData.sender.fullName
+                        ?.split(' ')[0]
                         .replace(/\s+/g, "")
                         .toLowerCase()}
                     </i>
@@ -363,7 +340,7 @@ const ParcelInfo = (props) => {
                   <p>
                     <b>12. Notes</b>
                   </p>
-                  <p>{props.formData.note}</p>
+                  <p>{props.formData.deliverNote}</p>
                 </div>
               </div>
             </div>
@@ -372,7 +349,7 @@ const ParcelInfo = (props) => {
                 <p>
                   <b>13. Post office approval</b>
                 </p>
-                <p>Receiving clerk's signature</p>
+                <p>{user.firstName} {user.lastName}</p>
                 {/* <img src={approvedImg} alt="post office aproval" width="110px" /> */}
                 <p>
                   {/* <i>{paths[0]?.user_name}</i> */}
@@ -382,17 +359,11 @@ const ParcelInfo = (props) => {
                 <p>
                   <b>14. Received date</b>
                 </p>
-                <p>{`${
-                  delivered ? false /*paths[3].time*/ ?? "Delivered" : "Not delivered"
-                }`}</p>
+                <p>{}</p>
                 <p style={{fontSize: "1.1rem"}}>Recipient's signature</p>
                 {delivered && (
                   <p>
                     <i>
-                      {recipientInfo.nameAddress
-                        ?.split(".")[0]
-                        .replace(/\s+/g, "")
-                        .toLowerCase()}
                     </i>
                   </p>
                 )}
@@ -400,7 +371,7 @@ const ParcelInfo = (props) => {
           <QRCode
             size={64}
             style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-            value={`http://localhost:3000/tracking?parcelId=${parcelId}`}
+            value={`http://localhost:8080/tracking?parcelId=${props.formData.id}`}
             viewBox={`0 0 256 256`}
           />
         </div>
