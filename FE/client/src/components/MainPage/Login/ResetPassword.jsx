@@ -30,7 +30,8 @@ export default function ResetPassword() {
   };
 
   const handleOk = async () => {
-    const res = await fetchAPIPutResetPassword(
+    navigate("/login");
+    /* const res = await fetchAPIPutResetPassword(
       { password: formData.password },
       token
     );
@@ -46,7 +47,7 @@ export default function ResetPassword() {
       }, 2000);
     } else {
       messageApi.error(message);
-    }
+    } */
   };
 
   return (

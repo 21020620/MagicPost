@@ -78,7 +78,7 @@ const ConfirmLayout = ({ data }) => {
         // For unsuccessful cases, show the "Chi tiết" modal with an additional confirmation button
         Modal.error({
           title: 'Confirmation',
-          content: 'Order confirmation failed!',
+          content: 'Order confirmation failed !',
         });
   
         // Optionally, you can open the "Chi tiết" modal for further confirmation
@@ -121,13 +121,14 @@ const ConfirmLayout = ({ data }) => {
       }
      
       Modal.success({
+        //Xác nhận hủy đơn thành công
         title: 'Confirmation',
-        content: 'Order confirmed successfully!',
+        content: 'Order cancelled confirmed successfully!',
       });
     } catch (error) {
       Modal.error({
         title: 'Confirmation',
-        content: error.message || 'Order confirmation failed!',
+        content: error.message || 'Order confirmation failed !',
       });
     }
   };
@@ -299,13 +300,6 @@ const ConfirmLayout = ({ data }) => {
           <div>
             <p>
               Bạn có chắc chắn muốn xác nhận đơn hàng có ID: {selectedRecord.id} thành công?
-            </p>
-          </div>
-        )}
-        {selectedRecord && !isSuccess && (
-          <div>
-            <p>
-              Bạn có chắc chắn muốn xác nhận đơn hàng có ID: {selectedRecord.id} không thành công?
             </p>
           </div>
         )}

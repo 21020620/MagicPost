@@ -1,91 +1,152 @@
-.footer {
-  display: flex;
-}
-
-
-.footer-left,
-.footer-right {
-  flex: 2;
-}
-
-.footer-left {
-  display: flex;
-  justify-content: flex-end;
-  align-self: right;
-  padding-right: 10;
-}
-
-.footer-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: left;
-  padding-left: 10;
-}
-
-.footer-left span,
-.footer-right span {
-  font-size: 18px;
-  font-weight: bold;
-  color: black;
-  white-space: normal;
-}
-/* footer.css */
-
-/* Add your existing styles here */
-
-
-.button-hover:hover {
-  background-color: rgb(74, 163, 66); 
-  border-color: grey;
-  /* color: rgb(253, 251, 251) !important;  */
-
-  &:hover {
-    color: #fff !important; /* Change text color to white on hover */
+  .footer {
+    display: flex;
   }
-}
 
-/*css cho menu*/
-.menu-option {
-  display: flex;
-  align-items: center;
-  margin-right: 1rem;
-  text-decoration: none;
-  color: rgb(171, 160, 160);
-  font-size: 1.5rem;
-  font-weight: 600;
-  transition: color 0.3s ease; 
-}
 
-.menu-option:hover {
-  color: #1890ff; 
-}
+  .footer-left,
+  .footer-right {
+    flex: 2;
+  }
 
-@media (max-width: 1000px) {
-  .navbar-links-container a {
+  .footer-left {
+    display: flex;
+    justify-content: flex-end;
+    align-self: right;
+    padding-right: 10;
+  }
+
+  .footer-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: left;
+    padding-left: 10;
+  }
+
+  .footer-left span,
+  .footer-right span {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    white-space: normal;
+  }
+  /* footer.css */
+
+  /* Add your existing styles here */
+
+
+  .button-hover:hover {
+    background-color: rgb(74, 163, 66); 
+    border-color: grey;
+    /* color: rgb(253, 251, 251) !important;  */
+
+    &:hover {
+      color: #fff !important; /* Change text color to white on hover */
+    }
+  }
+
+  /*css cho menu*/
+  .menu-option {
+    display: flex;
+    align-items: center;
     margin-right: 1rem;
-    font-size: 1rem;
+    text-decoration: none;
+    color: rgb(171, 160, 160);
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: color 0.3s ease; 
   }
-}
 
-@media (max-width: 800px) {
-  .navbar-links-container {
-    display: none;
+  .menu-option:hover {
+    color: #1890ff; 
+  }
+
+  @media (max-width: 1000px) {
+    .navbar-links-container a {
+      margin-right: 1rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .navbar-links-container {
+      display: none;
+    }
+
+    .navbar-menu-container {
+      display: flex;
+    }
   }
 
   .navbar-menu-container {
-    display: flex;
+    display: none;
   }
-}
 
-.navbar-menu-container {
-  display: none;
-}
+  .navbar-links-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navbar-cart-icon {
+    font-size: 1.15rem;
+  }
 
-.navbar-links-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.navbar-cart-icon {
-  font-size: 1.15rem;
-}
+  @media (max-width: 800px) {
+    .navbar-links-container {
+      display: none;
+    }
+
+    .navbar-menu-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .menu-option {
+      display: flex;
+      align-items: center;
+      margin-right: 1rem;
+      text-decoration: none;
+      color: rgb(171, 160, 160);
+      font-size: 1.5rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .menu-option:hover {
+      color: #1890ff;
+    }
+
+    .navbar-menu-container a {
+      margin-right: 1.5rem;
+      font-size: 1.5rem;
+    }
+  }
+  @media (max-width: 600px) {
+    .navbar-links-container {
+      display: none;
+    }
+  
+    .navbar-menu-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+  
+    .menu-option {
+      display: flex;
+      align-items: center;
+      margin-right: 1rem;
+      text-decoration: none;
+      color: rgb(171, 160, 160);
+      font-size: 1.5rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+  
+    .menu-option:hover {
+      color: #1890ff;
+    }
+  
+    .navbar-menu-container a {
+      margin-right: 1rem;
+      font-size: 1.5rem;
+    }
+  }

@@ -50,9 +50,9 @@ export default function App() {
         <Route path="forget" element={<ForgetpasswordLayout />}>
           <Route index element={<ForgetPassword />} />
         </Route>
-        <Route path="reset-password" element={<ResetPasswordLayout />}>
+        {/* <Route path="reset-password" element={<ResetPasswordLayout />}>
           <Route index element={<ResetPassword />} />
-        </Route>
+        </Route> */}
       </Route>
 
 

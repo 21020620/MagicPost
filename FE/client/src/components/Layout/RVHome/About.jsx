@@ -39,7 +39,7 @@ export default function About() {
       <Row gutter={16}>
         <Col span={16}>
           <Card
-            title="Giá trị cốt lõi" 
+            title={<strong style={{ fontSize: '1.5rem' }}>Giá trị cốt lõi</strong>}
             bordered={false}
             headStyle={{
               margin: 0,
@@ -54,7 +54,7 @@ export default function About() {
         </Col>
         <Col span={8}>
           <Card
-            title="Tầm nhìn"
+            title={<strong style={{ fontSize: '1.5rem' }}>Tầm nhìn</strong>}
             bordered={false}
             headStyle={{
               margin: 0,
@@ -70,7 +70,7 @@ export default function About() {
       </Row>
 
       <Card
-        title="Sứ mệnh"
+        title={<strong style={{ fontSize: '1.5rem' }}>Sứ mệnh</strong>}
         bordered={false}
         style={{ ...cardStyle, borderRadius: "10px" }}
       >
