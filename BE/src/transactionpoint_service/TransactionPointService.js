@@ -21,6 +21,13 @@ const TransactionPointService = {
         return transactionpoint;
     },
 
+    createTPoint: async (newTPoint) => {
+        const transactionpoint = await prisma.tPoint.create({
+            data: newTPoint,
+        });
+        return transactionpoint;
+    },
+
     getEmployeesOfTPoint: async (TransactionPointID) => {
         const employees = await prisma.tEmployee.findMany({
             where: {

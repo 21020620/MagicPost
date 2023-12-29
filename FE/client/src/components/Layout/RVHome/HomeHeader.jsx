@@ -5,7 +5,6 @@ import {
   DollarCircleOutlined,
   AuditOutlined,
   LoginOutlined,
-  EnvironmentOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../img/icon.png";

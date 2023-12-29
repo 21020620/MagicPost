@@ -1,5 +1,4 @@
 import "../../footer.css";
-import { NavLink } from "react-router-dom";
 import { Layout, theme } from "antd";
 import { useContext } from "react";
 const { Header, Content, Footer } = Layout;
@@ -23,14 +22,14 @@ export default function CenLayout() {
         className="header"
         style={{
           height: 100,
-          backgroundColor: "#EE0000",
+          // backgroundColor: "#26205c",
           position: "relative",
           boxShadow: "0px 0px 8px",
         }}
       >
-        <HomeHeader username={user.name} />
+        <HomeHeader />
       </Header>
-      <Layout className="site-layout" style={{ background: "#d4effd" }}>
+      <Layout >
         <Content
           style={{
             // margin: "20px 20px",
