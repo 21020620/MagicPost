@@ -44,7 +44,24 @@ const DeliveryTrackingPage = () => {
     console.log('Received:', dataSource);
     const flattenedData = dataSource.flat()
     const columns = [
-      { title: "Thời gian", dataIndex: "actionDate" },
+      { 
+        title: "Date", 
+        dataIndex: "actionDate",
+        render: (text) => {
+          const date = new Date(text);
+          const options = { timeZone: 'Asia/Ho_Chi_Minh', year: 'numeric', month: 'long', day: 'numeric' };
+          return date.toLocaleDateString(undefined, options);
+        }
+      },
+      { 
+        title: "Time", 
+        dataIndex: "actionDate",
+        render: (text) => {
+          const date = new Date(text);
+          const options = { timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+          return date.toLocaleTimeString(undefined, options);
+        }
+      },
       { 
         title: "Trạng thái", 
         dataIndex: 'type' ,
