@@ -1,14 +1,8 @@
-// Import React, useState, and useEffect from React
-import React, { useState, useEffect } from 'react';
-
-// Import necessary components and functions from Ant Design
+import { useState } from 'react';
 import { Button, Form, Input, Select, DatePicker } from 'antd';
 const { Option } = Select;
-
-// Import Axios instance for making API requests
 import axiosInstance from '../DefaultAxios';
 
-// Layout configurations for form items
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -54,17 +48,17 @@ const AddEmployerForm = ({ setFormData }) => {
   const onFinish = (fieldsValue) => {
     // Format date of birth
     fieldsValue.dob = fieldsValue['dob'].format('YYYY-MM-DD') + 'T14:42:07Z';
-    
+
     // Remove the 'prefix' field
     delete fieldsValue.prefix;
 
     // Determine role and set additional fields based on the role
     if (fieldsValue.role === 'Transaction Manager') {
       fieldsValue.role = 'tpointm';
-      fieldsValue.TEmployee = { create: {tpointId: fieldsValue.workplace} };
+      fieldsValue.TEmployee = { create: { tpointId: fieldsValue.workplace } };
     } else {
       fieldsValue.role = 'cpointm';
-      fieldsValue.CEmployee = { create: {cpointId: fieldsValue.workplace} };
+      fieldsValue.CEmployee = { create: { cpointId: fieldsValue.workplace } };
     }
 
     // Remove the 'workplace' field
